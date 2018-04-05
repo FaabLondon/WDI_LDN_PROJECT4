@@ -25,7 +25,7 @@ reviewSchema.methods.isOwnedBy = function(user){ //pass in logged in User
   return this.user && user._id.equals(this.user._id);   //.this is the comment . HAve to use .equals as comparing 2 objects
 };
 
-const itemSchema = new mongoose.schema({
+const itemSchema = new mongoose.Schema({
   brand: {type: String, required: 'Brand is required'},
   shortDescription: {type: String, required: 'Short description is required'},
   longDescription: {type: String, required: 'Long description is required'},
