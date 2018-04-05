@@ -1,7 +1,7 @@
 //Seeds mongoose DB with data
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-const Item = require('../models/item');
+const { Item } = require('../models/item');
 const ItemData = require('./data/items');
 const { dbURI } = require('../config/environment');
 

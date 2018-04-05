@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const Item = require('./item');
+// const Item = require('./item');
 
-const orderSchema = new mongoose.schema({
-  user: { type: mongoose.Schema.ObjectId, ref: 'User'},
-  rentalList: [Item],
+//removed the user reference
+const orderSchema = new mongoose.Schema({
+  rentalList: [{type: mongoose.Schema.ObjectId, ref: 'Item'}],
   rentalStart: {type: Date, required: true}
 }, {
   timestamps: true
 });
 
 
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = orderSchema;

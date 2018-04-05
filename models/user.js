@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const Item = require('./item');
+//get Item and Order models
+const { itemSchema } = require('./item');
+const orderSchema = require('./order');
 
-const userSchema = new mongoose.schema({
+const userSchema = new mongoose.Schema({
   username: {type: String, required: 'Username is required'},
   email: {type: String, required: 'Email is required', unique: true},
   password: {type: String, required: 'Password is required'},
   admin: {type: Boolean, default: false},
   picture: {type: String, default: 'https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png'},
-  favourites: [Item]
+  currentCart: [itemSchema],
+  pastOrders: [orderSchema],
+  favourites: [itemSchema]
 });
 
 //to protect our users passwords

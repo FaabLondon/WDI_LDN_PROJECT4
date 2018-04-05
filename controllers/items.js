@@ -1,4 +1,5 @@
-const Item = require('../models/item');
+//Items controller
+const { Item } = require('../models/item');
 
 function indexRoute(req, res, next){
   return Item.find()
