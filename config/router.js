@@ -26,6 +26,10 @@ router.route('/cart/items/:id')
 router.route('/orders')
   .post(secureRoute, orders.orderCreate);
 
+//Delete an order
+router.route('/orders/:id')
+  .delete(secureRoute, orders.orderDelete);
+
 router.route('/register')
   .post(auth.register);
 

@@ -3,7 +3,6 @@ const User = require('../models/user');
 
 //route to create an order
 function orderCreateRoute(req, res, next){
-
   User.findOne(req.currentUser._id)
     .then(user => {
       //insert cart into req.body into new object which is pushed to orders array
@@ -15,7 +14,19 @@ function orderCreateRoute(req, res, next){
     .catch(next);
 }
 
+function orderDeleteRoute(req, res, next){
+  return User.findOne(req.currentUser._id)
+    .then(user => {
+      const order = user.orders.find(elt => elt._id.equals(req.params.id));
+      order.remove();
+      user.save();
+      res.sendStatus(204);
+    })
+    .catch(next);
+}
+
 
 module.exports = {
-  orderCreate: orderCreateRoute
+  orderCreate: orderCreateRoute,
+  orderDelete: orderDeleteRoute
 };
