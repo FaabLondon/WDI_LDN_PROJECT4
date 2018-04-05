@@ -8,4 +8,7 @@ const items = require('../controllers/items');
 router.route('/items')
   .get(items.index);
 
+router.route('/items/:id')
+  .get(items.show);
+
 module.exports = router;
