@@ -1,0 +1,40 @@
+module.exports= [{
+  brand: 'Self-Portrait',
+  shortDescription: 'Navy embroidered tulle maxi dress',
+  longDescription: 'Textured, embroidered, black grosgrain tie-fastening shoulders, metallic weave, wrap-effect front, lace insert at waist, pleated, tiered, almond lining',
+  retailPrice: 390,
+  category: 'Clothing',
+  type: 'Dresses',
+  occasion: ['Formal', 'Party'],
+  colors: ['Navy'],
+  sizeAvailable: ['M', 'L'],
+  mainImage: 'https://m.hng.io/catalog/product/6/6/665878_navy_and_other_4.jpg',
+  smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_2.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_3.jpg'],
+  available: true
+}, {
+  brand: 'Lanvin',
+  shortDescription: 'Blue satin trench coat',
+  longDescription: 'Epaulettes, storm flaps, side pockets, belt loops, detachable waist tie, button-fastening cuff tabs, back vent, fully lined',
+  retailPrice: 1855,
+  category: 'Clothing',
+  type: 'Jackets & Coats',
+  occasion: ['Formal', 'Daytime', 'Work'],
+  colors: ['Blue'],
+  sizeAvailable: ['M', 'L'],
+  mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_1.jpg',
+  smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_4.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_3.jpg'],
+  available: true
+}, {
+  brand: 'Bella Freud',
+  shortDescription: 'Royalty grey wool-blend jumper',
+  longDescription: 'Bella Freud grey wool and cashmere-blend jumper',
+  retailPrice: 350,
+  category: 'Clothing',
+  type: 'Knits',
+  occasion: ['Daytime', 'Work', 'Weekend', 'Vacation'],
+  colors: ['grey'],
+  sizeAvailable: ['M', 'L'],
+  mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/5/654315_grey_and_other_1.jpg',
+  smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/5/654315_grey_and_other_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/5/654315_grey_and_other_4.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/5/654315_grey_and_other_3.jpg'],
+  available: true
+}];
