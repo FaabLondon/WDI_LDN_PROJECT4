@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 //get Item and Order models
-const { itemSchema } = require('./item');
+//const { itemSchema } = require('./item');
 const orderSchema = require('./order');
 
-//I chose to reference the items in Cart and favourites in case item gets deleted or updated so that it is reflected 
+//I chose to reference the items in Cart and favourites in case item gets deleted or updated so that it is reflected
 const userSchema = new mongoose.Schema({
   username: {type: String, required: 'Username is required'},
   email: {type: String, required: 'Email is required', unique: true},
@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   admin: {type: Boolean, default: false},
   picture: {type: String, default: 'https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png'},
   cart: [{type: mongoose.Schema.ObjectId, ref: 'Item'}],
-  pastOrders: [orderSchema],
+  orders: [orderSchema],
   favourites: [{type: mongoose.Schema.ObjectId, ref: 'Item'}]
 });
 

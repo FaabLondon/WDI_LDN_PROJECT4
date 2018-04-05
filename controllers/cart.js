@@ -1,7 +1,5 @@
 //controllers for shopping cart for current user
 const User = require('../models/user');
-const { Item } = require('../models/item');
-const Promise = require('bluebird');
 
 //route to add an item in user cart
 function itemCreateRoute(req, res, next){
