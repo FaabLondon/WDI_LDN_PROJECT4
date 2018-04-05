@@ -4,15 +4,16 @@ const bcrypt = require('bcrypt');
 const { itemSchema } = require('./item');
 const orderSchema = require('./order');
 
+//I chose to reference the items in Cart and favourites in case item gets deleted or updated so that it is reflected 
 const userSchema = new mongoose.Schema({
   username: {type: String, required: 'Username is required'},
   email: {type: String, required: 'Email is required', unique: true},
   password: {type: String, required: 'Password is required'},
   admin: {type: Boolean, default: false},
   picture: {type: String, default: 'https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png'},
-  currentCart: [itemSchema],
+  cart: [{type: mongoose.Schema.ObjectId, ref: 'Item'}],
   pastOrders: [orderSchema],
-  favourites: [itemSchema]
+  favourites: [{type: mongoose.Schema.ObjectId, ref: 'Item'}]
 });
 
 //to protect our users passwords

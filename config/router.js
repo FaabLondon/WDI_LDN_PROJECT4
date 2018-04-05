@@ -17,7 +17,8 @@ router.route('/cart')
 
 //add item to cart Route
 router.route('/cart/items/:id')
-  .post(secureRoute, cart.itemCreate);
+  .post(secureRoute, cart.itemCreate)
+  .delete(secureRoute, cart.itemDelete);
 
 router.route('/register')
   .post(auth.register);
