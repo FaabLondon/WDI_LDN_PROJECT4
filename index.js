@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.plugin(require('mongoose-unique-validator'));
+//mongoose.plugin(require('mongoose-unique-validator'));
 mongoose.Promise = require('bluebird');
 const router = require('./config/router');
 const errorHandler = require('./lib/errorHandler');
