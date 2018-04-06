@@ -30,15 +30,12 @@ function orderShowRoute(req, res, next){
   return User.findOne(req.currentUser._id)
     .populate('orders.orderList')
     .then(user => user.orders.id(req.params.id))
-    .then(order => {
-      console.log(order);
-      res.json(order);
-    })
+    .then(order => res.json(order))
     .catch(next);
 }
 
 function orderIndexRoute(req, res, next){
-
+  
 }
 
 module.exports = {
