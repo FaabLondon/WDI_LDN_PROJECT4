@@ -68,7 +68,7 @@ class Navbar extends React.Component {
                 </div>
                 :
                 <div>
-                  <Link className="navbar-item" to=""><span className="icon is-small"><i className="far fa-user"></i></span>Login</Link>
+                  <Link className="navbar-item" to="/login"><span className="icon is-small"><i className="far fa-user"></i></span>Login</Link>
                   <Link className="navbar-item" to="/register">Join</Link>
                 </div>
               }
