@@ -34,12 +34,16 @@ function orderShowRoute(req, res, next){
     .catch(next);
 }
 
+//index route for all orders for one specific user
 function orderIndexRoute(req, res, next){
-  
+  return User.findOne(req.currentUser._id)
+    .then(user => res.json(user.orders))
+    .catch(next);
 }
 
 module.exports = {
   orderCreate: orderCreateRoute,
   orderDelete: orderDeleteRoute,
-  orderShow: orderShowRoute
+  orderShow: orderShowRoute,
+  orderIndex: orderIndexRoute
 };

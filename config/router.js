@@ -24,7 +24,8 @@ router.route('/cart/items/:id')
 
 //Create a new order
 router.route('/orders')
-  .post(secureRoute, orders.orderCreate);
+  .post(secureRoute, orders.orderCreate)
+  .get(secureRoute, orders.orderIndex);
 
 //Show and Delete an order
 router.route('/orders/:id')
