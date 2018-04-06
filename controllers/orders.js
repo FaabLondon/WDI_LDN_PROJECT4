@@ -7,7 +7,7 @@ function orderCreateRoute(req, res, next){
     .then(user => {
       //insert cart into req.body into new object which is pushed to orders array
       user.orders.push(Object.assign({}, req.body , { orderList: user.cart }));
-      user.cart = []; //delete content of cart
+      //user.cart = []; //delete content of cart
       user.save();
       return res.status(200).json(user);
     })
@@ -25,8 +25,21 @@ function orderDeleteRoute(req, res, next){
     .catch(next);
 }
 
+//Populate not working
+function orderShowRoute(req, res, next){
+  return User.findOne(req.currentUser._id)
+    .populate('orders.orderList')
+    .then(user => user.orders.id(req.params.id))
+    .then(order => res.json(order))
+    .catch(next);
+}
+
+function orderIndexRoute(req, res, next){
+
+}
 
 module.exports = {
   orderCreate: orderCreateRoute,
-  orderDelete: orderDeleteRoute
+  orderDelete: orderDeleteRoute,
+  orderShow: orderShowRoute
 };
