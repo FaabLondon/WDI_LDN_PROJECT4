@@ -41,6 +41,9 @@ function orderIndexRoute(req, res, next){
     .catch(next);
 }
 
+//Order update route --> probably not possible to amend order once placed for now...
+//maybe offer an option to amend end date for rental..
+
 module.exports = {
   orderCreate: orderCreateRoute,
   orderDelete: orderDeleteRoute,
