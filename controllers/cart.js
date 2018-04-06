@@ -25,9 +25,11 @@ function itemDeleteRoute(req, res, next){
 
 function showRoute(req, res, next){
   User.findOne(req.currentUser._id)
+    .populate('cart')
     .then(user => res.json(user.cart))
     .catch(next);
 }
+
 
 module.exports = {
   show: showRoute,

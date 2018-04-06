@@ -7,10 +7,10 @@ function orderCreateRoute(req, res, next){
     .then(user => {
       //insert cart into req.body into new object which is pushed to orders array
       user.orders.push(Object.assign({}, req.body , { orderList: user.cart }));
-      //user.cart = []; //delete content of cart
-      user.save();
-      return res.status(200).json(user);
+      user.cart = []; //delete content of cart
+      return user.save();
     })
+    .then(user => res.status(200).json(user))
     .catch(next);
 }
 
@@ -30,7 +30,10 @@ function orderShowRoute(req, res, next){
   return User.findOne(req.currentUser._id)
     .populate('orders.orderList')
     .then(user => user.orders.id(req.params.id))
-    .then(order => res.json(order))
+    .then(order => {
+      console.log(order);
+      res.json(order);
+    })
     .catch(next);
 }
 
