@@ -62,27 +62,24 @@ class Navbar extends React.Component {
             </div>
           </div>
           <div className="navbar-end">
-            {Auth.isAuthenticated() && <a className="navbar-item favourites" href=""><span className="icon is-small"><i className="far fa-heart"></i></span></a>}
-            {Auth.isAuthenticated() && <a className="navbar-item cart" href=""><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></a>}
+            {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>}
+            {Auth.isAuthenticated() && <Link className="navbar-item cart" to=""><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
-            <div className="navbar-item has-dropdown is-hoverable">
-              <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
-              {Auth.isAuthenticated() &&
+            {Auth.isAuthenticated() &&
+              <div className="navbar-item has-dropdown is-hoverable">
+                <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
+
                 <div className="navbar-dropdown is-boxed is-right">
                   <Link className="navbar-item" to="">My account</Link>
                   <Link className="navbar-item" to="">Upcoming order</Link>
                   <Link className="navbar-item" to="">Order history</Link>
                   <hr className="navbar-divider" />
-                  <a className="navbar-item" to="logout/" onClick={this.handleLogout}>Sign out</a>
+                  <Link className="navbar-item" to="" onClick={this.handleLogout}>Sign out</Link>
                 </div>
-              }
-            </div>
-            {!Auth.isAuthenticated() &&
-              <div>
-                <a className="navbar-item" to="/login"><span className="icon is-small"><i className="far fa-user"></i></span>Login</a>
-                <a className="navbar-item" to="/register">Join</a>
               </div>
             }
+            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login"><span className="icon is-small"><i className="far fa-user"></i></span>Login</Link>}
+            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/register">Join</Link>}
           </div>
         </div>
       </nav>
