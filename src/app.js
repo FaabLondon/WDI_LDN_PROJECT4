@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bulma';
 
@@ -21,7 +21,7 @@ class App extends React.Component {
           <FlashMessages />
           <section className="section">
             <Switch>
-              {/* <Route path="/items" component={IndexRoute} /> */}
+              <Route path="/items" component={IndexRoute} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/logout" />

@@ -47,14 +47,15 @@ class Navbar extends React.Component {
         <div id="mobile-menu" className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
             <div className="navbar-item has-dropdown is-hoverable">
-              <Link className="navbar-link" to="/items"> Clothing</Link>
+              <a className="navbar-link" href="/items">Clothing</a>
               <div className="navbar-dropdown is-boxed">
-                <Link className="navbar-item" to="/items"> Bridal</Link>
-                <Link className="navbar-item" to="/items"> Dresses</Link>
-                <Link className="navbar-item" to="/items"> Activewear</Link>
-                <Link className="navbar-item" to="/items"> Jackets & Coats</Link>
-                <Link className="navbar-item" to="/items"> Trousers</Link>
-                <Link className="navbar-item" to="/items"> Knits</Link>
+                <a className="navbar-item" href="/items">All</a>
+                <a className="navbar-item" href="/items">Bridal</a>
+                <a className="navbar-item" href='/items?type=Dresses'> Dresses</a>
+                <a className="navbar-item" href="/items">Activewear</a>
+                <a className="navbar-item" href="/items">Jackets & Coats</a>
+                <a className="navbar-item" href="/items">Trousers</a>
+                <a className="navbar-item" href="/items">Knits</a>
               </div>
             </div>
             <div className="navbar-item">
