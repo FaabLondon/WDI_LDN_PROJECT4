@@ -2,6 +2,7 @@ import React from 'react';
 import Auth from '../../lib/Auth';
 import axios from 'axios';
 import Flash from '../../lib/Flash';
+import User from '../../lib/User';
 
 class Register extends React.Component{
 
@@ -17,7 +18,10 @@ class Register extends React.Component{
   handleSubmit = (e) =>{
     e.preventDefault();
     axios.post('/api/register', this.state)
-      .then(res => Auth.setToken(res.data.token))
+      .then(res => {
+        User.setCurrentUser(res.data.user);
+        Auth.setToken(res.data.token);
+      })
       .then(() => Flash.setMessage('success', `Welcome ${this.state.username}! You were succesfully registered!`))
       .then(() =>   this.props.history.push('/items'))
       //need to be added to state to re-render the form with error messages

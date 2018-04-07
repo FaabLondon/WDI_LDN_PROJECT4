@@ -2,6 +2,7 @@ import React from 'react';
 import Auth from '../../lib/Auth';
 import axios from 'axios';
 import Flash from '../../lib/Flash';
+import User from '../../lib/User';
 
 class Login extends React.Component{
 
@@ -16,13 +17,12 @@ class Login extends React.Component{
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    let username = '';
     axios.post('/api/login', this.state)
       .then(res => {
-        username = res.data.user.username;
+        User.setCurrentUser(res.data.user);
         Auth.setToken(res.data.token);
       })
-      .then(() => Flash.setMessage('success', `Welcome ${username}! You were succesfully logged in!`))
+      .then(() => Flash.setMessage('success', `Welcome ${User.getCurrentUser().username}! You were succesfully logged in!`))
       .then(() => this.props.history.push('/items'))
       //need to be added to state to re-render the form with error messages
       .catch(err => {
