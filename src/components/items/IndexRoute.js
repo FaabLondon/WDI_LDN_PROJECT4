@@ -6,6 +6,13 @@ import _ from 'lodash';
 //I installed this query String parsing library to parse the query in URL
 const queryString = require('query-string');
 
+const sortOption = [
+  {sortCriteria: 'rentalPrice|desc', text: 'High $ - Low $'},
+  {sortCriteria: 'rentalPrice|asc', text: 'Low $ - High $'},
+  {sortCriteria: 'brand|asc', text: 'Brand Name (A - Z)'},
+  {sortCriteria: 'brand|desc', text: 'Brand Name (Z - A)'}
+];
+
 class IndexRoute extends React.Component{
 
   state = {
@@ -13,6 +20,7 @@ class IndexRoute extends React.Component{
     query: '',
     sortBy: 'rentalPrice',
     sortDirection: 'desc',
+    selectedRadio: 'rentalPrice|desc',
     filter: {
       'Daytime': false,
       'Work': false,
@@ -20,7 +28,10 @@ class IndexRoute extends React.Component{
       'Vacation': false,
       'Formal': false,
       'Party': false,
-      'Maternity': false
+      'Maternity': false,
+      'black': false,
+      'grey': false,
+      'white': false
     }
   }
 
@@ -30,8 +41,9 @@ class IndexRoute extends React.Component{
 
   handleSort = (e) => {
     //split the value of selected checkbox to get sorting field and direction (asc or desc)
-    const [sortBy, sortDirection] = e.target.value.split('|');
-    this.setState({ sortBy, sortDirection }, () => console.log(this.state));
+    const selectedRadio = e.target.value;
+    const [sortBy, sortDirection] = selectedRadio.split('|');
+    this.setState({ sortBy, sortDirection, selectedRadio }, () => console.log(this.state));
   }
 
   handleFilter = (e) => {
@@ -54,10 +66,11 @@ class IndexRoute extends React.Component{
 
     //3) filter with checkboxes - extract criteria set at true
     const filterCriteria = _.filter(Object.keys(this.state.filter), (criterion) => this.state.filter[criterion] === true );
+    //console.log('filter criteria', filterCriteria);
     //only fitler if at least one checkbox is checked, otherwise no result displayed...
     if(filterCriteria.length === 0) return filtered;
-    //filter items that have occasions including at least one filter criterion
-    filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)));
+    //filter items that have occasions or colors including at least one filter criterion
+    filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)) || item.colors.some(elt => filterCriteria.includes(elt)) );
     return filtered;
   }
 
@@ -88,27 +101,17 @@ class IndexRoute extends React.Component{
               </form>
             </div>
 
-            {/* Sort asc/desc by price or brand */}
+            {/* Radio button to Sort asc/desc by price or brand */}
             <div className="sortBy">
               <h3 className="subtitle is-3 is-italic">Sort by</h3>
               <form>
                 <div className="control SortByControl">
-                  <label className="radio">
-                    <input type="radio" name="HighLow" value="rentalPrice|desc" onChange={this.handleSort} />
-                    High $ - Low $
-                  </label>
-                  <label className="radio">
-                    <input type="radio" name="HighLow" value="rentalPrice|asc" onChange={this.handleSort} />
-                    Low $ - High $
-                  </label>
-                  <label className="radio">
-                    <input type="radio" name="AtoZ" value="brand|asc" onChange={this.handleSort} />
-                    Brand Name (A - Z)
-                  </label>
-                  <label className="radio">
-                    <input type="radio" name="AtoZ" value="brand|desc" onChange={this.handleSort} />
-                    Brand Name (Z - A)
-                  </label>
+                  {sortOption.map((elt, i) =>
+                    <label key={i} className="radio">
+                      <input type="radio" value={elt.sortCriteria} onChange={this.handleSort} checked={this.state.selectedRadio===elt.sortCriteria} />
+                      {elt.text}
+                    </label>
+                  )}
                 </div>
               </form>
             </div>
@@ -116,39 +119,32 @@ class IndexRoute extends React.Component{
             {/* Filter by one or more occasions */}
             <div className="FilterBy">
               <h3 className="subtitle is-3 is-italic">Filters</h3>
+              <h5 className="subtitle is-5 is-italic">Occasion</h5>
               <form>
                 <div className="control FilterByControl">
-                  <label className="checkbox">
-                    <input type="checkbox" name="Daytime" value="Daytime" onChange={this.handleFilter} />
-                    Daytime
-                  </label>
-                  <label className="checkbox">
-                    <input type="checkbox" name="Work" value="Work" onChange={this.handleFilter} />
-                    Work
-                  </label>
-                  <label className="checkbox">
-                    <input type="checkbox" name="Weekend" value="Weekend" onChange={this.handleFilter} />
-                    Weekend
-                  </label>
-                  <label className="checkbox">
-                    <input type="checkbox" name="Vacation" value="Vacation" onChange={this.handleFilter} />
-                    Vacation
-                  </label>
-                  <label className="checkbox">
-                    <input type="checkbox" name="Formal" value="Formal" onChange={this.handleFilter} />
-                    Formal
-                  </label>
-                  <label className="checkbox">
-                    <input type="checkbox" name="Party" value="Party" onChange={this.handleFilter} />
-                    Party
-                  </label>
-                  <label className="checkbox">
-                    <input type="checkbox" name="Maternity" value="Maternity" onChange={this.handleFilter} />
-                    Maternity
+                  {Object.keys(this.state.filter).map((elt, i) =>
+                    <label key={i} className="checkbox">
+                      <input type="checkbox" value={elt} onChange={this.handleFilter} />
+                      {elt}
+                    </label>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Filter by one or more colors */}
+            <div className="FilterBy">
+              <h5 className="subtitle is-5 is-italic">Colors</h5>
+              <form>
+                <div className="control FilterByControl">
+                  <label className="container">
+                    <input className="checkbox" type="checkbox" name="grey" value="grey" onChange={this.handleFilter} />
+                    <span className="checkmark" style={{backgroundColor: 'red'}}></span>
                   </label>
                 </div>
               </form>
             </div>
+
 
           </div>
           <div className="column is-three-quarter">
