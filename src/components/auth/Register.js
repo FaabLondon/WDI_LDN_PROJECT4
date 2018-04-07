@@ -16,13 +16,9 @@ class Register extends React.Component{
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    let username = '';
     axios.post('/api/register', this.state)
-      .then(res => {
-        username = res.data.user.username;
-        Auth.setToken(res.data.token);
-      })
-      .then(() => Flash.setMessage('success', `Welcome ${username}! You were succesfully registered!`))
+      .then(res => Auth.setToken(res.data.token))
+      .then(() => Flash.setMessage('success', `Welcome ${this.state.username}! You were succesfully registered!`))
       .then(() =>   this.props.history.push('/items'))
       //need to be added to state to re-render the form with error messages
       .catch(err => {

@@ -19,6 +19,11 @@ class Navbar extends React.Component {
     this.state.navIsOpen && this.setState({ navIsOpen: false });
   }
 
+  handleLogout = () => {
+    Auth.logout();
+    this.props.history.push('/items');
+  }
+
   render() {
     return (
       <nav className="navbar">
@@ -63,7 +68,7 @@ class Navbar extends React.Component {
                     <Link className="navbar-item" to="">My account</Link>
                     <Link className="navbar-item" to="">Upcoming order</Link>
                     <Link className="navbar-item" to="">Order history</Link>
-                    <a className="navbar-item" to="">Sign out</a>
+                    <a className="navbar-item" to="logout/" onClick={this.handleLogout}>Sign out</a>
                   </div>
                 </div>
                 :
