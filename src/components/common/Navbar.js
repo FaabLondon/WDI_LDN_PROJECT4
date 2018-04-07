@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom'; //coming from Brower Router
 import Auth from '../../lib/Auth';
+import User from '../../lib/User';
 
 class Navbar extends React.Component {
 
@@ -21,6 +22,7 @@ class Navbar extends React.Component {
 
   handleLogout = () => {
     Auth.logout();
+    User.clearCurrentUser();
     this.props.history.push('/items');
   }
 
@@ -63,7 +65,7 @@ class Navbar extends React.Component {
             <div className="navbar-item has-dropdown is-hoverable">
               {Auth.isAuthenticated()?
                 <div>
-                  <Link className="navbar-item" to=""><span className="icon is-small"><i className="fas fa-user"></i></span>Current user</Link>
+                  <Link className="navbar-item" to=""><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser().username}</Link>
                   <div className="navbar-dropdown is-boxed is-right">
                     <Link className="navbar-item" to="">My account</Link>
                     <Link className="navbar-item" to="">Upcoming order</Link>
