@@ -6,11 +6,28 @@ import _ from 'lodash';
 //I installed this query String parsing library to parse the query in URL
 const queryString = require('query-string');
 
+//used to sort results asc desc on price or brand
 const sortOption = [
   {sortCriteria: 'rentalPrice|desc', text: 'High $ - Low $'},
   {sortCriteria: 'rentalPrice|asc', text: 'Low $ - High $'},
   {sortCriteria: 'brand|asc', text: 'Brand Name (A - Z)'},
   {sortCriteria: 'brand|desc', text: 'Brand Name (Z - A)'}
+];
+
+//used to color the checkboxes
+const colors = [
+  {color: 'Black', code: '#000000'},
+  {color: 'Grey', code: '#eeeeee'},
+  {color: 'White', code: '#ffffff'},
+  {color: 'Beige', code: '#ffcc99'},
+  {color: 'Brown', code: '#994c00'},
+  {color: 'Red', code: '#ff0000'},
+  {color: 'Orange', code: '#ff8000'},
+  {color: 'Yellow', code: '#ffff00'},
+  {color: 'Green', code: '#006600'},
+  {color: 'Blue', code: '#0000ff'},
+  {color: 'Purple', code: '#990099'},
+  {color: 'Pink', code: '#FF99CC'}
 ];
 
 class IndexRoute extends React.Component{
@@ -28,10 +45,21 @@ class IndexRoute extends React.Component{
       'Vacation': false,
       'Formal': false,
       'Party': false,
-      'Maternity': false,
+      'Maternity': false
+    },
+    filterColor: {
       'black': false,
       'grey': false,
-      'white': false
+      'white': false,
+      'beige': false,
+      'brown': false,
+      'red': false,
+      'orange': false,
+      'yellow': false,
+      'green': false,
+      'blue': false,
+      'purple': false,
+      'pink': false
     }
   }
 
@@ -53,6 +81,13 @@ class IndexRoute extends React.Component{
     this.setState({ filter }, () => console.log(this.state));
   }
 
+  handleFilterColor = (e) => {
+    const filterBool = this.state.filterColor[e.target.value];
+    //toggle boolean on checked box and recreate filter object
+    const filterColor = Object.assign({}, this.state.filterColor, {[e.target.value]: !filterBool });
+    this.setState({ filterColor }, () => console.log(this.state));
+  }
+
 
   SearchFilterSorting = () => {
     const { sortBy, sortDirection, query } = this.state;
@@ -66,11 +101,11 @@ class IndexRoute extends React.Component{
 
     //3) filter with checkboxes - extract criteria set at true
     const filterCriteria = _.filter(Object.keys(this.state.filter), (criterion) => this.state.filter[criterion] === true );
-    //console.log('filter criteria', filterCriteria);
+    const filterCriteriaColor = _.filter(Object.keys(this.state.filterColor), (criterion) => this.state.filterColor[criterion] === true );
     //only fitler if at least one checkbox is checked, otherwise no result displayed...
-    if(filterCriteria.length === 0) return filtered;
+    if(filterCriteria.length === 0 && filterCriteriaColor.length === 0) return filtered;
     //filter items that have occasions or colors including at least one filter criterion
-    filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)) || item.colors.some(elt => filterCriteria.includes(elt)) );
+    filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)) || item.colors.some(elt => filterCriteriaColor.includes(elt)));
     return filtered;
   }
 
@@ -137,10 +172,12 @@ class IndexRoute extends React.Component{
               <h5 className="subtitle is-5 is-italic">Colors</h5>
               <form>
                 <div className="control FilterByControl">
-                  <label className="container">
-                    <input className="checkbox" type="checkbox" name="grey" value="grey" onChange={this.handleFilter} />
-                    <span className="checkmark" style={{backgroundColor: 'red'}}></span>
-                  </label>
+                  {colors.map((color, i) =>
+                    <label key={i} className="container">
+                      <input className="checkbox" type="checkbox" value={color.color} onChange={this.handleFilterColor} />
+                      <span className="checkmark" style={{backgroundColor: `${color.code}`}}></span>
+                    </label>
+                  )}
                 </div>
               </form>
             </div>
