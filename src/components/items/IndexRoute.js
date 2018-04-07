@@ -12,7 +12,16 @@ class IndexRoute extends React.Component{
     items: [],
     query: '',
     sortBy: 'rentalPrice',
-    sortDirection: 'desc'
+    sortDirection: 'desc',
+    filter: {
+      'Daytime': false,
+      'Work': false,
+      'Weekend': false,
+      'Vacation': false,
+      'Formal': false,
+      'Party': false,
+      'Maternity': false
+    }
   }
 
   handleSearch = (e) => {
@@ -25,14 +34,31 @@ class IndexRoute extends React.Component{
     this.setState({ sortBy, sortDirection }, () => console.log(this.state));
   }
 
+  handleFilter = (e) => {
+    const filterBool = this.state.filter[e.target.value];
+    //toggle boolean on checked box and recreate filter object
+    const filter = Object.assign({}, this.state.filter, {[e.target.value]: !filterBool });
+    this.setState({ filter }, () => console.log(this.state));
+  }
+
+
   SearchFilterSorting = () => {
     const { sortBy, sortDirection, query } = this.state;
     //create new regex to test seach query on brand name and product description
     const regex = new RegExp(query, 'i'); //case insensitive
-    //sort search result in asc or desc order
-    const filtered = _.orderBy(this.state.items, [sortBy], [sortDirection] );
-    //search
-    return (_.filter(filtered, (item) => regex.test(item.brand) || regex.test(item.shortDescription)));
+    //1) sort items in asc or desc order
+    let filtered = _.orderBy(this.state.items, [sortBy], [sortDirection] );
+
+    //2) search on brand and product description with query string
+    filtered = _.filter(filtered, (item) => regex.test(item.brand) || regex.test(item.shortDescription));
+
+    //3) filter with checkboxes - extract criteria set at true
+    const filterCriteria = _.filter(Object.keys(this.state.filter), (criterion) => this.state.filter[criterion] === true );
+    //only fitler if at least one checkbox is checked, otherwise no result displayed...
+    if(filterCriteria.length === 0) return filtered;
+    //filter items that have occasions including at least one filter criterion
+    filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)));
+    return filtered;
   }
 
   componentDidMount(){
@@ -48,16 +74,21 @@ class IndexRoute extends React.Component{
       <section>
         <div className="columns is-multiline">
           <div className="column is-one-quarter">
+
+            {/* query string on brand or product description */}
             <div className="searchBy">
               <h3 className="subtitle is-3 is-italic">Search</h3>
               <form>
                 <div className="field SearchByControl">
-                  <label className="label">
-                    <input type="text" name="Search" placeholder="Search by brand or product description" onChange={this.handleSearch} />
-                  </label>
+                  <div className="control has-icons-left">
+                    <input className="searchField has-text-centered" type="text" name="Search" placeholder="Search by brand or product description" onChange={this.handleSearch} />
+                    <span className="icon is-small is-left"><i className="fas fa-search"></i></span>
+                  </div>
                 </div>
               </form>
             </div>
+
+            {/* Sort asc/desc by price or brand */}
             <div className="sortBy">
               <h3 className="subtitle is-3 is-italic">Sort by</h3>
               <form>
@@ -81,6 +112,44 @@ class IndexRoute extends React.Component{
                 </div>
               </form>
             </div>
+
+            {/* Filter by one or more occasions */}
+            <div className="FilterBy">
+              <h3 className="subtitle is-3 is-italic">Filters</h3>
+              <form>
+                <div className="control FilterByControl">
+                  <label className="checkbox">
+                    <input type="checkbox" name="Daytime" value="Daytime" onChange={this.handleFilter} />
+                    Daytime
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="Work" value="Work" onChange={this.handleFilter} />
+                    Work
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="Weekend" value="Weekend" onChange={this.handleFilter} />
+                    Weekend
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="Vacation" value="Vacation" onChange={this.handleFilter} />
+                    Vacation
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="Formal" value="Formal" onChange={this.handleFilter} />
+                    Formal
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="Party" value="Party" onChange={this.handleFilter} />
+                    Party
+                  </label>
+                  <label className="checkbox">
+                    <input type="checkbox" name="Maternity" value="Maternity" onChange={this.handleFilter} />
+                    Maternity
+                  </label>
+                </div>
+              </form>
+            </div>
+
           </div>
           <div className="column is-three-quarter">
 

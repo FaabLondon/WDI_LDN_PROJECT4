@@ -10,7 +10,7 @@ const itemSchema = new mongoose.Schema({
   rentalPrice: {type: Number, required: 'Original retail price is required'},
   category: {type: String, required: 'Category is required', enum: ['Clothing', 'Accessories']},
   type: {type: String, required: 'Type is required', enum: ['Jewellery', 'Handbags', 'Sunglasses', 'Bridal', 'Dresses', 'Activewear', 'Tops', 'JacketsCoats', 'Trousers', 'Knits']},
-  occasion: [{type: String, required: 'Occasion is required'}],
+  occasion: [{type: String, required: 'Occasion is required', enum: ['Daytime', 'Work', 'Weekend', 'Vacation', 'Formal', 'Party', 'Maternity']}],
   colors: [{type: String, required: 'Color is required'}],
   sizeAvailable: [{type: String, enum: ['XL', 'L', 'M', 'S', 'XS'], required: 'Size is required'}],
   mainImage: {type: String, required: 'Main image is required'},
@@ -18,7 +18,6 @@ const itemSchema = new mongoose.Schema({
   available: {type: Boolean},
   reviews: [reviewSchema]
 });
-//occasion: ['Daytime', 'Work', 'Weekend', 'Vacation', 'Formal', 'Party', 'Maternity']
 
 module.exports = {
   itemSchema: itemSchema,

@@ -1,5 +1,5 @@
 div.card-image{
-  height: 300px;
+  height: 40vh;
 }
 
 div.content{
@@ -19,4 +19,9 @@ h3.subtitle.is-3{
 div.SortByControl{
   display: flex;
   flex-direction: column;
+}
+
+input.searchField{
+  height: 4vh;
+  width: 22vw;
 }
