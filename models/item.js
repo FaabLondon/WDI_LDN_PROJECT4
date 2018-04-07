@@ -9,7 +9,7 @@ const itemSchema = new mongoose.Schema({
   retailPrice: {type: Number, required: 'Original retail price is required'},
   rentalPrice: {type: Number, required: 'Original retail price is required'},
   category: {type: String, required: 'Category is required', enum: ['Clothing', 'Accessories']},
-  type: {type: String, required: 'Type is required', enum: ['Jewellery', 'Handbags', 'Sunglasses', 'Bridal', 'Dresses', 'Activewear', 'Tops', 'Jackets & Coats', 'Trousers', 'Knits']},
+  type: {type: String, required: 'Type is required', enum: ['Jewellery', 'Handbags', 'Sunglasses', 'Bridal', 'Dresses', 'Activewear', 'Tops', 'JacketsCoats', 'Trousers', 'Knits']},
   occasion: [{type: String, required: 'Occasion is required'}],
   colors: [{type: String, required: 'Color is required'}],
   sizeAvailable: [{type: String, enum: ['XL', 'L', 'M', 'S', 'XS'], required: 'Size is required'}],

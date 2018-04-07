@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../../scss/components/IndexPage.scss';
+import _ from 'lodash';
 
 //I installed this query String parsing library to parse the query in URL
 const queryString = require('query-string');
@@ -8,11 +9,36 @@ const queryString = require('query-string');
 class IndexRoute extends React.Component{
 
   state = {
-    items: []
+    items: [],
+    query: '',
+    sortBy: 'rentalPrice',
+    sortDirection: 'desc'
+  }
+
+  handleSearch = (e) => {
+    this.setState({ query: e.target.value }, console.log(this.state));
+  }
+
+  handleSort = (e) => {
+    //split the value of selected checkbox to get sorting field and direction (asc or desc)
+    const [sortBy, sortDirection] = e.target.value.split('|');
+    this.setState({ sortBy, sortDirection }, () => console.log(this.state));
+  }
+
+  SearchFilterSorting = () => {
+    const { sortBy, sortDirection, query } = this.state;
+    //create new regex to test seach query on brand name and product description
+    const regex = new RegExp(query, 'i'); //case insensitive
+    //sort search result in asc or desc order
+    const filtered = _.orderBy(this.state.items, [sortBy], [sortDirection] );
+    //search
+    return (_.filter(filtered, (item) => regex.test(item.brand) || regex.test(item.shortDescription)));
   }
 
   componentDidMount(){
+    //parses the search query
     const parsedQuery = queryString.parse(this.props.location.search);
+    console.log(parsedQuery);
     axios.get('/api/items', {params: parsedQuery})
       .then(res => this.setState({items: res.data}, () => console.log(this.state)));
   }
@@ -22,7 +48,39 @@ class IndexRoute extends React.Component{
       <section>
         <div className="columns is-multiline">
           <div className="column is-one-quarter">
-            Placeholder for sort and filter
+            <div className="searchBy">
+              <h3 className="subtitle is-3 is-italic">Search</h3>
+              <form>
+                <div className="field SearchByControl">
+                  <label className="label">
+                    <input type="text" name="Search" placeholder="Search by brand or product description" onChange={this.handleSearch} />
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div className="sortBy">
+              <h3 className="subtitle is-3 is-italic">Sort by</h3>
+              <form>
+                <div className="control SortByControl">
+                  <label className="radio">
+                    <input type="radio" name="HighLow" value="rentalPrice|desc" onChange={this.handleSort} />
+                    High $ - Low $
+                  </label>
+                  <label className="radio">
+                    <input type="radio" name="HighLow" value="rentalPrice|asc" onChange={this.handleSort} />
+                    Low $ - High $
+                  </label>
+                  <label className="radio">
+                    <input type="radio" name="AtoZ" value="brand|asc" onChange={this.handleSort} />
+                    Brand Name (A - Z)
+                  </label>
+                  <label className="radio">
+                    <input type="radio" name="AtoZ" value="brand|desc" onChange={this.handleSort} />
+                    Brand Name (Z - A)
+                  </label>
+                </div>
+              </form>
+            </div>
           </div>
           <div className="column is-three-quarter">
 
@@ -38,9 +96,9 @@ class IndexRoute extends React.Component{
               </div>
             </nav>
 
-
+            {/* Result display */}
             <div className="columns is-multiline">
-              {this.state.items.map((item, i) =>
+              {this.SearchFilterSorting().map((item, i) =>
                 <div key={i} className="column is-one-third">
                   <div className="card">
                     <div

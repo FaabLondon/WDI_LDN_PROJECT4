@@ -2,8 +2,8 @@
 const { Item } = require('../models/item');
 
 function indexRoute(req, res, next){
-  console.log(req.query);
-  return Item.find()
+  //in case query string
+  return Item.find(req.query)
     .then(items => res.json(items))
     .catch(next);
 }

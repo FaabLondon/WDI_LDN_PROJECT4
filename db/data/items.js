@@ -19,7 +19,7 @@ module.exports= [{
   retailPrice: 1855,
   rentalPrice: 40,
   category: 'Clothing',
-  type: 'Jackets & Coats',
+  type: 'JacketsCoats',
   occasion: ['Formal', 'Daytime', 'Work'],
   colors: ['Blue'],
   sizeAvailable: ['M', 'L'],

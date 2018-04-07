@@ -50,17 +50,17 @@ class Navbar extends React.Component {
               <a className="navbar-link" href="/items">Clothing</a>
               <div className="navbar-dropdown is-boxed">
                 <a className="navbar-item" href="/items">All</a>
-                <a className="navbar-item" href="/items">Bridal</a>
-                <a className="navbar-item" href='/items?type=Dresses'> Dresses</a>
-                <a className="navbar-item" href="/items">Activewear</a>
-                <a className="navbar-item" href="/items">Jackets & Coats</a>
-                <a className="navbar-item" href="/items">Trousers</a>
-                <a className="navbar-item" href="/items">Knits</a>
+                <a className="navbar-item" href="/items?type=Bridal">Bridal</a>
+                <a className="navbar-item" href="/items?type=Dresses" onClick={this.updateState}>Dresses</a>
+                <a className="navbar-item" href="/items?type=Activewear">Activewear</a>
+                <a className="navbar-item" href="/items?type=JacketsCoats">Jackets & Coats</a>
+                <a className="navbar-item" href="/items?type=Trousers">Trousers</a>
+                <a className="navbar-item" href="/items?type=Knits">Knits</a>
               </div>
             </div>
-            <div className="navbar-item">
+            {/* <div className="navbar-item">
               Placeholder for search field
-            </div>
+            </div> */}
           </div>
           <div className="navbar-end">
             {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>}
