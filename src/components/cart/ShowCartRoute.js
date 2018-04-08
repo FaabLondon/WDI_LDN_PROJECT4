@@ -18,13 +18,19 @@ class ShowCartRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        Cart.setCart(res.data); //should not have to do that as if no <a> no page reload
-        this.setState({items: res.data});
-      })
-      .then(() => console.log('state show cart', this.state));
+        //generates array of unique Ids
+        const uniqueIdArr = Array.from(new Set(res.data.map(item => item._id)));
+        let objCountIds = {};
+        //creates an array of object/items that counts how many times an item is in the shopping cart and adds all info from res.data to each object
+        const newArrQtyId = uniqueIdArr.map(elt => {
+          const qtyId = res.data.filter(item => item._id === elt ).length;
+          const foundElt = res.data.find(item => item._id === elt);
+          return objCountIds = Object.assign({}, {qty: qtyId }, foundElt );
+        });
+        Cart.setCart(res.data); //should not have to do that as if no <a>, no page reload
+        this.setState({items: newArrQtyId}, () => console.log(this.state));
+      });
   }
-
-
 
   render() {
     return (
@@ -56,7 +62,7 @@ class ShowCartRoute extends React.Component{
                       <h6 className="subtitle is-size-7">{item.shortDescription}</h6>
                       <h6 className="subtitle is-size-7">Size: {item.sizeAvailable}</h6>
                     </td>
-                    <td>1</td>
+                    <td>{item.qty}</td>
                     <td>£{item.rentalPrice} per day</td>
                     <td>£{item.rentalPrice} per day</td>
                     <td>
