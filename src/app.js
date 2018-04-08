@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import ShowRoute from './components/items/ShowRoute';
 import IndexRoute from './components/items/IndexRoute';
 import HomePage from './components/HomePage';
 
@@ -21,6 +22,8 @@ class App extends React.Component {
           <FlashMessages />
           <section className="section">
             <Switch>
+              <Route path="/cart/items/:id" />
+              <Route path="/items/:id" component={ShowRoute} />
               <Route path="/items" component={IndexRoute} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />

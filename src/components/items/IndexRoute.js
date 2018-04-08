@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import '../../scss/components/IndexPage.scss';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 //I installed this query String parsing library to parse the query in URL
 const queryString = require('query-string');
@@ -73,28 +74,28 @@ class IndexRoute extends React.Component{
     let { name, value } = e.target;
     if(name === 'minPrice' && value === '') value = 0;
     if(name === 'maxPrice' && value === '') value = 500;
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value });
   }
 
   handleSort = (e) => {
     //split the value of selected checkbox to get sorting field and direction (asc or desc)
     const selectedRadio = e.target.value;
     const [sortBy, sortDirection] = selectedRadio.split('|');
-    this.setState({ sortBy, sortDirection, selectedRadio }, () => console.log(this.state));
+    this.setState({ sortBy, sortDirection, selectedRadio });
   }
 
   handleFilter = (e) => {
     const filterBool = this.state.filter[e.target.value];
     //toggle boolean on checked box and recreate filter object
     const filter = Object.assign({}, this.state.filter, {[e.target.value]: !filterBool });
-    this.setState({ filter }, () => console.log(this.state));
+    this.setState({ filter });
   }
 
   handleFilterColor = (e) => {
     const filterBool = this.state.filterColor[e.target.value];
     //toggle boolean on checked box and recreate filter object
     const filterColor = Object.assign({}, this.state.filterColor, {[e.target.value]: !filterBool });
-    this.setState({ filterColor }, () => console.log(this.state));
+    this.setState({ filterColor });
   }
 
   //search accoding to all criteria in sort, filter etc
@@ -129,7 +130,7 @@ class IndexRoute extends React.Component{
     //parses the search query
     const parsedQuery = queryString.parse(this.props.location.search);
     axios.get('/api/items', {params: parsedQuery})
-      .then(res => this.setState({items: res.data, ...parsedQuery, filterLength: res.data.length }, () => console.log(this.state)));
+      .then(res => this.setState({items: res.data, ...parsedQuery, filterLength: res.data.length }));
   }
 
   render(){
@@ -231,18 +232,20 @@ class IndexRoute extends React.Component{
             <div className="columns is-multiline">
               {this.SearchFilterSorting().map((item, i) =>
                 <div key={i} className="column is-one-third">
-                  <div className="card">
-                    <div
-                      style={{backgroundImage: `url(${item.mainImage})`, backgroundSize: 'cover'}} className="card-image">
-                    </div>
-                    <div className="card-content">
-                      <div className="content">
-                        <h6 className="title is-6">{item.brand}</h6>
-                        <h6 className="subtitle is-7">{item.shortDescription}</h6>
-                        <h6 className="subtitle is-7">£{item.rentalPrice} per day <span className="has-text-grey">| £{item.retailPrice} retail</span></h6>
+                  <Link to={`/items/${item._id}`}>
+                    <div className="card">
+                      <div
+                        style={{backgroundImage: `url(${item.mainImage})`, backgroundSize: 'cover'}} className="card-image">
+                      </div>
+                      <div className="card-content">
+                        <div className="content cardContent">
+                          <h6 className="title is-6">{item.brand}</h6>
+                          <h6 className="subtitle is-7">{item.shortDescription}</h6>
+                          <h6 className="subtitle is-7">£{item.rentalPrice} per day <span className="has-text-grey">| £{item.retailPrice} retail</span></h6>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               )}
             </div>
