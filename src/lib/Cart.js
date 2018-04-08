@@ -14,6 +14,7 @@ class Cart{
     return this._currentCart.length;
   }
 
+  //only works if cart is populated...otherwise only has item id in it
   static getnbItemCart(itemId){
     return this._currentCart.filter(elt => elt._id === itemId).length;
   }

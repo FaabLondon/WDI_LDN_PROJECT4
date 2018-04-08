@@ -29,7 +29,7 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        Cart.setCart(res.data.cart);
+        Cart.setCart(res.data);
         this.setState({message: 'This item was succesfully added to your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
       });
   }
@@ -41,7 +41,7 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        Cart.setCart(res.data.cart);
+        Cart.setCart(res.data);
         this.setState({message: 'This item was succesfully removed from your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
       });
   }
@@ -66,13 +66,13 @@ class ShowRoute extends React.Component{
             </div>
             <div className="content">
               <p className="subtitle is-6">{this.state.item.longDescription}</p>
-              <p className="subtitle is-6"></p>
+              <p className="subtitle is-6">Size: {this.state.item.sizeAvailable}</p>
               <h6 className="subtitle is-7">£{this.state.item.rentalPrice} per day <span className="has-text-grey">| £{this.state.item.retailPrice} retail</span></h6>
             </div>
             <div className="showButtons">
               <div>Add / remove from my shopping bag</div>
-              <a onClick={this.handleAddCart} className="button">+</a>
-              <a onClick={this.handleDeleteCart} className="button">-</a>
+              <button onClick={this.handleDeleteCart} className="button">-</button>
+              <button onClick={this.handleAddCart} className="button">+</button>
               <span>Quantity {this.state.nbItemCart}</span>
               <div>{this.state.message}</div>
             </div>

@@ -12,7 +12,7 @@ const itemSchema = new mongoose.Schema({
   type: {type: String, required: 'Type is required', enum: ['Jewellery', 'Handbags', 'Sunglasses', 'Bridal', 'Dresses', 'Activewear', 'Tops', 'JacketsCoats', 'Trousers', 'Knits']},
   occasion: [{type: String, required: 'Occasion is required', enum: ['Daytime', 'Work', 'Weekend', 'Vacation', 'Formal', 'Party', 'Maternity']}],
   colors: [{type: String, required: 'Color is required'}],
-  sizeAvailable: [{type: String, enum: ['XL', 'L', 'M', 'S', 'XS'], required: 'Size is required'}],
+  sizeAvailable: {type: String, enum: ['XL', 'L', 'M', 'S', 'XS'], required: 'Size is required'},
   mainImage: {type: String, required: 'Main image is required'},
   smallImages: [{type: String}], //array of strings
   available: {type: Boolean},
