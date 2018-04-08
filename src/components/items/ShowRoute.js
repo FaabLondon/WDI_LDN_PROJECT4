@@ -4,17 +4,21 @@ import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
 import { Link } from 'react-router-dom';
 import Flash from '../../lib/Flash';
+import Cart from '../../lib/Cart';
 
 class ShowRoute extends React.Component{
 
   state = {
     item: {},
-    message: ''
+    message: '',
+    nbItemCart: 0
   }
 
   componentDidMount= () => {
-    axios.get(`/api/items/${this.props.match.params.id}`)
-      .then(res => this.setState({ item: res.data }))
+    const itemId = this.props.match.params.id;
+    //get the item (product)
+    axios.get(`/api/items/${itemId}`)
+      .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }))
       .then(() => console.log(this.state));
   }
 
@@ -25,8 +29,8 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        console.log(res.data);
-        this.setState({message: 'This item was succesfully added to your cart!'});
+        Cart.setCart(res.data.cart);
+        this.setState({message: 'This item was succesfully added to your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
       });
   }
 
@@ -37,8 +41,8 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        console.log(res.data);
-        this.setState({message: 'This item was succesfully removed from your cart!'});
+        Cart.setCart(res.data.cart);
+        this.setState({message: 'This item was succesfully removed from your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
       });
   }
 
@@ -69,6 +73,7 @@ class ShowRoute extends React.Component{
               <div>Add / remove from my shopping bag</div>
               <a onClick={this.handleAddCart} className="button">+</a>
               <a onClick={this.handleDeleteCart} className="button">-</a>
+              <span>Quantity {this.state.nbItemCart}</span>
               <div>{this.state.message}</div>
             </div>
           </div>

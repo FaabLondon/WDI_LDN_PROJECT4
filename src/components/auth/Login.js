@@ -3,6 +3,7 @@ import Auth from '../../lib/Auth';
 import axios from 'axios';
 import Flash from '../../lib/Flash';
 import User from '../../lib/User';
+import Cart from '../../lib/Cart';
 
 class Login extends React.Component{
 
@@ -22,6 +23,18 @@ class Login extends React.Component{
         User.setCurrentUser(res.data.user);
         Auth.setToken(res.data.token);
       })
+
+      //get the user cart on login
+      .then(() => {
+        axios({
+          method: 'GET',
+          url: '/api/cart',
+          headers: {Authorization: `Bearer ${Auth.getToken()}`}
+        })
+          .then(res => Cart.setCart(res.data));
+      })
+
+      //set Flash message
       .then(() => Flash.setMessage('success', `Welcome ${User.getCurrentUser().username}! You were succesfully logged in!`))
       .then(() => this.props.history.push('/items'))
       //need to be added to state to re-render the form with error messages
