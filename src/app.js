@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bulma';
 
@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 import ShowRoute from './components/items/ShowRoute';
-import ShowRouteCart from './components/cart/ShowRouteCart';
+import ShowCartRoute from './components/cart/ShowCartRoute';
 import IndexRoute from './components/items/IndexRoute';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -26,7 +26,7 @@ class App extends React.Component {
           <FlashMessages />
           <section className="section">
             <Switch>
-              <Route path="/cart" component={ShowRouteCart} />
+              <Route path="/cart" component={ShowCartRoute} />
               <Route path="/items/:id" component={ShowRoute} />
               <Route path="/items" component={IndexRoute} />
               <Route path="/register" component={Register} />

@@ -14,6 +14,8 @@ class ShowRoute extends React.Component{
     nbItemCart: 0
   }
 
+  // if link don;t work in navbar, make sure to get the cart from server and set it in componentDidMount
+
   componentDidMount= () => {
     const itemId = this.props.match.params.id;
     //get the item (product)

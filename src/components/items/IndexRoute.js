@@ -141,7 +141,7 @@ class IndexRoute extends React.Component{
 
             {/* query string on brand or product description */}
             <div className="searchBy">
-              <h3 className="subtitle is-3 is-italic">Search</h3>
+              <h3 className="subtitle is-size-3 is-italic">Search</h3>
               <form>
                 <div className="field SearchByControl">
                   <div className="control has-icons-left">
@@ -154,7 +154,7 @@ class IndexRoute extends React.Component{
 
             {/* Radio button to Sort asc/desc by price or brand */}
             <div className="sortBy">
-              <h3 className="subtitle is-3 is-italic">Sort by</h3>
+              <h3 className="subtitle is-size-3 is-italic">Sort by</h3>
               <form>
                 <div className="control SortByControl">
                   {sortOption.map((elt, i) =>
@@ -169,7 +169,7 @@ class IndexRoute extends React.Component{
 
             {/* Filter by price range */}
             <div className="FilterBy">
-              <h5 className="subtitle is-5 is-italic">Rental Price</h5>
+              <h5 className="subtitle is-size-5 is-italic">Rental Price</h5>
               <form>
                 <div className="field FilterByControl">
                   <label className="label" htmlFor="email">Min Price</label>
@@ -184,7 +184,7 @@ class IndexRoute extends React.Component{
 
             {/* Filter by one or more occasions */}
             <div className="FilterBy">
-              <h5 className="subtitle is-5 is-italic">Occasion</h5>
+              <h5 className="subtitle is-size-5 is-italic">Occasion</h5>
               <form>
                 <div className="control FilterByControl">
                   {Object.keys(this.state.filter).map((elt, i) =>
@@ -199,7 +199,7 @@ class IndexRoute extends React.Component{
 
             {/* Filter by one or more colors */}
             <div className="FilterBy">
-              <h5 className="subtitle is-5 is-italic">Colors</h5>
+              <h5 className="subtitle is-size-5 is-italic">Colors</h5>
               <form>
                 <div className="control FilterByControl">
                   {colors.map((color, i) =>
@@ -220,10 +220,10 @@ class IndexRoute extends React.Component{
             <nav className="navbar">
               <div className="navbar-menu">
                 <div className="navbar-start">
-                  <h5 className="subtitle is-5"> {this.state.category}/{this.state.type}   ({this.state.filterLength})</h5>
+                  <h5 className="subtitle is-size-5"> {this.state.category}/{this.state.type}   ({this.state.filterLength})</h5>
                 </div>
                 <div className="navbar-end">
-                  <h5 className="subtitle is-5"> Placeholder navigations buttons</h5>
+                  <h5 className="subtitle is-size-5"> Placeholder navigations buttons</h5>
                 </div>
               </div>
             </nav>
@@ -239,9 +239,9 @@ class IndexRoute extends React.Component{
                       </div>
                       <div className="card-content">
                         <div className="content cardContent">
-                          <h6 className="title is-6">{item.brand}</h6>
-                          <h6 className="subtitle is-7">{item.shortDescription}</h6>
-                          <h6 className="subtitle is-7">£{item.rentalPrice} per day <span className="has-text-grey">| £{item.retailPrice} retail</span></h6>
+                          <h6 className="title is-size-6">{item.brand}</h6>
+                          <h6 className="subtitle is-size-7">{item.shortDescription}</h6>
+                          <h6 className="subtitle is-size-7">£{item.rentalPrice} per day <span className="has-text-grey">| £{item.retailPrice} retail</span></h6>
                         </div>
                       </div>
                     </div>
