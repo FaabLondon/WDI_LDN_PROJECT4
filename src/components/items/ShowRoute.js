@@ -1,19 +1,45 @@
 import React from 'react';
 import axios from 'axios';
-
+import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
 import { Link } from 'react-router-dom';
+import Flash from '../../lib/Flash';
 
 class ShowRoute extends React.Component{
 
   state = {
-    item: ''
+    item: {},
+    message: ''
   }
 
   componentDidMount= () => {
     axios.get(`/api/items/${this.props.match.params.id}`)
       .then(res => this.setState({ item: res.data }))
       .then(() => console.log(this.state));
+  }
+
+  handleAddCart = () => {
+    axios({
+      method: 'POST',
+      url: `/api/cart/items/${this.state.item._id}`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => {
+        console.log(res.data);
+        this.setState({message: 'This item was succesfully added to your cart!'});
+      });
+  }
+
+  handleDeleteCart = () => {
+    axios({
+      method: 'DELETE',
+      url: `/api/cart/items/${this.state.item._id}`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => {
+        console.log(res.data);
+        this.setState({message: 'This item was succesfully removed from your cart!'});
+      });
   }
 
   render() {
@@ -40,8 +66,10 @@ class ShowRoute extends React.Component{
               <h6 className="subtitle is-7">£{this.state.item.rentalPrice} per day <span className="has-text-grey">| £{this.state.item.retailPrice} retail</span></h6>
             </div>
             <div className="showButtons">
-              <Link to={`/api/cart/items/${this.state.item._id}`} className="button">Add to my cart</Link>
-              <button className="button">Remove from my cart</button>
+              <div>Add / remove from my shopping bag</div>
+              <a onClick={this.handleAddCart} className="button">+</a>
+              <a onClick={this.handleDeleteCart} className="button">-</a>
+              <div>{this.state.message}</div>
             </div>
           </div>
 

@@ -18,7 +18,8 @@ function itemDeleteRoute(req, res, next){
     .then(user => {
       user.cart.splice(user.cart.indexOf(req.params.id), 1);
       user.save();
-      res.sendStatus(204);
+      //res.sendStatus(204);
+      return res.json(user);
     })
     .catch(next);
 }

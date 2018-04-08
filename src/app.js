@@ -22,7 +22,7 @@ class App extends React.Component {
           <FlashMessages />
           <section className="section">
             <Switch>
-              <Route path="/cart/items/:id" />
+              <Route path="/cart/items/:id" component={ShowRoute} />
               <Route path="/items/:id" component={ShowRoute} />
               <Route path="/items" component={IndexRoute} />
               <Route path="/register" component={Register} />
