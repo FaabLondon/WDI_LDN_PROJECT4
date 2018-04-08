@@ -47,15 +47,15 @@ class Navbar extends React.Component {
         <div id="mobile-menu" className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link" href="/items">Clothing</a>
+              <a className="navbar-link" href="/items?category=Clothing">Clothing</a>
               <div className="navbar-dropdown is-boxed">
-                <a className="navbar-item" href="/items">All</a>
-                <a className="navbar-item" href="/items?type=Bridal">Bridal</a>
-                <a className="navbar-item" href="/items?type=Dresses" onClick={this.updateState}>Dresses</a>
-                <a className="navbar-item" href="/items?type=Activewear">Activewear</a>
-                <a className="navbar-item" href="/items?type=JacketsCoats">Jackets & Coats</a>
-                <a className="navbar-item" href="/items?type=Trousers">Trousers</a>
-                <a className="navbar-item" href="/items?type=Knits">Knits</a>
+                <a className="navbar-item" href="/items?category=Clothing">All</a>
+                <a className="navbar-item" href="/items?category=Clothing&type=Bridal">Bridal</a>
+                <a className="navbar-item" href="/items?category=Clothing&type=Dresses" onClick={this.updateState}>Dresses</a>
+                <a className="navbar-item" href="/items?category=Clothing&type=Activewear">Activewear</a>
+                <a className="navbar-item" href="/items?category=Clothing&type=JacketsCoats">Jackets & Coats</a>
+                <a className="navbar-item" href="/items?category=Clothing&type=Trousers">Trousers</a>
+                <a className="navbar-item" href="/items?category=Clothing&type=Knits">Knits</a>
               </div>
             </div>
             {/* <div className="navbar-item">

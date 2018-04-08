@@ -34,37 +34,46 @@ class IndexRoute extends React.Component{
 
   state = {
     items: [],
+    filterLength: 0,
+    type: '',
+    category: '',
     query: '',
     sortBy: 'rentalPrice',
     sortDirection: 'desc',
     selectedRadio: 'rentalPrice|desc',
+    minPrice: 0,
+    maxPrice: 500, //should be taken as max price across all item in DB....
     filter: {
-      'Daytime': false,
-      'Work': false,
-      'Weekend': false,
-      'Vacation': false,
-      'Formal': false,
-      'Party': false,
-      'Maternity': false
+      Daytime: false,
+      Work: false,
+      Weekend: false,
+      Vacation: false,
+      Formal: false,
+      Party: false,
+      Maternity: false
     },
     filterColor: {
-      'black': false,
-      'grey': false,
-      'white': false,
-      'beige': false,
-      'brown': false,
-      'red': false,
-      'orange': false,
-      'yellow': false,
-      'green': false,
-      'blue': false,
-      'purple': false,
-      'pink': false
+      black: false,
+      grey: false,
+      white: false,
+      beige: false,
+      brown: false,
+      red: false,
+      orange: false,
+      yellow: false,
+      green: false,
+      blue: false,
+      purple: false,
+      pink: false
     }
   }
 
+  //handle global search and search by price
   handleSearch = (e) => {
-    this.setState({ query: e.target.value }, console.log(this.state));
+    let { name, value } = e.target;
+    if(name === 'minPrice' && value === '') value = 0;
+    if(name === 'maxPrice' && value === '') value = 500;
+    this.setState({ [name]: value }, () => console.log(this.state));
   }
 
   handleSort = (e) => {
@@ -88,33 +97,39 @@ class IndexRoute extends React.Component{
     this.setState({ filterColor }, () => console.log(this.state));
   }
 
-
+  //search accoding to all criteria in sort, filter etc
   SearchFilterSorting = () => {
-    const { sortBy, sortDirection, query } = this.state;
-    //create new regex to test seach query on brand name and product description
-    const regex = new RegExp(query, 'i'); //case insensitive
+    const { sortBy, sortDirection, query, minPrice, maxPrice } = this.state;
+
     //1) sort items in asc or desc order
     let filtered = _.orderBy(this.state.items, [sortBy], [sortDirection] );
 
     //2) search on brand and product description with query string
+    //create new regex to test seach query on brand name and product description
+    const regex = new RegExp(query, 'i'); //case insensitive
     filtered = _.filter(filtered, (item) => regex.test(item.brand) || regex.test(item.shortDescription));
 
-    //3) filter with checkboxes - extract criteria set at true
+    //3) filter by price
+    filtered = _.filter(filtered, (item) => item.rentalPrice >= parseInt(minPrice) && item.rentalPrice <= parseInt(maxPrice));
+
+    //4) filter with checkboxes - extract criteria set at true - TO REFACTOR !!
     const filterCriteria = _.filter(Object.keys(this.state.filter), (criterion) => this.state.filter[criterion] === true );
     const filterCriteriaColor = _.filter(Object.keys(this.state.filterColor), (criterion) => this.state.filterColor[criterion] === true );
-    //only fitler if at least one checkbox is checked, otherwise no result displayed...
+    //only filter if at least one checkbox is checked, otherwise no result displayed...
     if(filterCriteria.length === 0 && filterCriteriaColor.length === 0) return filtered;
     //filter items that have occasions or colors including at least one filter criterion
     filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)) || item.colors.some(elt => filterCriteriaColor.includes(elt)));
+
+    //update length of search result - had to comment it out as React did not like the setState as loop through returned array in render
+    //this.setState({filterLength: filtered.length});
     return filtered;
   }
 
   componentDidMount(){
     //parses the search query
     const parsedQuery = queryString.parse(this.props.location.search);
-    console.log(parsedQuery);
     axios.get('/api/items', {params: parsedQuery})
-      .then(res => this.setState({items: res.data}, () => console.log(this.state)));
+      .then(res => this.setState({items: res.data, ...parsedQuery, filterLength: res.data.length }, () => console.log(this.state)));
   }
 
   render(){
@@ -129,7 +144,7 @@ class IndexRoute extends React.Component{
               <form>
                 <div className="field SearchByControl">
                   <div className="control has-icons-left">
-                    <input className="searchField has-text-centered" type="text" name="Search" placeholder="Search by brand or product description" onChange={this.handleSearch} />
+                    <input className="searchField has-text-centered" type="text" name="query" placeholder="Search by brand or product description" onChange={this.handleSearch} />
                     <span className="icon is-small is-left"><i className="fas fa-search"></i></span>
                   </div>
                 </div>
@@ -151,9 +166,23 @@ class IndexRoute extends React.Component{
               </form>
             </div>
 
+            {/* Filter by price range */}
+            <div className="FilterBy">
+              <h5 className="subtitle is-5 is-italic">Rental Price</h5>
+              <form>
+                <div className="field FilterByControl">
+                  <label className="label" htmlFor="email">Min Price</label>
+                  <input type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
+                </div>
+                <div className="field FilterByControl">
+                  <label className="label" htmlFor="email">Max Price</label>
+                  <input type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
+                </div>
+              </form>
+            </div>
+
             {/* Filter by one or more occasions */}
             <div className="FilterBy">
-              <h3 className="subtitle is-3 is-italic">Filters</h3>
               <h5 className="subtitle is-5 is-italic">Occasion</h5>
               <form>
                 <div className="control FilterByControl">
@@ -190,10 +219,10 @@ class IndexRoute extends React.Component{
             <nav className="navbar">
               <div className="navbar-menu">
                 <div className="navbar-start">
-                  Placeholder shopping category (nb results)
+                  <h5 className="subtitle is-5"> {this.state.category}/{this.state.type}   ({this.state.filterLength})</h5>
                 </div>
                 <div className="navbar-end">
-                  placeholder navigation buttons
+                  <h5 className="subtitle is-5"> Placeholder navigations buttons</h5>
                 </div>
               </div>
             </nav>
