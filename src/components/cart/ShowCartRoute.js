@@ -18,18 +18,20 @@ class ShowCartRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        //generates array of unique Ids
-        const uniqueIdArr = Array.from(new Set(res.data.map(item => item._id)));
-        let objCountIds = {};
-        //creates an array of object/items that counts how many times an item is in the shopping cart and adds all info from res.data to each object
-        const newArrQtyId = uniqueIdArr.map(elt => {
-          const qtyId = res.data.filter(item => item._id === elt ).length;
-          const foundElt = res.data.find(item => item._id === elt);
-          return objCountIds = Object.assign({}, {qty: qtyId }, foundElt );
-        });
+        const newArrQtyId = this.cleanCartArray(res.data);
         Cart.setCart(res.data); //should not have to do that as if no <a>, no page reload
         this.setState({items: newArrQtyId}, () => console.log(this.state));
       });
+  }
+
+  cleanCartArray = (data) => {
+    //generates array of unique Ids, then creates an array of object/items that counts how many times an item is in the shopping cart and adds all info from res.data to each object
+    const uniqueIdArr = Array.from(new Set(data.map(item => item._id)));
+    return uniqueIdArr.map(elt => {
+      const qtyId = data.filter(item => item._id === elt ).length;
+      const foundElt = data.find(item => item._id === elt);
+      return Object.assign({}, {qty: qtyId }, foundElt );
+    });
   }
 
   render() {
