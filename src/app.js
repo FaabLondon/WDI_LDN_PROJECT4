@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 
+import CreateOrderRoute from './components/orders/CreateOrderRoute';
 import ShowRoute from './components/items/ShowRoute';
 import ShowCartRoute from './components/cart/ShowCartRoute';
 import IndexRoute from './components/items/IndexRoute';
@@ -26,6 +27,7 @@ class App extends React.Component {
           <FlashMessages />
           <section className="section">
             <Switch>
+              <Route path="/checkout" component={CreateOrderRoute} />
               <Route path="/cart" component={ShowCartRoute} />
               <Route path="/items/:id" component={ShowRoute} />
               <Route path="/items" component={IndexRoute} />
