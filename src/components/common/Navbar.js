@@ -50,13 +50,13 @@ class Navbar extends React.Component {
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link" href="/items?category=Clothing">Clothing</a>
               <div className="navbar-dropdown is-boxed">
-                <a className="navbar-item" href="/items?category=Clothing">All</a>
-                <a className="navbar-item" href="/items?category=Clothing&type=Bridal">Bridal</a>
-                <a className="navbar-item" href="/items?category=Clothing&type=Dresses" onClick={this.updateState}>Dresses</a>
-                <a className="navbar-item" href="/items?category=Clothing&type=Activewear">Activewear</a>
-                <a className="navbar-item" href="/items?category=Clothing&type=JacketsCoats">Jackets & Coats</a>
-                <a className="navbar-item" href="/items?category=Clothing&type=Trousers">Trousers</a>
-                <a className="navbar-item" href="/items?category=Clothing&type=Knits">Knits</a>
+                <Link className="navbar-item" to="/items?category=Clothing">All</Link>
+                <Link className="navbar-item" to="/items?category=Clothing&type=Bridal">Bridal</Link>
+                <Link className="navbar-item" to="/items?category=Clothing&type=Dresses" onClick={this.updateState}>Dresses</Link>
+                <Link className="navbar-item" to="/items?category=Clothing&type=Activewear">Activewear</Link>
+                <Link className="navbar-item" to="/items?category=Clothing&type=JacketsCoats">Jackets & Coats</Link>
+                <Link className="navbar-item" to="/items?category=Clothing&type=Trousers">Trousers</Link>
+                <Link className="navbar-item" to="/items?category=Clothing&type=Knits">Knits</Link>
               </div>
             </div>
             {/* <div className="navbar-item">

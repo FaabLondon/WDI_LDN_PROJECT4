@@ -35,9 +35,7 @@ class IndexRoute extends React.Component{
 
   state = {
     items: [],
-    filterLength: 0,
-    type: '',
-    category: '',
+    parsedUrlQuery: {},
     query: '',
     sortBy: 'rentalPrice',
     sortDirection: 'desc',
@@ -70,8 +68,7 @@ class IndexRoute extends React.Component{
   }
 
   //handle global search and search by price
-  handleSearch = (e) => {
-    let { name, value } = e.target;
+  handleSearch = ({ target: { name, value } }) => {
     if(name === 'minPrice' && value === '') value = 0;
     if(name === 'maxPrice' && value === '') value = 500;
     this.setState({ [name]: value });
@@ -99,11 +96,14 @@ class IndexRoute extends React.Component{
   }
 
   //search accoding to all criteria in sort, filter etc
-  SearchFilterSorting = () => {
-    const { sortBy, sortDirection, query, minPrice, maxPrice } = this.state;
+  searchFilterSorting = () => {
+    const { parsedUrlQuery, sortBy, sortDirection, query, minPrice, maxPrice } = this.state;
+
+    //1) render only the category and type selected in navbar
+    let filtered = _.filter(this.state.items, parsedUrlQuery );
 
     //1) sort items in asc or desc order
-    let filtered = _.orderBy(this.state.items, [sortBy], [sortDirection] );
+    filtered = _.orderBy(filtered, [sortBy], [sortDirection] );
 
     //2) search on brand and product description with query string
     //create new regex to test seach query on brand name and product description
@@ -121,16 +121,21 @@ class IndexRoute extends React.Component{
     //filter items that have occasions or colors including at least one filter criterion
     filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)) || item.colors.some(elt => filterCriteriaColor.includes(elt)));
 
-    //update length of search result - had to comment it out as React did not like the setState as loop through returned array in render
-    //this.setState({filterLength: filtered.length});
     return filtered;
   }
 
   componentDidMount(){
     //parses the search query
+    // const parsedQuery = queryString.parse(this.props.location.search);
+    axios.get('/api/items')
+      .then(res => this.setState({items: res.data}));
+  }
+
+  componentDidUpdate() {
+    console.log('DID UPDATE...');
     const parsedQuery = queryString.parse(this.props.location.search);
-    axios.get('/api/items', {params: parsedQuery})
-      .then(res => this.setState({items: res.data, ...parsedQuery, filterLength: res.data.length }));
+    // filter the items
+    (JSON.stringify(parsedQuery) !== JSON.stringify(this.state.parsedUrlQuery) || this.state.parsedUrlQuery === {}) && this.setState({parsedUrlQuery: parsedQuery});
   }
 
   render(){
@@ -220,7 +225,7 @@ class IndexRoute extends React.Component{
             <nav className="navbar">
               <div className="navbar-menu">
                 <div className="navbar-start">
-                  <h5 className="subtitle is-size-5"> {this.state.category}/{this.state.type}   ({this.state.filterLength})</h5>
+                  <h5 className="subtitle is-size-5"> {this.state.parsedUrlQuery.category}/{this.state.parsedUrlQuery.type} </h5>
                 </div>
                 <div className="navbar-end">
                   <h5 className="subtitle is-size-5"> Placeholder navigations buttons</h5>
@@ -230,7 +235,7 @@ class IndexRoute extends React.Component{
 
             {/* Result display */}
             <div className="columns is-multiline">
-              {this.SearchFilterSorting().map((item, i) =>
+              {this.searchFilterSorting().map((item, i) =>
                 <div key={i} className="column is-one-third">
                   <Link to={`/items/${item._id}`}>
                     <div className="card">
