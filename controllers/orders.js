@@ -1,19 +1,32 @@
 //controllers for orders for current user
 const User = require('../models/user');
+const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 //route to create an order
 function orderCreateRoute(req, res, next){
+  console.log('req.body', req.body);
   User.findOne(req.currentUser._id)
     .then(user => {
-      //insert cart into req.body into new object which is pushed to orders array
-      user.orders.push(Object.assign({}, req.body , { orderList: user.cart }));
-      user.cart = []; //delete content of cart
-      return user.save();
+      //charge the customer with data from submitted form and token
+      const charge = stripe.charges.create({
+        amount: parseInt(parseFloat(req.body.amount * 100), 10),
+        currency: req.body.currency,
+        source: req.body.token,
+        description: 'TEST'
+      }, function(err, charge) {
+        if(err) { //if payment rejected
+          return res.status(500).json({ message: err });
+        } //i fpayment accepted insert cart into req.body into new object which is pushed to orders array
+        user.orders.push(Object.assign({}, req.body , { orderList: user.cart }));
+        user.cart = []; //delete content of cart
+        return user.save();
+      });
     })
-    .then(user => res.status(200).json(user))
+    .then(() => res.status(200).json({ message: 'Payment successful' }))
     .catch(next);
 }
 
+//to delete an order - would need to include refund
 function orderDeleteRoute(req, res, next){
   return User.findOne(req.currentUser._id)
     .then(user => {
