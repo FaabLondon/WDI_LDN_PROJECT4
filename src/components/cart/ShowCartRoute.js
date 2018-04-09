@@ -15,7 +15,7 @@ class ShowCartRoute extends React.Component{
 
   cleanCartArray = (data) => {
     //generates array of unique Ids, then creates an array of object/items that counts how many times an item is in the shopping cart and adds all info from res.data to each object
-    const uniqueIdArr = Array.from(new Set(data.map(item => item._id)));
+    const uniqueIdArr = Array.from(new Set(data.map(item => item._id))).sort();
     const newArrQtyId = uniqueIdArr.map(elt => {
       const qtyId = _.filter(data, item => item._id === elt ).length;
       const foundElt = data.find(item => item._id === elt);
