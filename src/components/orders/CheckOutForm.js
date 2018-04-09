@@ -5,6 +5,7 @@ import Auth from '../../lib/Auth';
 import {injectStripe} from 'react-stripe-elements';
 import AddressSection from './AddressSection';
 import CardSection from './CardSection';
+import '../../scss/components/checkOutForm.scss';
 
 class CheckOutForm extends React.Component {
 
@@ -54,7 +55,7 @@ class CheckOutForm extends React.Component {
             <AddressSection handleChange={this.handleChange} errors={this.state.errors}/>
             <CardSection errorPayment={this.state.errorPayment}/>
           </div>
-          <button className="button is-primary">Validate payment & order</button>
+          <button className="button CheckOut">Validate payment & order</button>
         </form>
       </section>
     );
