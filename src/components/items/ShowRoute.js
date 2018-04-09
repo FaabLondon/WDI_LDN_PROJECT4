@@ -17,11 +17,22 @@ class ShowRoute extends React.Component{
   // if link don;t work in navbar, make sure to get the cart from server and set it in componentDidMount
 
   componentDidMount= () => {
-    const itemId = this.props.match.params.id;
-    //get the item (product)
-    axios.get(`/api/items/${itemId}`)
-      .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }))
-      .then(() => console.log(this.state));
+    //added a get cart in case user refreshes the page which deletes the Cart instance...
+    axios({
+      method: 'GET',
+      url: '/api/cart',
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => {
+        Cart.setCart(res.data);
+      })
+      .then(() => {
+        //get the item (product)
+        const itemId = this.props.match.params.id;
+        axios.get(`/api/items/${itemId}`)
+          .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }))
+          .then(() => console.log(this.state));
+      });
   }
 
   handleAddCart = () => {
