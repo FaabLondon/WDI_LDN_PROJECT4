@@ -2,18 +2,10 @@ import React from 'react';
 import {CardElement} from 'react-stripe-elements';
 import '../../scss/components/cardSection.scss';
 
-const handleBlur = () => {
-  console.log('[blur]');
-};
 const handleChange = change => {
-  console.log('[change]', change);
+  //console.log('[change]', change);
 };
-const handleFocus = () => {
-  console.log('[focus]');
-};
-const handleReady = () => {
-  console.log('[ready]');
-};
+
 
 //test cards for stripe for UK
 // 4000 0082 6000 0000	tok_gb	United Kingdom (GB)	Visa
@@ -25,10 +17,7 @@ class CardSection extends React.Component {
       <label className="labelCardForm">
         Card details
         <CardElement
-          onBlur={handleBlur}
           onChange={handleChange}
-          onFocus={handleFocus}
-          onReady={handleReady}
           style={{base: {fontSize: '18px'}}} />
         {this.props.errorPayment && <small>{this.props.errorPayment}</small>}
       </label>

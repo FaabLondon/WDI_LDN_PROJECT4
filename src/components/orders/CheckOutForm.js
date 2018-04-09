@@ -23,37 +23,35 @@ class CheckOutForm extends React.Component {
   handleSubmit = (e) => {
     // prevent default from submission
     e.preventDefault();
-    // Within the context of `Elements`, this call to createToken knows which Element to
-    // tokenize, since there's only one in this group.
-    this.props.stripe.createToken({type: 'card', name: 'Fabienne P'})
+    let data = {};
+    // Within the context of `Elements`, this call to createToken knows which Element to tokenize, since there's only one in this group.
+    this.props.stripe.createToken({type: 'card'})
       .then(res => {
-        console.log('Received Stripe token:', res);
         if(res.error) this.setState({errorPayment: res.error.message});
         else {
-          console.log('token', res.token.id);
-          const data = {
+          data = {
             token: res.token.id,
             amount: 100.25,
             currency: 'gbp',
             payee: User.getCurrentUser().username,
             UserEmail: User.getCurrentUser().email
           };
-          axios({
-            method: 'POST',
-            url: '/api/orders',
-            headers: {Authorization: `Bearer ${Auth.getToken()}`},
-            data: { ...this.state, ...data }
-          })
-            .then(res => {
-              console.log('res.data', res.data);
-              console.log('order submitted - redirect');
-            })
-            //errors message do not work as errors gets object in format orders.0.billingAddress as orders are nested in user model
-            .catch(err => this.setState({errors: err.response.data.errors}, () => console.log('this.state when errors', this.state))
-            );
         }
-      });
-
+      })
+      .then(() => axios({
+        method: 'POST',
+        url: '/api/orders',
+        headers: {Authorization: `Bearer ${Auth.getToken()}`},
+        data: { ...this.state, ...data }
+      })
+        .then(res => console.log('res.data', res.data))
+        .catch(err => {
+          //errors message are in format orders.0.billingAddress as orders are nested in user model in DB so need to modify it...
+          const errors = {};
+          Object.keys(err.response.data.errors).map(elt =>
+            errors[elt.split('.')[2]] = err.response.data.errors[elt]);
+          this.setState({ errors }, () => console.log('this.state', this.state));
+        }));
   }
 
   render() {

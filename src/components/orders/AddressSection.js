@@ -16,7 +16,6 @@ class AddressSection extends React.Component {
               placeholder="Enter your street and number"
               name="deliveryBillingAddress"
               onChange={this.props.handleChange}
-              required
             />
             <span className="icon is-small is-left"><i className="fas fa-home"></i></span>
           </div>
@@ -31,7 +30,6 @@ class AddressSection extends React.Component {
               placeholder="Enter your postcode"
               name="deliveryBillingPostcode"
               onChange={this.props.handleChange}
-              required
             />
             <span className="icon is-small is-left"><i className="fas fa-home"></i></span>
           </div>
@@ -46,13 +44,12 @@ class AddressSection extends React.Component {
               placeholder="Enter your city"
               name="deliveryBillingCity"
               onChange={this.props.handleChange}
-              required
             />
             <span className="icon is-small is-left"><i className="fas fa-home"></i></span>
           </div>
           {this.props.errors.deliveryBillingCity && <small>{this.props.errors.deliveryBillingCity}</small>}
         </div>
-        
+
       </div>
     );
   }

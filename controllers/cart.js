@@ -15,7 +15,7 @@ function itemCreateRoute(req, res, next){
 
 //route to delete an item from the user cart
 function itemDeleteRoute(req, res, next){
-  return User.findOne(req.currentUser._id)
+  return User.findById(req.currentUser._id)
     .then(user => {
       user.cart.splice(user.cart.indexOf(req.params.id), 1);
       return user.save();
@@ -27,7 +27,7 @@ function itemDeleteRoute(req, res, next){
 }
 
 function showRoute(req, res, next){
-  User.findOne(req.currentUser._id)
+  User.findById(req.currentUser._id)
     .populate('cart')
     .then(user => res.json(user.cart))
     .catch(next);
