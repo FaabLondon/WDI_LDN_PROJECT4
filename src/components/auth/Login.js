@@ -39,8 +39,8 @@ class Login extends React.Component{
       .then(() => this.props.history.push('/items'))
       //need to be added to state to re-render the form with error messages
       .catch(err => {
-        //err received from global error handler
-        this.setState({errors: err.response.data.errors}, () => console.log(this.state));
+        //error
+        this.setState({errors: err.response.data}, () => console.log('error', this.state));
       });
   }
 
@@ -56,10 +56,10 @@ class Login extends React.Component{
               name="email"
               onChange={this.handleChange}
               pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
+              required
             />
             <span className="icon is-small is-left"><i className="far fa-envelope"></i></span>
           </div>
-          {this.state.errors.email && <small>{this.state.errors.email}</small>}
         </div>
         <div className="field">
           <label className="label" htmlFor="password">Password</label>
@@ -70,12 +70,12 @@ class Login extends React.Component{
               placeholder="Enter your password"
               name="password"
               onChange={this.handleChange}
+              required
             />
           </div>
-          {this.state.errors.password && <small>{this.state.errors.password}</small>}
         </div>
-
         <button className="button is-primary">Submit</button>
+        {this.state.errors.message && <small>{this.state.errors.message}</small>}
       </form>
     );
   }

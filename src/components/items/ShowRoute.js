@@ -65,7 +65,7 @@ class ShowRoute extends React.Component{
         <div className="columns is-multiline">
           <div className="column is-half">
             <figure className="image">
-              <div className="imgItem" style={{background: `url(${this.state.item.mainImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+              <div className="imgItemShow" style={{background: `url(${this.state.item.mainImage})`}}>
               </div>
             </figure>
           </div>
