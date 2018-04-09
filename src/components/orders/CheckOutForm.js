@@ -44,7 +44,7 @@ class CheckOutForm extends React.Component {
         headers: {Authorization: `Bearer ${Auth.getToken()}`},
         data: { ...this.state, ...data }
       })
-        .then(res => console.log('res.data', res.data))
+        .then(res => console.log('res.data', res.data)) //need to redirect
         .catch(err => {
           //errors message are in format orders.0.billingAddress as orders are nested in user model in DB so need to modify it...
           const errors = {};
