@@ -17,7 +17,8 @@ class CheckOutForm extends React.Component {
   }
 
   handleChange = ({target: {name, value}}) => {
-    this.setState({[name]: value}, () => console.log(this.state));
+    const errors = { ...this.state.errors, [name]: ''};
+    this.setState({[name]: value, errors}, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
@@ -42,7 +43,7 @@ class CheckOutForm extends React.Component {
         method: 'POST',
         url: '/api/orders',
         headers: {Authorization: `Bearer ${Auth.getToken()}`},
-        data: { ...this.state, ...data }
+        data: { ...this.state, ...data, errorPayment: '' }
       })
         .then(res => console.log('res.data', res.data)) //need to redirect
         .catch(err => {
@@ -60,8 +61,13 @@ class CheckOutForm extends React.Component {
         <h3 className="title is-size-3">Proceed to order</h3>
         <form onSubmit={this.handleSubmit}>
           <div className="columns">
-            <AddressSection handleChange={this.handleChange} errors={this.state.errors}/>
-            <CardSection errorPayment={this.state.errorPayment}/>
+            <div className="column is-half">
+              <AddressSection handleChange={this.handleChange} errors={this.state.errors}/>
+              <CardSection errorPayment={this.state.errorPayment}/>
+            </div>
+            <div className="column is-half">
+              PLaceholder for order summary
+            </div>
           </div>
           <button className="button CheckOut">Validate payment & order</button>
         </form>

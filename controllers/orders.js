@@ -4,8 +4,7 @@ const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 //route to create an order
 function orderCreateRoute(req, res, next){
-  //if payment accepted insert cart into req.body into new object which is pushed to orders array
-  // proceeds payment HOWEVER create timeout and makes app crash...due to callback?? --> I changed it into .then(err, charge)
+  // proceeds to payment HOWEVER create timeout and makes app crash...due to callback?? --> I changed it into .then(err, charge)
   const charge = stripe.charges.create({
     amount: parseInt(parseFloat(req.body.amount * 100), 10),
     currency: req.body.currency,
@@ -18,6 +17,7 @@ function orderCreateRoute(req, res, next){
       //else is payment ok
       res.status(200).json({ message: 'Payment successful' });
     });
+  //if payment accepted insert cart into req.body into new object which is pushed to orders array
   //if I include this part into the callback then I can't get my error messages
   return User.findById(req.currentUser._id)
     .then(user => {
