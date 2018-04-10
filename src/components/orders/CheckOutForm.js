@@ -14,7 +14,8 @@ class CheckOutForm extends React.Component {
 
   state = {
     errors: {},
-    errorPayment: ''
+    errorPayment: '',
+    orderTotal: 0
   }
 
   handleChange = ({target: {name, value}}) => {
@@ -44,7 +45,7 @@ class CheckOutForm extends React.Component {
         method: 'POST',
         url: '/api/orders',
         headers: {Authorization: `Bearer ${Auth.getToken()}`},
-        data: { ...this.state, ...data, errorPayment: '' }
+        data: { ...this.state, ...data}
       })
         .then(res => console.log('res.data', res.data)) //need to redirect
         .catch(err => {

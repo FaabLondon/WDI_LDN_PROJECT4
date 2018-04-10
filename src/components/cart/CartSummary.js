@@ -26,6 +26,7 @@ class CartSummary extends React.Component{
     });
     //calculates total nb of items in cart
     const nbItems = data.length;
+    this.props.updateNbItems(nbItems);
     //calculate price per day
     const pricePerDay = newArrQtyId.reduce((acc, elt) => acc += elt.rentalPrice, 0);
     //calculate SubTotal
