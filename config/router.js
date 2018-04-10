@@ -32,6 +32,15 @@ router.route('/orders/:id')
   .get(secureRoute, orders.orderShow)
   .delete(secureRoute, orders.orderDelete);
 
+//Add and Delete a review
+//NEW review
+router.route('/items/:id/reviews')
+  .post(secureRoute, items.reviewCreate);
+
+//DELETE review
+router.route('/items/:id/reviews/:reviewId')
+  .delete(secureRoute, items.reviewDelete);
+
 router.route('/register')
   .post(auth.register);
 

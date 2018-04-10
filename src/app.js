@@ -34,6 +34,7 @@ class App extends React.Component {
               <ProtectedRoute path="/OrderValidation" component={OrderValidation} />
               <ProtectedRoute path="/checkout" component={CreateOrderRoute} />
               <ProtectedRoute path="/cart" component={ShowCartRoute} />
+              {/* <ProtectedRoute path="/items/:id/reviews" component={ShowRoute} /> */}
               <Route path="/orders/:id" component={OrderShowRoute} />
               <Route path="/orders" component={OrdersIndexRoute} />
               <Route path="/items/:id" component={ShowRoute} />

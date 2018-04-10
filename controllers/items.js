@@ -14,7 +14,34 @@ function showRoute(req, res, next){
     .catch(next);
 }
 
+//newReview for restaurant
+function reviewCreateRoute(req, res, next){
+  console.log('in review create route', req.body);
+  req.body.user = req.currentUser; //add user to new review
+  Item.findById(req.params.id)
+    .then(item => {
+      item.reviews.push(req.body);
+      return item.save();
+    })
+    .then(item => res.json(item))
+    .catch(next);
+}
+
+function reviewDeleteRoute(req, res, next){
+  Item.findById(req.params.id)
+    .then(item => {
+      //returns review with certain ID
+      const review = item.reviews.id(req.params.reviewId);
+      review.remove();
+      return item.save();
+    })
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
-  show: showRoute
+  show: showRoute,
+  reviewCreate: reviewCreateRoute,
+  reviewDelete: reviewDeleteRoute
 };

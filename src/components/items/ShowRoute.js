@@ -9,7 +9,9 @@ import Cart from '../../lib/Cart';
 class ShowRoute extends React.Component{
 
   state = {
-    item: {},
+    item: {
+      reviews: []
+    },
     message: '',
     nbItemCart: 0
   }
@@ -59,6 +61,28 @@ class ShowRoute extends React.Component{
       });
   }
 
+  //for new comment
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value }, () => console.log(this.state));
+  }
+
+  //to add a new comment
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    axios({
+      method: 'POST',
+      url: `/api/items/${this.state.item._id}/reviews`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
+      data: this.state
+    })
+      .then(res => this.setState({ item: res.data }))
+      .then(() => console.log('review added'))
+      .catch(err => {
+        this.setState({errors: err.response.data.errors}, () => console.log(this.state));
+      });
+  }
+
   render() {
     return (
       <section>
@@ -100,22 +124,18 @@ class ShowRoute extends React.Component{
                 </p>
               </figure>
               <div className="media-content">
-                <form>
-                  <div className="field">
-                    <div className="control">
-                      <label className="label">Please add a rating</label>
-                    </div>
-                  </div>
+                <form onSubmit={this.handleSubmit}>
+                  <h5 className="subtitle is-5"><strong>Please add a review</strong></h5>
                   <div className="field">
                     <div className="control">
                       <label className="label">Title</label>
-                      <input name="maintitle" className="input" type="text" placeholder="Add a title for your comment..." required minLength="2" />
+                      <input name="maintitle" className="input" type="text" placeholder="Add a title for your comment..." required minLength="2" onChange={this.handleChange} />
                     </div>
                   </div>
                   <div className="field">
                     <div className="control">
                       <label className="label">Describe your experience</label>
-                      <textarea name="content" className="textarea" placeholder="Add a comment..." required minLength="2"></textarea>
+                      <textarea name="content" className="textarea" placeholder="Add a comment..." required minLength="2" onChange={this.handleChange}></textarea>
                     </div>
                   </div>
                   <button className="button is-info">Submit</button>
@@ -124,42 +144,42 @@ class ShowRoute extends React.Component{
             </article>
 
             {/* Show previous reviews */}
-            {/* if review moderated */}
-            <article className="media">
-              <figure className="media-left">
-                <p className="image is-64x64">
-                  <img src="https://www.fillmurray.com/140/100" />
-                </p>
-                <strong>Username</strong>
-              </figure>
+            <div>
+              {this.state.item.reviews.map((review, i) =>
+                <article key={i} className="media">
+                  <figure className="media-left">
+                    <p className="image is-64x64">
+                      <img src="https://www.fillmurray.com/140/100" />
+                    </p>
+                    <strong>{review.user.username}</strong>
+                  </figure>
 
-              <div className="media-content">
-                <div className="content">
-                  <div className="reviewRating" data-value="<%= review.rating %>">
-                  review rating
+                  <div className="media-content">
+                    <div className="content">
+                      <small>{review.formattedDate}</small>
+                      <strong>{review.maintitle}</strong>
+                      {review.content}
+                    </div>
+                    <nav className="level is-mobile">
+                      <div className="level-left">
+                        <a className="level-item">
+                          <span className="icon is-small"><i className="fas fa-reply"></i></span>
+                        </a>
+                        <a className="level-item">
+                          <span className="icon is-small"><i className="fas fa-heart"></i></span>
+                        </a>
+                      </div>
+                    </nav>
                   </div>
-                  <small>review formatted date</small>
-                  <strong>review maintitle</strong>
-                  review content
-                </div>
-                <nav className="level is-mobile">
-                  <div className="level-left">
-                    <a className="level-item">
-                      <span className="icon is-small"><i className="fas fa-reply"></i></span>
-                    </a>
-                    <a className="level-item">
-                      <span className="icon is-small"><i className="fas fa-heart"></i></span>
-                    </a>
+                  <div className="media-right">
+                    {/* <% if (locals.isAuthenticated && review.isOwnedBy(locals.currentUser)) {%> */}
+                    <form>
+                      <button className="delete"></button>
+                    </form>
                   </div>
-                </nav>
-              </div>
-              <div className="media-right">
-                {/* <% if (locals.isAuthenticated && review.isOwnedBy(locals.currentUser)) {%> */}
-                <form>
-                  <button className="delete"></button>
-                </form>
-              </div>
-            </article>
+                </article>
+              )}
+            </div>
           </div>
         </div>
       </section>
