@@ -74,7 +74,7 @@ class Navbar extends React.Component {
                 <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
 
                 <div className="navbar-dropdown is-boxed is-right">
-                  <Link className="navbar-item" to="">My account</Link>
+                  <Link className="navbar-item" to="/editProfile">My account</Link>
                   <Link className="navbar-item" to="/orders">Order history</Link>
                   <hr className="navbar-divider" />
                   <Link className="navbar-item" to="" onClick={this.handleLogout}>Sign out</Link>

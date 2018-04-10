@@ -13,6 +13,7 @@ import CreateOrderRoute from './components/orders/CreateOrderRoute';
 import ShowRoute from './components/items/ShowRoute';
 import ShowCartRoute from './components/cart/ShowCartRoute';
 import IndexRoute from './components/items/IndexRoute';
+import UpdateUserRoute from './components/auth/UpdateUserRoute';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import HomePage from './components/HomePage';
@@ -37,6 +38,7 @@ class App extends React.Component {
               <Route path="/orders" component={OrdersIndexRoute} />
               <Route path="/items/:id" component={ShowRoute} />
               <Route path="/items" component={IndexRoute} />
+              <Route path="/editProfile" component={UpdateUserRoute} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/logout" />

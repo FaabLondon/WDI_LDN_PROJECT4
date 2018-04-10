@@ -5,7 +5,7 @@ import Flash from '../../lib/Flash';
 import User from '../../lib/User';
 import ReactFilestack from 'filestack-react';
 
-import '../../scss/components/register.scss';
+import '../../scss/components/UpdateUserRoute.scss';
 
 const options = {
   accept: 'image/*',
@@ -16,35 +16,50 @@ const options = {
   transformations: { crop: true }
 };
 
-class Register extends React.Component{
+class UpdateUserRoute extends React.Component{
 
-  state = {
+  state = { //it always has to be defined as used in value in form
     errors: {},
-    picture: ''
+    name: '',
+    lastName: '',
+    username: '',
+    email: '',
+    picture: '',
+    password: ''
   }
+
+  componentDidMount(){
+    //axios.get(`/api/...`)
+    const user = User.getCurrentUser();
+    this.setState({ ...user }, () => console.log('user state', this.state));
+  }
+
 
   handleFileUpload = (res) => {
     //gets uploaded picture
-    this.setState({ picture: res.filesUploaded[0].url }, () => console.log(this.state));
+    this.setState({ picture: res.filesUploaded[0].url });
   }
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value });
   }
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    axios.post('/api/register', this.state)
+    axios({
+      method: 'PUT',
+      url: '/api/editProfile',
+      headers: {Authorization: `Bearer ${Auth.getToken()}`},
+      data: this.state
+    })
       .then(res => {
-        User.setCurrentUser(res.data.user);
-        Auth.setToken(res.data.token);
+        User.setCurrentUser(res.data);
       })
-      .then(() => Flash.setMessage('success', `Welcome ${this.state.username}! You were succesfully registered!`))
-      .then(() =>   this.props.history.push('/items'))
+      .then(() => Flash.setMessage('success', 'Your profile was succesfully updated!'))
+      .then(() => this.props.history.push('/items'))
       //need to be added to state to re-render the form with error messages
-      .catch(err => {
-        //err received from global error handler
+      .catch(err => {//err received from global error handler
         this.setState({errors: err.response.data.errors}, () => console.log(this.state));
       });
   }
@@ -60,10 +75,10 @@ class Register extends React.Component{
               placeholder="Enter your name"
               name="name"
               onChange={this.handleChange}
+              value={this.state.name}
             />
             <span className="icon is-small is-left"><i className="far fa-user"></i></span>
           </div>
-          {this.state.errors.name && <small>{this.state.errors.name}</small>}
         </div>
         <div className="field">
           <label className="label" htmlFor="username">Lastname</label>
@@ -73,10 +88,10 @@ class Register extends React.Component{
               placeholder="Enter your Lastname"
               name="lastName"
               onChange={this.handleChange}
+              value={this.state.lastName}
             />
             <span className="icon is-small is-left"><i className="far fa-user"></i></span>
           </div>
-          {this.state.errors.lastName && <small>{this.state.errors.lastName}</small>}
         </div>
         <div className="field">
           <label className="label" htmlFor="username">Username</label>
@@ -86,18 +101,18 @@ class Register extends React.Component{
               placeholder="Enter your username"
               name="username"
               onChange={this.handleChange}
+              value={this.state.username}
             />
             <span className="icon is-small is-left"><i className="far fa-user"></i></span>
           </div>
-          {this.state.errors.username && <small>{this.state.errors.username}</small>}
         </div>
         <div className="field">
           <label className="label" htmlFor="username">Profile Picture</label>
-          {this.state.picture !== '' && <div className="profilePicture" style={{background: `url(${this.state.picture})`}}></div>}
+          <div className="profilePicture" style={{background: `url(${this.state.picture})`}}></div>
           <ReactFilestack
             apikey={'AFOYrjEmESlCGqN9sQtLOz'}
-            buttonText="Click me to select a picture"
-            buttonClass="fileUploadButton"
+            buttonText="Click me"
+            buttonClass="classname"
             options={options}
             onSuccess={this.handleFileUpload}
           />
@@ -111,10 +126,10 @@ class Register extends React.Component{
               name="email"
               onChange={this.handleChange}
               pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
+              value={this.state.email}
             />
             <span className="icon is-small is-left"><i className="far fa-envelope"></i></span>
           </div>
-          {this.state.errors.email && <small>{this.state.errors.email}</small>}
         </div>
         <div className="field">
           <label className="label" htmlFor="password">Password</label>
@@ -122,21 +137,8 @@ class Register extends React.Component{
             <input
               type="password"
               className="input"
-              placeholder="Enter your password"
+              placeholder="Enter your password to validate changes"
               name="password"
-              onChange={this.handleChange}
-            />
-          </div>
-          {this.state.errors.password && <small>{this.state.errors.password}</small>}
-        </div>
-        <div className="field">
-          <label className="label" htmlFor="passwordConfirmation">Password Confirmation</label>
-          <div className="control">
-            <input
-              type="password"
-              className="input"
-              placeholder="Enter your password Confirmation"
-              name="passwordConfirmation"
               onChange={this.handleChange}
             />
           </div>
@@ -148,4 +150,4 @@ class Register extends React.Component{
   }
 }
 
-export default Register;
+export default UpdateUserRoute;
