@@ -3,12 +3,10 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 import Cart from '../../lib/Cart';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
-import CartSummary from './CartSummary';
 
 import '../../scss/components/showCartRoute.scss';
 
-class ShowCartRoute extends React.Component{
+class CartSummary extends React.Component{
 
   state = {
     items: [],
@@ -65,23 +63,55 @@ class ShowCartRoute extends React.Component{
 
   render() {
     return (
-      <section>
-        <div className="columns is-multiline">
-          <div className="column is-two-third">
-            <h3 className="title is-size-3">Your shopping bag <span><i className="fas fa-shopping-bag fa-1x"></i></span></h3>
-
-            <CartSummary />
-
-            <Link to="/checkout" className="button">Proceed to checkout</Link>
-            <Link to="/items" className="button">Keep shopping</Link>
-          </div>
-          <div className="column is-one-third image">
-            <div className="imgRight"></div>
-          </div>
-        </div>
-      </section>
+      <table className="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Rental price</th>
+            <th>SubTotal</th>
+            <th>Delivery Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.items.map((item, i) =>
+            <tr key={i} className="cartContent">
+              <th>
+                <div className="imgItemCart" style={{background: `url(${item.mainImage})`, backgroundSize: 'cover'}}>
+                </div>
+              </th>
+              <td>
+                <h6 className="title is-size-6">{item.brand}</h6>
+                <h6 className="subtitle is-size-7">{item.shortDescription}</h6>
+                <h6 className="subtitle is-size-7">Size: {item.sizeAvailable}</h6>
+              </td>
+              <td>{item.qty}
+                <button onClick={() => this.handleDeleteCart(item._id)} className="button">-</button>
+                <button onClick={() => this.handleAddCart(item._id)} className="button">+</button>
+              </td>
+              <td>£{item.rentalPrice} per day</td>
+              <td>£{item.rentalPrice} per day</td>
+              <td>
+                <h6 className="title is-size-6"><span><i className="fas fa-truck"></i></span>Delivery to UK</h6>
+                <h6 className="title is-size-6"><span><i className="fas fa-arrow-alt-circle-right"></i></span>Click & Collect</h6>
+              </td>
+            </tr>
+          )}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>{this.state.nbItems} items</th>
+            <th>£{this.state.pricePerDay} per day</th>
+            <th>£{this.state.SubTotal} per day</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
     );
   }
 }
 
-export default ShowCartRoute;
+export default CartSummary;

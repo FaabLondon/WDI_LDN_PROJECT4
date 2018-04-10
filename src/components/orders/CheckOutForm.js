@@ -7,6 +7,7 @@ import User from '../../lib/User';
 import {injectStripe} from 'react-stripe-elements';
 import AddressSection from './AddressSection';
 import CardSection from './CardSection';
+import CartSummary from '../cart/CartSummary';
 import '../../scss/components/checkOutForm.scss';
 
 class CheckOutForm extends React.Component {
@@ -50,7 +51,8 @@ class CheckOutForm extends React.Component {
           //errors message are in format orders.0.billingAddress as orders are nested in user model in DB so need to modify it...
           const errors = {};
           Object.keys(err.response.data.errors).map(elt =>
-            errors[elt.split('.')[2]] = err.response.data.errors[elt]);
+            errors[elt.split('.')[2]] = err.response.data.errors[elt]
+          );
           this.setState({ errors }, () => console.log('this.state', this.state));
         }));
   }
@@ -66,7 +68,8 @@ class CheckOutForm extends React.Component {
               <CardSection errorPayment={this.state.errorPayment}/>
             </div>
             <div className="column is-half">
-              PLaceholder for order summary
+              <h3 className="title is-size-3">Order summary</h3>
+              <CartSummary />
             </div>
           </div>
           <button className="button CheckOut">Validate payment & order</button>
