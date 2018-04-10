@@ -37,7 +37,7 @@ class CheckOutForm extends React.Component {
         else {
           data = {
             token: res.token.id,
-            amount: 100.25,
+            amount: this.state.orderTotal,
             currency: 'gbp',
             payee: User.getCurrentUser().username,
             UserEmail: User.getCurrentUser().email

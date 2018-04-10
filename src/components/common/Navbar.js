@@ -74,7 +74,7 @@ class Navbar extends React.Component {
                 <div className="navbar-dropdown is-boxed is-right">
                   <Link className="navbar-item" to="">My account</Link>
                   <Link className="navbar-item" to="">Upcoming order</Link>
-                  <Link className="navbar-item" to="">Order history</Link>
+                  <Link className="navbar-item" to="/orders">Order history</Link>
                   <hr className="navbar-divider" />
                   <Link className="navbar-item" to="" onClick={this.handleLogout}>Sign out</Link>
                 </div>

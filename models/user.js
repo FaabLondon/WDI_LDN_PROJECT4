@@ -6,6 +6,8 @@ const orderSchema = require('./order');
 
 //I chose to reference the items in Cart and favourites in case item gets deleted or updated so that it is reflected
 const userSchema = new mongoose.Schema({
+  name: {type: String, required: 'Name is required'},
+  lastName: {type: String, required: 'Name is required'},
   username: {type: String, required: 'Username is required'},
   email: {type: String, required: 'Email is required', unique: true},
   password: {type: String, required: 'Password is required'},

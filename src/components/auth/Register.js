@@ -35,6 +35,32 @@ class Register extends React.Component{
     return(
       <form onSubmit={this.handleSubmit}>
         <div className="field">
+          <label className="label" htmlFor="username">Name</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              placeholder="Enter your name"
+              name="name"
+              onChange={this.handleChange}
+            />
+            <span className="icon is-small is-left"><i className="far fa-user"></i></span>
+          </div>
+          {this.state.errors.name && <small>{this.state.errors.name}</small>}
+        </div>
+        <div className="field">
+          <label className="label" htmlFor="username">Lastname</label>
+          <div className="control has-icons-left">
+            <input
+              className="input"
+              placeholder="Enter your Lastname"
+              name="lastName"
+              onChange={this.handleChange}
+            />
+            <span className="icon is-small is-left"><i className="far fa-user"></i></span>
+          </div>
+          {this.state.errors.lastName && <small>{this.state.errors.lastName}</small>}
+        </div>
+        <div className="field">
           <label className="label" htmlFor="username">Username</label>
           <div className="control has-icons-left">
             <input

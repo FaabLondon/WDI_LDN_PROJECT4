@@ -94,8 +94,8 @@ class CartSummary extends React.Component{
                 <h6 className="subtitle is-size-7">Size: {item.sizeAvailable}</h6>
               </td>
               <td>{item.qty}
-                <button onClick={() => this.handleDeleteCart(item._id)} className="button">-</button>
-                <button onClick={() => this.handleAddCart(item._id)} className="button">+</button>
+                <button type="button" onClick={() => this.handleDeleteCart(item._id)} className="button">-</button>
+                <button type="button" onClick={() => this.handleAddCart(item._id)} className="button">+</button>
               </td>
               <td>£{item.rentalPrice} per day</td>
               <td>£{item.rentalPrice} per day</td>

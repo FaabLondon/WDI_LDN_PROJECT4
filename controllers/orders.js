@@ -10,7 +10,7 @@ function orderCreateRoute(req, res, next){
     currency: req.body.currency,
     source: req.body.token,
     description: 'Order confirmation - Test',
-    receipt_email: req.body.UserEmail
+    receipt_email: req.body.UserEmail //only send confirmation mail when live not in test...
   }) //if payment successful goes to then otherwise catch(next)
     .then(() => User.findById(req.currentUser._id))
     .then(user => {
