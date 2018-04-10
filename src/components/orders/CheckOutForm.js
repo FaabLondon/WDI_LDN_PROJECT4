@@ -68,7 +68,7 @@ class CheckOutForm extends React.Component {
               <CardSection errorPayment={this.state.errorPayment}/>
             </div>
             <div className="column is-half">
-              <h3 className="title is-size-3">Order summary</h3>
+              <h5 className="subtitle is-size-5 is-italic"><strong>Please check your order</strong></h5>
               <CartSummary />
             </div>
           </div>

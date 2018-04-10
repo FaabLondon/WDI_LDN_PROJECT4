@@ -4,32 +4,20 @@ const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 //route to create an order
 function orderCreateRoute(req, res, next){
-  let paymentSuccess = false;
-  // proceeds to payment HOWEVER create timeout and makes app crash...due to callback?? --> I changed it into .then(err, charge)
-  const charge = stripe.charges.create({
+  stripe.charges.create({
     amount: parseInt(parseFloat(req.body.amount * 100), 10),
     currency: req.body.currency,
     source: req.body.token,
     description: 'TEST'
-  })
-    .then((err, charge) => {
-      //if payment rejected
-      if(err) return res.status(500).json({ message: err });
-      //else is payment ok
-      paymentSuccess = true;
-      res.status(200).json({ message: 'Payment successful' });
-    });
-  //Problem is that will still include order if oayment rejected -
-  //if payment accepted insert cart into req.body into new object which is pushed to orders array
-  //if I include this part into the callback then I can't get my error messages
-  return User.findById(req.currentUser._id)
+  }) //if payment successful goes to then otherwise catch(next)
+    .then(() => User.findById(req.currentUser._id))
     .then(user => {
       user.orders.push(Object.assign({}, req.body , { orderList: user.cart }));
       user.cart = []; //delete content of cart
       return user.save();
     })
-    .then(user => res.status(200).json(user))
-    .catch(next);
+    .then(() => res.status(200).json({message: 'Payment successful'}))
+    .catch(next); //cathes errors of all promises, will got to global error catcher
 }
 
 //to delete an order - would need to include

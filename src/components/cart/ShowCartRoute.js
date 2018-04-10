@@ -72,7 +72,7 @@ class ShowCartRoute extends React.Component{
 
             <CartSummary />
 
-            <Link to="/checkout" className="button">Proceed to checkout</Link>
+            {this.state.items.length > 0 && <Link to="/checkout" className="button">Proceed to checkout</Link>}
             <Link to="/items" className="button">Keep shopping</Link>
           </div>
           <div className="column is-one-third image">
