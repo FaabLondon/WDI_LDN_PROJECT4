@@ -16,9 +16,9 @@ function orderCreateRoute(req, res, next){
       user.cart = []; //delete content of cart
       return user.save();
     })
-    .then(() => {
+    .then(user => {
       // console.log('payment successful');
-      res.status(200).json({message: 'Payment successful'});
+      res.status(200).json(user);
     })
     .catch(next); //cathes errors of all promises, will got to global error catcher
 }
