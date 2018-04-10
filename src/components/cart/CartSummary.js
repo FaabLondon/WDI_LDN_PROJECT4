@@ -98,7 +98,7 @@ class CartSummary extends React.Component{
                 <button type="button" onClick={() => this.handleAddCart(item._id)} className="button">+</button>
               </td>
               <td>£{item.rentalPrice} per day</td>
-              <td>£{item.rentalPrice} per day</td>
+              <td>£{item.rentalPrice * item.qty} per day</td>
               <td>
                 <h6 className="title is-size-6"><span><i className="fas fa-truck"></i></span>Delivery to UK</h6>
                 <h6 className="title is-size-6"><span><i className="fas fa-arrow-alt-circle-right"></i></span>Click & Collect</h6>

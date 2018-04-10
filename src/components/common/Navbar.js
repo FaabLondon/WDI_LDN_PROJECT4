@@ -4,6 +4,8 @@ import Auth from '../../lib/Auth';
 import User from '../../lib/User';
 import Cart from '../../lib/Cart';
 
+let lastOrderId = '';
+
 class Navbar extends React.Component {
 
   //no need for constructor etc thanks to plugin in babelrc
@@ -73,7 +75,6 @@ class Navbar extends React.Component {
 
                 <div className="navbar-dropdown is-boxed is-right">
                   <Link className="navbar-item" to="">My account</Link>
-                  <Link className="navbar-item" to="">Upcoming order</Link>
                   <Link className="navbar-item" to="/orders">Order history</Link>
                   <hr className="navbar-divider" />
                   <Link className="navbar-item" to="" onClick={this.handleLogout}>Sign out</Link>
