@@ -4,11 +4,13 @@ const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 //route to create an order
 function orderCreateRoute(req, res, next){
+  console.log(req.body);
   stripe.charges.create({
     amount: parseInt(parseFloat(req.body.amount * 100), 10),
     currency: req.body.currency,
     source: req.body.token,
-    description: 'TEST'
+    description: 'Order confirmation - Test',
+    receipt_email: req.body.UserEmail
   }) //if payment successful goes to then otherwise catch(next)
     .then(() => User.findById(req.currentUser._id))
     .then(user => {

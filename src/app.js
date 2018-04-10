@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'bulma';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 import OrderValidation from './components/orders/OrderValidation';
 import CreateOrderRoute from './components/orders/CreateOrderRoute';
@@ -26,9 +27,9 @@ class App extends React.Component {
           <FlashMessages />
           <section className="section">
             <Switch>
-              <Route path="/OrderValidation" component={OrderValidation} />
-              <Route path="/checkout" component={CreateOrderRoute} />
-              <Route path="/cart" component={ShowCartRoute} />
+              <ProtectedRoute path="/OrderValidation" component={OrderValidation} />
+              <ProtectedRoute path="/checkout" component={CreateOrderRoute} />
+              <ProtectedRoute path="/cart" component={ShowCartRoute} />
               <Route path="/items/:id" component={ShowRoute} />
               <Route path="/items" component={IndexRoute} />
               <Route path="/register" component={Register} />
