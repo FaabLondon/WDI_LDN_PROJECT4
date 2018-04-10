@@ -3,6 +3,9 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 import User from '../../lib/User';
 
+//had to use withRouter HOC in order to give history, match to this component
+import { withRouter } from 'react-router-dom';
+
 //Use the injectStripe HOC. A higher-order component (HOC) is a function that takes a component and returns a new component.
 import {injectStripe} from 'react-stripe-elements';
 import AddressSection from './AddressSection';
@@ -20,7 +23,7 @@ class CheckOutForm extends React.Component {
 
   handleChange = ({target: {name, value}}) => {
     const errors = { ...this.state.errors, [name]: ''};
-    this.setState({[name]: value, errors}, () => console.log(this.state));
+    this.setState({[name]: value, errors});
   }
 
   handleSubmit = (e) => {
@@ -47,9 +50,9 @@ class CheckOutForm extends React.Component {
         headers: {Authorization: `Bearer ${Auth.getToken()}`},
         data: { ...this.state, ...data}
       })
-        .then(res => console.log('res.data', res.data)) //need to redirect
+        .then(() => this.props.history.push('/OrderValidation')) //need to redirect
         .catch(err => {
-          //errors message are in format orders.0.billingAddress as orders are nested in user model in DB so need to modify it...
+          //errors message are in format orders.X.billingAddress as orders are nested in user model in DB so need to modify it...
           const errors = {};
           Object.keys(err.response.data.errors).map(elt =>
             errors[elt.split('.')[2]] = err.response.data.errors[elt]
@@ -57,6 +60,12 @@ class CheckOutForm extends React.Component {
           this.setState({ errors }, () => console.log('this.state', this.state));
         }));
   }
+
+  //Update total order amount
+  updateOrderTotal = (orderTotal) => {
+    this.setState({orderTotal: orderTotal });
+  }
+
 
   render() {
     return (
@@ -70,14 +79,14 @@ class CheckOutForm extends React.Component {
             </div>
             <div className="column is-half">
               <h5 className="subtitle is-size-5 is-italic"><strong>Please check your order</strong></h5>
-              <CartSummary />
+              <CartSummary updateOrderTotal={this.updateOrderTotal}/>
             </div>
           </div>
-          <button className="button CheckOut">Validate payment & order</button>
+          {this.state.orderTotal > 0 && <button className="button CheckOut">Validate {this.state.orderTotal}£ payment</button>}
         </form>
       </section>
     );
   }
 }
 
-export default injectStripe(CheckOutForm);
+export default withRouter(injectStripe(CheckOutForm));

@@ -16,22 +16,28 @@ class CartSummary extends React.Component{
   }
 
   prepareArray = (data) => {
-    //generates array of unique Ids
+    //generates array of unique Ids, then creates an array of object/items that counts how many times an item is in the shopping cart
     const uniqueIdArr = Array.from(new Set(data.map(item => item._id))).sort();
-    //Then creates an array of object/items that counts how many times an item is in the shopping cart and adds it to res.data in new object --> move to server side?
     const newArrQtyId = uniqueIdArr.map(elt => {
       const qtyId = _.filter(data, item => item._id === elt ).length;
       const foundElt = data.find(item => item._id === elt);
       return Object.assign({}, {qty: qtyId }, foundElt );
     });
-    //calculates total nb of items in cart
+
+    //calculates total nb of items in cart and send it back to parent component
     const nbItems = data.length;
-    this.props.updateNbItems(nbItems);
+    if (this.props.updateNbItems) this.props.updateNbItems(nbItems);
+
     //calculate price per day
     const pricePerDay = newArrQtyId.reduce((acc, elt) => acc += elt.rentalPrice, 0);
-    //calculate SubTotal
+
+    //calculate SubTotal and send it back to parent component
     const SubTotal = newArrQtyId.reduce((acc, elt) => acc = acc + (elt.rentalPrice * elt.qty), 0);
-    Cart.setCart(data); //should not have to do that as if no <a>, no page reload
+    if (this.props.updateOrderTotal) this.props.updateOrderTotal(SubTotal);
+
+    //set Cart - should not have to do that as if no <a>, no page reload
+    Cart.setCart(data);
+    //Update state to re-render
     this.setState({items: newArrQtyId, nbItems, pricePerDay, SubTotal}, () => console.log(this.state));
   }
 

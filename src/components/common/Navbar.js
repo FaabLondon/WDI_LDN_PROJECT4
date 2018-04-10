@@ -65,7 +65,7 @@ class Navbar extends React.Component {
           </div>
           <div className="navbar-end">
             {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>}
-            {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span>{Cart.getCart() && Cart.getnbItemsCart()} </Link>}
+            {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
               <div className="navbar-item has-dropdown is-hoverable">

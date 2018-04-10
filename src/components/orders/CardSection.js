@@ -17,7 +17,7 @@ class CardSection extends React.Component {
       <label className="labelCardForm">
         Card details
         <CardElement
-          onChange={handleChange}
+          // onChange={handleChange}
           style={{base: {fontSize: '18px'}}} />
         {this.props.errorPayment && <small>{this.props.errorPayment}</small>}
       </label>
