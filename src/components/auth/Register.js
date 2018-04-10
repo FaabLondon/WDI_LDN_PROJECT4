@@ -3,11 +3,26 @@ import Auth from '../../lib/Auth';
 import axios from 'axios';
 import Flash from '../../lib/Flash';
 import User from '../../lib/User';
+import ReactFilestack from 'filestack-react';
+
+const options = {
+  accept: 'image/*',
+  maxFiles: 1,
+  minFiles: 1,
+  maxSize: 1024*1024,
+  imageDim: [500, 300],
+  transformations: { crop: true }
+};
 
 class Register extends React.Component{
 
   state = {
     errors: {}
+  }
+
+  handleFileUpload = (res) => {
+    //gets uploaded picture
+    this.setState({ picture: res.filesUploaded[0].url }, () => console.log(this.state));
   }
 
   handleChange = (e) => {
@@ -72,6 +87,16 @@ class Register extends React.Component{
             <span className="icon is-small is-left"><i className="far fa-user"></i></span>
           </div>
           {this.state.errors.username && <small>{this.state.errors.username}</small>}
+        </div>
+        <div className="field">
+          <label className="label" htmlFor="username">Profile Picture</label>
+          <ReactFilestack
+            apikey={'AFOYrjEmESlCGqN9sQtLOz'}
+            buttonText="Click me"
+            buttonClass="classname"
+            options={options}
+            onSuccess={this.handleFileUpload}
+          />
         </div>
         <div className="field">
           <label className="label" htmlFor="email">Email</label>
