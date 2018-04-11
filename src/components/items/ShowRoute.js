@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
-import { Link } from 'react-router-dom';
-import Flash from '../../lib/Flash';
+// import User from '../../lib/User';
 import Cart from '../../lib/Cart';
 
 class ShowRoute extends React.Component{
@@ -19,7 +18,7 @@ class ShowRoute extends React.Component{
   // if link don;t work in navbar, make sure to get the cart from server and set it in componentDidMount
 
   componentDidMount= () => {
-    //added a get cart in case user refreshes the page which deletes the Cart instance...
+    //added a get cart in case user refreshes the page which deletes the Cart
     axios({
       method: 'GET',
       url: '/api/cart',
@@ -33,7 +32,7 @@ class ShowRoute extends React.Component{
         const itemId = this.props.match.params.id;
         axios.get(`/api/items/${itemId}`)
           .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }))
-          .then(() => console.log(this.state));
+          .then(() => console.log('item data', this.state));
       });
   }
 
@@ -64,11 +63,11 @@ class ShowRoute extends React.Component{
   //for new comment
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value });
   }
 
   //to add a new comment
-  handleSubmit = (e) =>{
+  handleAddReview = (e) => {
     e.preventDefault();
     axios({
       method: 'POST',
@@ -76,9 +75,21 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
-      .then(res => this.setState({ item: res.data }, console.log('review added', res.data)))
+      .then(res => this.setState({ item: res.data }, console.log('review added res.data', res.data)))
       .catch(err => {
-        this.setState({errors: err.response.data.errors}, () => console.log(this.state));
+        this.setState({errors: err.response.data.errors});
+      });
+  }
+
+  handleDeleteReview = (reviewId) => {
+    axios({
+      method: 'DELETE',
+      url: `/api/items/${this.state.item._id}/reviews/${reviewId}`,
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => this.setState({ item: res.data }))
+      .catch(err => {
+        this.setState({errors: err.response.data.errors});
       });
   }
 
@@ -123,7 +134,7 @@ class ShowRoute extends React.Component{
                 </p>
               </figure>
               <div className="media-content">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleAddReview}>
                   <h5 className="subtitle is-5"><strong>Please add a review</strong></h5>
                   <div className="field">
                     <div className="control">
@@ -171,10 +182,12 @@ class ShowRoute extends React.Component{
                     </nav>
                   </div>
                   <div className="media-right">
-                    {/* <% if (locals.isAuthenticated && review.isOwnedBy(locals.currentUser)) {%> */}
-                    <form>
-                      <button className="delete"></button>
-                    </form>
+                    {review.user._id}
+                    {JSON.stringify(Auth.getPayload().sub)}
+                    {(Auth.isAuthenticated && review.user._id === JSON.stringify(Auth.getPayload().sub)) &&
+                    <button type="button" onClick={() => this.handleDeleteReview(review._id)} className="delete">
+                    </button>
+                    }
                   </div>
                 </article>
               )}

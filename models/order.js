@@ -16,12 +16,4 @@ const orderSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// //add virtual to display time stamp on order
-// orderSchema
-//   .virtual('formattedDate') //Name of the virtual
-//   .get(function getFormattedDate() { //it gets data from the DB
-//     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-//     return this.createdAt.getDay() + monthNames[this.createdAt.getMonth()] + '-' + this.createdAt.getFullYear();
-//   });
-
 module.exports = orderSchema;
