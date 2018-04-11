@@ -76,8 +76,7 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
-      .then(res => this.setState({ item: res.data }))
-      .then(() => console.log('review added'))
+      .then(res => this.setState({ item: res.data }, console.log('review added', res.data)))
       .catch(err => {
         this.setState({errors: err.response.data.errors}, () => console.log(this.state));
       });

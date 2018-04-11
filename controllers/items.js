@@ -23,6 +23,7 @@ function reviewCreateRoute(req, res, next){
       item.reviews.push(req.body);
       return item.save();
     })
+    .then(item => Item.populate(item, {path: 'reviews', populate: {path: 'user', model: 'User'}}))
     .then(item => res.json(item))
     .catch(next);
 }
@@ -35,7 +36,8 @@ function reviewDeleteRoute(req, res, next){
       review.remove();
       return item.save();
     })
-    .then(() => res.sendStatus(204))
+    .then(item => Item.populate(item, {path: 'reviews', populate: {path: 'user', model: 'User'}}))
+    .then(item => res.json(item))
     .catch(next);
 }
 
