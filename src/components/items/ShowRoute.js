@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
-// import User from '../../lib/User';
+import User from '../../lib/User';
 import Cart from '../../lib/Cart';
 
 class ShowRoute extends React.Component{
@@ -12,13 +12,14 @@ class ShowRoute extends React.Component{
       reviews: []
     },
     message: '',
-    nbItemCart: 0
+    nbItemCart: 0,
+    currentUser: {}
   }
 
   // if link don;t work in navbar, make sure to get the cart from server and set it in componentDidMount
 
   componentDidMount= () => {
-    //added a get cart in case user refreshes the page which deletes the Cart
+    //added a get cart and get user in case user refreshes the page which deletes the Cart and user instance
     axios({
       method: 'GET',
       url: '/api/cart',
@@ -31,7 +32,7 @@ class ShowRoute extends React.Component{
         //get the populated item (product) information
         const itemId = this.props.match.params.id;
         axios.get(`/api/items/${itemId}`)
-          .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }));
+          .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId), currentUser: User.getCurrentUser() }));
       });
   }
 
@@ -61,13 +62,13 @@ class ShowRoute extends React.Component{
       });
   }
 
-  //for new comment
+  //for new review form
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
 
-  //to add a new comment
+  //to add a new review
   handleAddReview = (e) => {
     e.preventDefault();
     axios({
@@ -82,7 +83,7 @@ class ShowRoute extends React.Component{
       });
   }
 
-  //to delete a comment
+  //to delete a review
   handleDeleteReview = (reviewId) => {
     axios({
       method: 'DELETE',
@@ -129,31 +130,35 @@ class ShowRoute extends React.Component{
 
           {/* Review section */}
           <div className="column reviews">
+            <h5 className="subtitle is-5"><strong>Please add a review</strong></h5>
             <article className="media">
-              <figure className="media-left">
-                <p className="image is-4by3">
-                  <img src="https://www.fillmurray.com/140/100" />
-                </p>
-              </figure>
+              <div className="media-left">
+                <figure className="image is-48x48">
+                  <img src={this.state.currentUser.picture} />
+                </figure>
+              </div>
               <div className="media-content">
-                <form onSubmit={this.handleAddReview}>
-                  <h5 className="subtitle is-5"><strong>Please add a review</strong></h5>
-                  <div className="field">
-                    <div className="control">
-                      <label className="label">Title</label>
-                      <input name="maintitle" className="input" type="text" placeholder="Add a title for your comment..." required minLength="2" onChange={this.handleChange} />
-                    </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <label className="label">Describe your experience</label>
-                      <textarea name="content" className="textarea" placeholder="Add a comment..." required minLength="2" onChange={this.handleChange}></textarea>
-                    </div>
-                  </div>
-                  <button className="button is-info">Submit</button>
-                </form>
+                <p className="title is-4">{this.state.currentUser.username}</p>
+                <p className="subtitle is-6">{this.state.currentUser.email}</p>
               </div>
             </article>
+            <div>
+              <form onSubmit={this.handleAddReview}>
+                <div className="field">
+                  <div className="control">
+                    <label className="label">Title</label>
+                    <input name="maintitle" className="input" type="text" placeholder="Add a title for your comment..." required minLength="2" onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="control">
+                    <label className="label">Describe your experience</label>
+                    <textarea name="content" className="textarea" placeholder="Add a comment..." required minLength="2" onChange={this.handleChange}></textarea>
+                  </div>
+                </div>
+                {Auth.isAuthenticated() && <button className="button is-info">Submit</button>}
+              </form>
+            </div>
 
             {/* Show previous reviews */}
             <div>
@@ -184,7 +189,7 @@ class ShowRoute extends React.Component{
                     </nav>
                   </div>
                   <div className="media-right">
-                    {(Auth.isAuthenticated() && review.user._id === Auth.getPayload().sub) &&
+                    {(Auth.isAuthenticated() && review.user._id === this.state.currentUser._id) &&
                     <button type="button" onClick={() => this.handleDeleteReview(review._id)} className="delete">
                     </button>
                     }

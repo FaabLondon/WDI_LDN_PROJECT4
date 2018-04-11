@@ -40,14 +40,15 @@ function updateUserRoute(req, res, next){
 }
 
 // //show profile for user
-// function showUserProfileRoute(req, res, next){
-//   User.findById(req.currentUser._id)
-//     .then(user => res.json(user))
-//     .catch(next);
-// }
+function showUserRoute(req, res, next){
+  User.findById(req.currentUser._id)
+    .then(user => res.json(user))
+    .catch(next);
+}
 
 module.exports = {
   register,
   login,
-  updateUserRoute
+  updateUserRoute,
+  showUserRoute
 };
