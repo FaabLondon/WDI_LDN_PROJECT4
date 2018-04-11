@@ -1,6 +1,5 @@
 /* global api, describe, it, expect, beforeEach */
 const { Item } = require('../../../models/item');
-const User = require('../../../models/user');
 
 const itemData = [{
   brand: 'Lanvin',
@@ -32,15 +31,16 @@ const itemData = [{
   available: true
 }];
 
+let item = {};
+
 describe('GET /items/:id', () => {
-  let item = {};
+
   beforeEach(done => {
     Promise.all([
-      User.remove({}),
       Item.remove({})
     ])
       .then(() => Item.create(itemData))
-      .then(bangers => item = bangers[0]) //1st banger returned
+      .then(items => item = items[0]) //1st item returned
       .then(() => done());
   });
 
@@ -70,8 +70,8 @@ describe('GET /items/:id', () => {
           'smallImages',
           'available'
         ]);
+        done();
       });
-    done();
   });
 
   it('should return the correct data', done => {

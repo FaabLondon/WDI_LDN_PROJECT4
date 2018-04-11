@@ -1,8 +1,19 @@
 /* global api, describe, it, expect, beforeEach */
 const { Item } = require('../../../models/item');
 const User = require('../../../models/user');
+const jwt = require('jsonwebtoken');
+const { secret } = require('../../../config/environment');
 
-const itemData = [{
+const userData = {
+  name: 'testName',
+  lastName: 'testLastname',
+  username: 'test',
+  email: 'test@test.com',
+  password: 'test',
+  passwordConfirmation: 'test'
+};
+
+const cartData = [{
   brand: 'Lanvin',
   shortDescription: 'Blue satin trench coat',
   longDescription: 'Epaulettes, storm flaps, side pockets, belt loops, detachable waist tie, button-fastening cuff tabs, back vent, fully lined',
@@ -32,24 +43,42 @@ const itemData = [{
   available: true
 }];
 
-describe('GET /items', () => {
+const itemData = cartData;
+let token = '';
+
+describe('GET /cart', () => {
   beforeEach(done => {
     Promise.all([
+      User.remove({}),
       Item.remove({})
     ])
-      .then(() => Item.create(itemData))
-      .then(() => done());
+    //user needs to be authenticated before it can access content of cart
+      .then(() => Promise.props({
+        items: Item.create(itemData),
+        user: User.create(userData)
+      }))
+      .then(data => {
+        token = jwt.sign({ sub: data.user._id }, secret, { expiresIn: '5m' });
+        //need to push the 2 items _id into the cart
+        data.user.cart.push(data.items[0]._id);
+        data.user.cart.push(data.items[1]._id);
+        data.user.save();
+      })
+      .then(done);
   });
 
+  //test passes but I can't see the user / cart in DB
   it('should return a 200 response', done => {
     api
-      .get('/api/items')
+      .get('/api/cart')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200, done);
   });
 
   it('should return an array of items', done => {
     api
-      .get('/api/items')
+      .get('/api/cart')
+      .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         expect(res.body).to.be.an('array');
         res.body.forEach(item => {
@@ -69,31 +98,32 @@ describe('GET /items', () => {
             'available'
           ]);
         });
+        done();
       });
-    done();
   });
 
   it('should return the correct data', done => {
     api
-      .get('/api/items')
+      .get('/api/cart')
+      .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         res.body = res.body.sort((a, b) => a.brand > b.brand);
         res.body.forEach((item, i) => {
-          expect(item.brand).to.eq(itemData[i].brand);
-          expect(item.shortDescription).to.eq(itemData[i].shortDescription);
-          expect(item.longDescription).to.eq(itemData[i].longDescription);
-          expect(item.retailPrice).to.eq(itemData[i].retailPrice);
-          expect(item.rentalPrice).to.eq(itemData[i].rentalPrice);
-          expect(item.category).to.eq(itemData[i].category);
-          expect(item.type).to.eq(itemData[i].type);
-          expect(item.occasion).to.deep.eq(itemData[i].occasion);
-          expect(item.colors).to.deep.eq(itemData[i].colors);
-          expect(item.sizeAvailable).to.eq(itemData[i].sizeAvailable);
-          expect(item.mainImage).to.eq(itemData[i].mainImage);
-          expect(item.smallImages).to.deep.eq(itemData[i].smallImages);
-          expect(item.available).to.eq(itemData[i].available);
+          expect(item.brand).to.eq(cartData[i].brand);
+          expect(item.shortDescription).to.eq(cartData[i].shortDescription);
+          expect(item.longDescription).to.eq(cartData[i].longDescription);
+          expect(item.retailPrice).to.eq(cartData[i].retailPrice);
+          expect(item.rentalPrice).to.eq(cartData[i].rentalPrice);
+          expect(item.category).to.eq(cartData[i].category);
+          expect(item.type).to.eq(cartData[i].type);
+          expect(item.occasion).to.deep.eq(cartData[i].occasion);
+          expect(item.colors).to.deep.eq(cartData[i].colors);
+          expect(item.sizeAvailable).to.eq(cartData[i].sizeAvailable);
+          expect(item.mainImage).to.eq(cartData[i].mainImage);
+          expect(item.smallImages).to.deep.eq(cartData[i].smallImages);
+          expect(item.available).to.eq(cartData[i].available);
         });
+        done();
       });
-    done();
   });
 });
