@@ -146,7 +146,7 @@ class IndexRoute extends React.Component{
 
             {/* query string on brand or product description */}
             <div className="searchBy">
-              <h3 className="subtitle is-size-3 is-italic">Search</h3>
+              <h4 className="subtitle is-size-4 is-italic">Search by</h4>
               <form>
                 <div className="field SearchByControl">
                   <div className="control has-icons-left">
@@ -159,7 +159,7 @@ class IndexRoute extends React.Component{
 
             {/* Radio button to Sort asc/desc by price or brand */}
             <div className="sortBy">
-              <h3 className="subtitle is-size-3 is-italic">Sort by</h3>
+              <h4 className="subtitle is-size-4 is-italic">Sort by</h4>
               <form>
                 <div className="control SortByControl">
                   {sortOption.map((elt, i) =>
@@ -172,55 +172,56 @@ class IndexRoute extends React.Component{
               </form>
             </div>
 
-            {/* Filter by price range */}
-            <div className="FilterBy">
-              <h5 className="subtitle is-size-5 is-italic">Rental Price</h5>
-              <form>
-                <div className="field FilterByControl">
-                  <label className="label" htmlFor="email">Min Price</label>
-                  <input type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
-                </div>
-                <div className="field FilterByControl">
-                  <label className="label" htmlFor="email">Max Price</label>
-                  <input type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
-                </div>
-              </form>
+            <div>
+              <h4 className="subtitle is-size-4 is-italic">Filter by</h4>
+              {/* Filter by price range */}
+              <div className="FilterBy">
+                <h5 className="subtitle is-size-5 is-italic">Rental Price</h5>
+                <form>
+                  <div className="field FilterByControl">
+                    <label className="label" htmlFor="email">Min Price</label>
+                    <input type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
+                  </div>
+                  <div className="field FilterByControl">
+                    <label className="label" htmlFor="email">Max Price</label>
+                    <input type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
+                  </div>
+                </form>
+              </div>
+
+              {/* Filter by one or more occasions */}
+              <div className="FilterBy">
+                <h5 className="subtitle is-size-5 is-italic">Occasion</h5>
+                <form>
+                  <div className="control FilterByControl">
+                    {Object.keys(this.state.filter).map((elt, i) =>
+                      <label key={i} className="checkbox">
+                        <input type="checkbox" value={elt} onChange={this.handleFilter} />
+                        {elt}
+                      </label>
+                    )}
+                  </div>
+                </form>
+              </div>
+
+              {/* Filter by one or more colors */}
+              <div className="FilterBy">
+                <h5 className="subtitle is-size-5 is-italic">Colors</h5>
+                <form>
+                  <div className="control FilterByControl">
+                    {colors.map((color, i) =>
+                      <label key={i} className="container">
+                        <input className="checkbox" type="checkbox" value={color.color} onChange={this.handleFilterColor} />
+                        <span className="checkmark" style={{backgroundColor: `${color.code}`}}></span>
+                      </label>
+                    )}
+                  </div>
+                </form>
+              </div>
             </div>
-
-            {/* Filter by one or more occasions */}
-            <div className="FilterBy">
-              <h5 className="subtitle is-size-5 is-italic">Occasion</h5>
-              <form>
-                <div className="control FilterByControl">
-                  {Object.keys(this.state.filter).map((elt, i) =>
-                    <label key={i} className="checkbox">
-                      <input type="checkbox" value={elt} onChange={this.handleFilter} />
-                      {elt}
-                    </label>
-                  )}
-                </div>
-              </form>
-            </div>
-
-            {/* Filter by one or more colors */}
-            <div className="FilterBy">
-              <h5 className="subtitle is-size-5 is-italic">Colors</h5>
-              <form>
-                <div className="control FilterByControl">
-                  {colors.map((color, i) =>
-                    <label key={i} className="container">
-                      <input className="checkbox" type="checkbox" value={color.color} onChange={this.handleFilterColor} />
-                      <span className="checkmark" style={{backgroundColor: `${color.code}`}}></span>
-                    </label>
-                  )}
-                </div>
-              </form>
-            </div>
-
-
           </div>
-          <div className="column is-three-quarter">
 
+          <div className="column is-three-quarter">
             {/* Navbar showing category title and nb of results */}
             <nav className="navbar">
               <div className="navbar-menu">
@@ -228,7 +229,7 @@ class IndexRoute extends React.Component{
                   <h5 className="subtitle is-size-5"> {this.state.parsedUrlQuery.category}/{this.state.parsedUrlQuery.type} </h5>
                 </div>
                 <div className="navbar-end">
-                  <h5 className="subtitle is-size-5"> Placeholder navigations buttons</h5>
+                  <h5 className="subtitle is-size-5">{/* Placeholder navigations buttons */}</h5>
                 </div>
               </div>
             </nav>

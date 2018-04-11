@@ -29,8 +29,8 @@ router.route('/orders')
 
 //Show and Delete an order
 router.route('/orders/:id')
-  .get(secureRoute, orders.orderShow)
-  .delete(secureRoute, orders.orderDelete);
+  .get(secureRoute, orders.orderShow);
+// .delete(secureRoute, orders.orderDelete);
 
 //Add and Delete a review
 //NEW review

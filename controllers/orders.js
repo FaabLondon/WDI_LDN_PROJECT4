@@ -45,20 +45,20 @@ function orderIndexRoute(req, res, next){
 
 //to delete an order - would need to include refund to customer
 //Not implemented yet
-function orderDeleteRoute(req, res, next){
-  return User.findById(req.currentUser._id)
-    .then(user => {
-      const order = user.orders.find(elt => elt._id.equals(req.params.id));
-      order.remove();
-      user.save();
-      res.sendStatus(204);
-    })
-    .catch(next);
-}
+// function orderDeleteRoute(req, res, next){
+//   return User.findById(req.currentUser._id)
+//     .then(user => {
+//       const order = user.orders.find(elt => elt._id.equals(req.params.id));
+//       order.remove();
+//       user.save();
+//       res.sendStatus(204);
+//     })
+//     .catch(next);
+// }
 
 module.exports = {
   orderCreate: orderCreateRoute,
-  orderDelete: orderDeleteRoute,
+  // orderDelete: orderDeleteRoute,
   orderShow: orderShowRoute,
   orderIndex: orderIndexRoute
 };

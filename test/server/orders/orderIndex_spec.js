@@ -44,10 +44,8 @@ const itemData = [{
 }];
 
 let token = '';
-let cartData = itemData;
-let dataOrder = {};
 
-describe('POST /api/orders', () => {
+describe('GET /orders', () => {
   beforeEach(done => {
     Promise.all([
       User.remove({}),
@@ -61,70 +59,77 @@ describe('POST /api/orders', () => {
       .then(data => {
         //sign in user and create token
         token = jwt.sign({ sub: data.user._id }, secret, { expiresIn: '5m' });
-        //push 2 items _id into the cart
-        data.user.cart.push(data.items[0]._id);
-        data.user.cart.push(data.items[1]._id);
-        data.user.save();
-
-        //use test card token provided by stripe
-        dataOrder = {
-          token: 'tok_gb_debit', //test token provided by Stripe
+        //push 1 order in user orders array
+        const dataOrder = [{
+          orderList: [
+            data.items[0]._id,
+            data.items[1]._id
+          ],
+          token: 'tok_gb_debit',
           amount: 100,
           currency: 'gbp',
           payee: 'test',
           UserEmail: 'test@test.com',
-          errors: {},
-          errorPayment: '',
-          orderTotal: 100,
           deliveryBillingAddress: '114 Whitechapel High St, London E1 7PT',
           deliveryBillingPostcode: 'E1 7PT',
-          deliveryBillingCity: 'London'
-        };
+          deliveryBillingCity: 'London',
+          createdAt: '2018-04-11T20:58:10.724Z',
+          updatedAt: '2018-04-11T20:58:10.724Z'
+        }, {
+          orderList: [
+            data.items[0]._id
+          ],
+          token: 'tok_gb_debit',
+          amount: 10,
+          currency: 'gbp',
+          payee: 'test',
+          UserEmail: 'test@test.com',
+          deliveryBillingAddress: '114 Whitechapel High St, London E1 7PT',
+          deliveryBillingPostcode: 'E1 7PT',
+          deliveryBillingCity: 'London',
+          createdAt: '2018-04-11T21:58:10.724Z',
+          updatedAt: '2018-04-11T21:58:10.724Z'
+        }];
+        data.user.orders.push(dataOrder[0]);
+        data.user.orders.push(dataOrder[1]);
+        data.user.save();
       })
       .then(done);
   });
 
   it('should return a 401 - unauthorized - response if no token', done => {
     api
-      .post('/api/orders')
-      .send(dataOrder)
+      .get('api/orders')
       .expect(401, done);
   });
 
   it('should return a 200 response if token is provided', done => {
     api
-      .post('/api/orders')
+      .get('api/orders')
       .set('Authorization', `Bearer ${token}`)
-      .send(dataOrder)
       .expect(200, done);
   });
 
-  it('should return the updated user order with an empty cart and an order array with items', done => {
+  it('should return an array of orders with the correct fields', done => {
     api
-      .post('/api/orders')
+      .get('api/orders')
       .set('Authorization', `Bearer ${token}`)
-      .send(dataOrder)
       .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        expect(res.body.cart).to.deep.eq([]);
-        expect(res.body.orders).to.be.an('array');
-        expect(res.body.orders.length).to.equal(1); //1 order added to orders array
-        res.body.orders.forEach(order => {
-          expect(order).to.include.keys([
-            'UserEmail',
-            '_id',
-            'amount',
-            'createdAt',
-            'currency',
-            'deliveryBillingAddress',
-            'deliveryBillingCity',
-            'deliveryBillingPostcode',
-            'orderList',
-            'payee',
-            'token',
-            'updatedAt'
-          ]);
-        });
+        expect(res.body).to.be.an('array');
+        expect(res.body[0]).to.include.keys([
+          'UserEmail',
+          '_id',
+          'amount',
+          'createdAt',
+          'currency',
+          'deliveryBillingAddress',
+          'deliveryBillingCity',
+          'deliveryBillingPostcode',
+          'orderList',
+          'payee',
+          'token',
+          'updatedAt'
+        ]);
         done();
       });
   });
