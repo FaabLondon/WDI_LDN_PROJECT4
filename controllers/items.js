@@ -18,14 +18,13 @@ function showRoute(req, res, next){
 
 //newReview for restaurant
 function reviewCreateRoute(req, res, next){
-  console.log('in review create route', req.body);
-  req.body.user = req.currentUser; //add user to new review
+  req.body.user = req.currentUser._id; //add user to new review
   Item.findById(req.params.id)
     .then(item => {
       item.reviews.push(req.body);
       return item.save();
     })
-    .then(item => Item.populate(item, {path: 'reviews'}))
+    .then(item => Item.populate(item, {path: 'reviews.user', model: 'User'}))
     .then(item => res.json(item))
     .catch(next);
 }
@@ -38,7 +37,7 @@ function reviewDeleteRoute(req, res, next){
       review.remove();
       return item.save();
     })
-    .then(item => Item.populate(item, {path: 'reviews'}))
+    .then(item => Item.populate(item, {path: 'reviews.user', model: 'User'}))
     .then(item => res.json(item))
     .catch(next);
 }

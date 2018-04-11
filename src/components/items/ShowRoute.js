@@ -28,14 +28,14 @@ class ShowRoute extends React.Component{
         Cart.setCart(res.data);
       })
       .then(() => {
-        //get the item (product)
+        //get the populated item (product) information
         const itemId = this.props.match.params.id;
         axios.get(`/api/items/${itemId}`)
-          .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }))
-          .then(() => console.log('item data', this.state));
+          .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }));
       });
   }
 
+  //add the item to the cart
   handleAddCart = () => {
     axios({
       method: 'POST',
@@ -48,6 +48,7 @@ class ShowRoute extends React.Component{
       });
   }
 
+  //delete the item to the cart
   handleDeleteCart = () => {
     axios({
       method: 'DELETE',
@@ -75,19 +76,20 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
-      .then(res => this.setState({ item: res.data }, console.log('review added res.data', res.data)))
+      .then(res => this.setState({ item: res.data }, () => console.log('res.data', res.data)))
       .catch(err => {
         this.setState({errors: err.response.data.errors});
       });
   }
 
+  //to delete a comment
   handleDeleteReview = (reviewId) => {
     axios({
       method: 'DELETE',
       url: `/api/items/${this.state.item._id}/reviews/${reviewId}`,
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.setState({ item: res.data }))
+      .then(res => this.setState({ item: res.data }, () => console.log('res.data', res.data)))
       .catch(err => {
         this.setState({errors: err.response.data.errors});
       });
@@ -182,9 +184,7 @@ class ShowRoute extends React.Component{
                     </nav>
                   </div>
                   <div className="media-right">
-                    {review.user._id}
-                    {JSON.stringify(Auth.getPayload().sub)}
-                    {(Auth.isAuthenticated && review.user._id === JSON.stringify(Auth.getPayload().sub)) &&
+                    {(Auth.isAuthenticated() && review.user._id === Auth.getPayload().sub) &&
                     <button type="button" onClick={() => this.handleDeleteReview(review._id)} className="delete">
                     </button>
                     }
