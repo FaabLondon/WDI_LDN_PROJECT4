@@ -61,7 +61,7 @@ class CheckOutForm extends React.Component {
         headers: {Authorization: `Bearer ${Auth.getToken()}`},
         data: { ...this.state, ...data}
       })
-        .then(res => this.props.history.push({pathname: '/OrderValidation', state: { user: res.data }})) //redirect to order conffirmation page with returned user as parem
+        .then(res => this.props.history.push({pathname: '/OrderValidation', state: { user: res.data }})) //redirect to order conffirmation page with returned user as param
         .catch(err => {
           //errors message are in format orders.X.billingAddress as orders are nested in user model in DB so need to modify it...
           const errors = {};
