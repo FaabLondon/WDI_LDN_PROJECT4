@@ -21,6 +21,17 @@ class CheckOutForm extends React.Component {
     orderTotal: 0
   }
 
+  componentDidMount= () => {
+    //added a get User in case users refreshes the browser and user instance is lost...
+    axios({
+      method: 'GET',
+      url: '/api/user',
+      headers: {Authorization: `Bearer ${Auth.getToken()}`}
+    })
+      .then(res => User.setCurrentUser(res.data))
+      .catch();
+  }
+
   handleChange = ({target: {name, value}}) => {
     const errors = { ...this.state.errors, [name]: ''};
     this.setState({[name]: value, errors});
@@ -39,8 +50,8 @@ class CheckOutForm extends React.Component {
             token: res.token.id,
             amount: this.state.orderTotal,
             currency: 'gbp',
-            payee: User.getCurrentUser().username,
-            UserEmail: User.getCurrentUser().email
+            payee: User.getCurrentUser().username || '',
+            UserEmail: User.getCurrentUser().email || ''
           };
         }
       })

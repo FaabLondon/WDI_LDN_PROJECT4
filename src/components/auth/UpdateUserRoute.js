@@ -29,7 +29,6 @@ class UpdateUserRoute extends React.Component{
   }
 
   componentDidMount(){
-    //axios.get(`/api/...`)
     const user = User.getCurrentUser();
     this.setState({ ...user }, () => console.log('user state', this.state));
   }

@@ -2,6 +2,7 @@ class Cart{
 
   _currentCart = null;
 
+
   static setCart(cart){
     this._currentCart = cart || {}; //if undefined, set to {};
   }

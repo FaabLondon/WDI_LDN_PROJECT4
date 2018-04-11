@@ -4,6 +4,7 @@ import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
 import User from '../../lib/User';
 import Cart from '../../lib/Cart';
+import Flash from '../../lib/Flash';
 
 class ShowRoute extends React.Component{
 
@@ -12,54 +13,68 @@ class ShowRoute extends React.Component{
       reviews: []
     },
     message: '',
-    nbItemCart: 0,
-    currentUser: {}
+    nbItemCart: 0
   }
 
   // if link don;t work in navbar, make sure to get the cart from server and set it in componentDidMount
 
   componentDidMount= () => {
-    //added a get cart and get user in case user refreshes the page which deletes the Cart and user instance
-    axios({
-      method: 'GET',
-      url: '/api/cart',
-      headers: {Authorization: `Bearer ${Auth.getToken()}`}
-    })
-      .then(res => {
-        Cart.setCart(res.data);
+    //added a get cart case user refreshes the page which deletes the Cart or in case user is not logged in
+    const itemId = this.props.match.params.id;
+    if(Auth.isAuthenticated()){
+      axios({
+        method: 'GET',
+        url: '/api/cart',
+        headers: {Authorization: `Bearer ${Auth.getToken()}`}
       })
-      .then(() => {
-        //get the populated item (product) information
-        const itemId = this.props.match.params.id;
-        axios.get(`/api/items/${itemId}`)
-          .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId), currentUser: User.getCurrentUser() }));
-      });
+        .then(res => {
+          Cart.setCart(res.data);
+        })
+        .then(() => {
+          //get the populated item (product) information
+          axios.get(`/api/items/${itemId}`)
+            .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }));
+        });
+    } else {
+      axios.get(`/api/items/${itemId}`)
+        .then(res => this.setState({ item: res.data, nbItemCart: 0 }));
+    }
   }
 
-  //add the item to the cart
+  //add the item to the cart - only if logged in
   handleAddCart = () => {
-    axios({
-      method: 'POST',
-      url: `/api/cart/items/${this.state.item._id}`,
-      headers: {Authorization: `Bearer ${Auth.getToken()}`}
-    })
-      .then(res => {
-        Cart.setCart(res.data);
-        this.setState({message: 'This item was succesfully added to your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
-      });
+    if(Auth.isAuthenticated()){
+      axios({
+        method: 'POST',
+        url: `/api/cart/items/${this.state.item._id}`,
+        headers: {Authorization: `Bearer ${Auth.getToken()}`}
+      })
+        .then(res => {
+          Cart.setCart(res.data);
+          this.setState({message: 'This item was succesfully added to your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
+        });
+    } else {
+      Flash.setMessage('danger', 'You must be logged in to perform this action.');
+      this.props.history.push({pathname: '/login'});
+    }
   }
 
-  //delete the item to the cart
+  //delete the item to the cart - only if logged in
   handleDeleteCart = () => {
-    axios({
-      method: 'DELETE',
-      url: `/api/cart/items/${this.state.item._id}`,
-      headers: {Authorization: `Bearer ${Auth.getToken()}`}
-    })
-      .then(res => {
-        Cart.setCart(res.data);
-        this.setState({message: 'This item was succesfully removed from your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
-      });
+    if(Auth.isAuthenticated()){
+      axios({
+        method: 'DELETE',
+        url: `/api/cart/items/${this.state.item._id}`,
+        headers: {Authorization: `Bearer ${Auth.getToken()}`}
+      })
+        .then(res => {
+          Cart.setCart(res.data);
+          this.setState({message: 'This item was succesfully removed from your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
+        });
+    } else {
+      Flash.setMessage('danger', 'You must be logged in to perform this action.');
+      this.props.history.push({pathname: '/login'});
+    }
   }
 
   //for new review form
@@ -134,12 +149,15 @@ class ShowRoute extends React.Component{
             <article className="media">
               <div className="media-left">
                 <figure className="image is-48x48">
-                  <img src={this.state.currentUser.picture} />
+                  {User.getCurrentUser() &&
+                    <img src={User.getCurrentUser().picture} />}
+                  {!User.getCurrentUser() &&
+                      <img src="  https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png" />}
                 </figure>
               </div>
               <div className="media-content">
-                <p className="title is-4">{this.state.currentUser.username}</p>
-                <p className="subtitle is-6">{this.state.currentUser.email}</p>
+                {User.getCurrentUser() && <p className="title is-4">{User.getCurrentUser().username}</p>}
+                {User.getCurrentUser() && <p className="subtitle is-6">{User.getCurrentUser().email}</p>}
               </div>
             </article>
             <div>
@@ -166,7 +184,7 @@ class ShowRoute extends React.Component{
                 <article key={i} className="media">
                   <figure className="media-left">
                     <p className="image is-64x64">
-                      <img src="https://www.fillmurray.com/140/100" />
+                      <img src={review.user.picture} />
                     </p>
                     <strong>{review.user.username}</strong>
                   </figure>
@@ -189,7 +207,7 @@ class ShowRoute extends React.Component{
                     </nav>
                   </div>
                   <div className="media-right">
-                    {(Auth.isAuthenticated() && review.user._id === this.state.currentUser._id) &&
+                    {(Auth.isAuthenticated() && review.user._id === Auth.getPayload().sub) &&
                     <button type="button" onClick={() => this.handleDeleteReview(review._id)} className="delete">
                     </button>
                     }
