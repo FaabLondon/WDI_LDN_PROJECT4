@@ -127,3 +127,80 @@ describe('GET /cart', () => {
       });
   });
 });
+
+let itemId = ''; //item that will be pushed into the DB
+
+describe('POST /api/cart/items/${itemId}', () => {
+  beforeEach(done => {
+    Promise.all([
+      User.remove({}),
+      Item.remove({})
+    ])
+    //user needs to be authenticated before it can access content of cart
+      .then(() => Promise.props({
+        items: Item.create(itemData),
+        user: User.create(userData)
+      }))
+      .then(data => {
+        itemId = data.items[0]._id; //id of 1st item
+        token = jwt.sign({ sub: data.user._id }, secret, { expiresIn: '5m' });
+        data.user.save();
+      })
+      .then(done);
+  });
+
+  it('should return a 200 response', done => {
+    api
+      .post(`/api/cart/items/${itemId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200, done);
+  });
+
+  it('should return an array of 1 item', done => {
+    api
+      .post(`/api/cart/items/${itemId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body).to.be.an('array');
+        expect(res.body.length).to.equal(1);
+        expect(res.body[0]).to.include.keys([
+          'brand',
+          'shortDescription',
+          'longDescription',
+          'retailPrice',
+          'rentalPrice',
+          'category',
+          'type',
+          'occasion',
+          'colors',
+          'sizeAvailable',
+          'mainImage',
+          'smallImages',
+          'available'
+        ]);
+        done();
+      });
+  });
+
+  it('should return the correct data', done => {
+    api
+      .post(`/api/cart/items/${itemId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body[0].brand).to.eq(cartData[0].brand);
+        expect(res.body[0].shortDescription).to.eq(cartData[0].shortDescription);
+        expect(res.body[0].longDescription).to.eq(cartData[0].longDescription);
+        expect(res.body[0].retailPrice).to.eq(cartData[0].retailPrice);
+        expect(res.body[0].rentalPrice).to.eq(cartData[0].rentalPrice);
+        expect(res.body[0].category).to.eq(cartData[0].category);
+        expect(res.body[0].type).to.eq(cartData[0].type);
+        expect(res.body[0].occasion).to.deep.eq(cartData[0].occasion);
+        expect(res.body[0].colors).to.deep.eq(cartData[0].colors);
+        expect(res.body[0].sizeAvailable).to.eq(cartData[0].sizeAvailable);
+        expect(res.body[0].mainImage).to.eq(cartData[0].mainImage);
+        expect(res.body[0].smallImages).to.deep.eq(cartData[0].smallImages);
+        expect(res.body[0].available).to.eq(cartData[0].available);
+        done();
+      });
+  });
+});
