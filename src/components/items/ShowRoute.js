@@ -5,12 +5,14 @@ import '../../scss/components/ShowPage.scss';
 import User from '../../lib/User';
 import Cart from '../../lib/Cart';
 import Flash from '../../lib/Flash';
+import { Link } from 'react-router-dom';
 
 class ShowRoute extends React.Component{
 
   state = {
     item: {
-      reviews: []
+      reviews: [],
+      smallImages: []
     },
     message: '',
     nbItemCart: 0
@@ -114,12 +116,17 @@ class ShowRoute extends React.Component{
   render() {
     return (
       <section>
+        <Link className="is-italic" to="/items"><strong>Back to search results</strong></Link>
         <div className="columns is-multiline">
-          <div className="column is-half">
-            <figure className="image">
-              <div className="imgItemShow" style={{background: `url(${this.state.item.mainImage})`}}>
-              </div>
-            </figure>
+          <div className="column is-half images">
+            <div className="smallImages">
+              {this.state.item.smallImages.map((image, i) =>
+                <div key={i} className="smallImage" style={{backgroundImage: `url(${image})`}}>
+                </div>
+              )}
+            </div>
+            <div className="mainImage" style={{backgroundImage: `url(${this.state.item.mainImage})`}}>
+            </div>
           </div>
           <div className="column is-half">
             <div className="content">

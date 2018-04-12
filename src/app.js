@@ -5,7 +5,7 @@ import 'bulma';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
-import './scss/components/appStyle.scss';
+import './scss/style.scss';
 
 import OrderShowRoute from './components/orders/OrderShowRoute';
 import OrdersIndexRoute from './components/orders/OrdersIndexRoute';

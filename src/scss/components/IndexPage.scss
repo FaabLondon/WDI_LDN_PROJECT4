@@ -1,5 +1,15 @@
+div.column.is-one-quarter{
+
+}
+
 div.card-image{
   height: 40vh;
+}
+
+div.card-image.indexImage{
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 div.content.cardContent{
@@ -18,6 +28,21 @@ h3.subtitle.is-3{
   border-bottom: 1px solid #dddddd;
 }
 
+h5.subtitle.is-size-5{
+  margin-right: 10px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+div.filterByControl.price{
+  display: flex;
+  margin-bottom: 0px;
+}
+
+div.filterByControl.color{
+  width: 200px;
+}
+
 .radio + .radio{
   margin: 0;
 }
@@ -27,12 +52,17 @@ div.is-italic:active{
 }
 
 input.inputPrice{
-  width: 50px;
+  width: 60px;
+  height: 30px;
+}
+
+div.filterBy.price{
+display: flex;
+align-items: center;
 }
 
 div.filterBy{
-  display: flex;
-  align-items: center;
+  margin-top: 10px;
 }
 
 div.SortByControl{
@@ -46,10 +76,6 @@ input.searchField{
 }
 
 div.filterFields{
-  display: flex;
-}
-
-div.FilterByControl.price{
   display: flex;
 }
 
@@ -84,7 +110,7 @@ span.checkmark {
   left: 0;
   height: 25px;
   width: 25px;
-  border-radius: 12.5px
+  border-radius: 12.5px;
   //background-color: #eeeeee;
 }
 

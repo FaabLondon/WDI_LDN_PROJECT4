@@ -1,6 +1,26 @@
-div.imgItemCart{
-  width: 10vw;
-  height: 10vh;
+div.column.is-half.images{
+  display: flex;
+}
+
+div.mainImage{
+  width: 450px;
+  height: 450px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+div.smallImages{
+  display: flex;
+  flex-direction: column;
+}
+
+div.smallImage{
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 h6.subtitle.is-size-7{

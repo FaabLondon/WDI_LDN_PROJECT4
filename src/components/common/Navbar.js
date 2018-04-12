@@ -36,8 +36,8 @@ class Navbar extends React.Component {
       <nav className="navbar mainNavbar">
         <div className="navbar-brand">
           <Link className="navbar-item logo" to="/">
-            <span>Dress to impress</span>
             <img src="../assets/images/sleeveless-dress.png" alt="DressCode" />
+            <span> to impress</span>
           </Link>
 
           <div data-target="#mobile-menu"
@@ -78,7 +78,7 @@ class Navbar extends React.Component {
             </div> */}
           </div>
           <div className="navbar-end">
-            {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>}
+            {/* {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>} */}
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
@@ -93,8 +93,8 @@ class Navbar extends React.Component {
                 </div>
               </div>
             }
-            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login"><span className="icon is-small"><i className="far fa-user"></i></span>Login</Link>}
-            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/register">Join</Link>}
+            {!Auth.isAuthenticated() && <Link className="navbar-item mainTitle" to="/login"><span className="icon is-small"><i className="far fa-user"></i></span>Login</Link>}
+            {!Auth.isAuthenticated() && <Link className="navbar-item mainTitle" to="/register">Join</Link>}
           </div>
         </div>
       </nav>

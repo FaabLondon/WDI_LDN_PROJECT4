@@ -160,6 +160,7 @@ class IndexRoute extends React.Component{
   }
 
   render(){
+    const newArr = this.searchFilterSorting();
     return(
       <section>
         <div className="columns is-multiline">
@@ -196,15 +197,15 @@ class IndexRoute extends React.Component{
             <div>
               <h4 className="subtitle is-size-4 is-italic">Filter criteria</h4>
               {/* Filter by price range */}
-              <div className="filterBy">
-                <h5 className="subtitle is-size-5 is-italic">Price</h5>
+              <div className="filterBy price">
+                <h5 className="subtitle is-size-5 is-italic">Price:</h5>
                 <form>
                   <div className="filterFields">
-                    <div className="field FilterByControl price">
+                    <div className="field filterByControl price">
                       <label className="label is-size-6" htmlFor="email">Min</label>
                       <input className="inputPrice" type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
                     </div>
-                    <div className="field FilterByControl price">
+                    <div className="field filterByControl price">
                       <label className="label is-size-6" htmlFor="email">Max</label>
                       <input className="inputPrice" type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
                     </div>
@@ -213,10 +214,10 @@ class IndexRoute extends React.Component{
               </div>
 
               {/* Filter by one or more occasions */}
-              <div className="FilterBy">
-                <h5 className="subtitle is-size-5 is-italic">Occasion</h5>
+              <div className="filterBy">
+                <h5 className="subtitle is-size-5 is-italic">Occasion:</h5>
                 <form>
-                  <div className="control FilterByControl">
+                  <div className="control filterByControl">
                     {Object.keys(this.state.filter).map((elt, i) =>
                       <label key={i} className="checkbox">
                         <input type="checkbox" checked={this.state.filter[elt]} value={elt} onClick={this.handleFilter} />
@@ -228,10 +229,10 @@ class IndexRoute extends React.Component{
               </div>
 
               {/* Filter by one or more colors */}
-              <div className="FilterBy">
-                <h5 className="subtitle is-size-5 is-italic">Colors</h5>
+              <div className="filterBy">
+                <h5 className="subtitle is-size-5 is-italic">Colors:</h5>
                 <form>
-                  <div className="control FilterByControl">
+                  <div className="control filterByControl color">
                     {colors.map((color, i) =>
                       <label key={i} className="container">
                         <input className="checkbox" type="checkbox" value={color.color} onClick={this.handleFilterColor} checked={this.state.filterColor[color.color]}/>
@@ -250,7 +251,7 @@ class IndexRoute extends React.Component{
               <div className="navbar-menu">
                 <div className="navbar-start">
                   <h5 className="subtitle is-size-5"><strong>Category:</strong> {this.state.parsedUrlQuery.category ? this.state.parsedUrlQuery.category : 'All categories'}
-                    {this.state.parsedUrlQuery.type? '/' + this.state.parsedUrlQuery.type: '' }  </h5>
+                    {this.state.parsedUrlQuery.type? '/' + this.state.parsedUrlQuery.type: '' } ({newArr.length})  </h5>
                 </div>
                 <div className="navbar-end">
                   <h5 className="subtitle is-size-5">{/* Placeholder navigations buttons */}</h5>
@@ -260,12 +261,12 @@ class IndexRoute extends React.Component{
 
             {/* Result display */}
             <div className="columns is-multiline">
-              {this.searchFilterSorting().map((item, i) =>
+              {newArr.map((item, i) =>
                 <div key={i} className="column is-one-third">
                   <Link to={`/items/${item._id}`}>
                     <div className="card">
                       <div
-                        style={{backgroundImage: `url(${item.mainImage})`, backgroundSize: 'cover'}} className="card-image">
+                        style={{backgroundImage: `url(${item.mainImage})`}} className="card-image indexImage">
                       </div>
                       <div className="card-content">
                         <div className="content cardContent">
