@@ -1,5 +1,6 @@
-div.column.is-one-quarter{
 
+div.card{
+  height: 100%;
 }
 
 div.card-image{
@@ -17,10 +18,14 @@ div.content.cardContent{
   padding-top: 5px;
 }
 
+div.searchBy, div.sortBy, div.filterBy{
+  margin-bottom: 35px;
+}
+
 h4.subtitle.is-italic{
+  border-bottom: 1px solid #dddddd;
   margin-bottom: 5px;
-  margin-top: 35px;
-  text-decoration: underline;
+  //text-decoration: underline;
 }
 
 h3.subtitle.is-3{
@@ -40,7 +45,7 @@ div.filterByControl.price{
 }
 
 div.filterByControl.color{
-  width: 200px;
+  width: 100%;
 }
 
 .radio + .radio{
@@ -52,8 +57,13 @@ div.is-italic:active{
 }
 
 input.inputPrice{
-  width: 60px;
+  width: 100%;
   height: 30px;
+}
+
+label.label.is-size-6{
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 div.filterBy.price{
@@ -61,7 +71,7 @@ display: flex;
 align-items: center;
 }
 
-div.filterBy{
+div.filter{
   margin-top: 10px;
 }
 
@@ -70,24 +80,31 @@ div.SortByControl{
   flex-direction: column;
 }
 
-input.searchField{
-  height: 4vh;
-  width: 22vw;
+input.searchField.input{
+  height: 30px;
+  width: 100%;
 }
 
 div.filterFields{
   display: flex;
 }
 
+
+
+.inputOccasion, .inputOrder{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 //* customise checkboxes for colors
 /* Customize the label (the container) */
-.container {
+label.container {
   display: inline;
   position: relative;
   height: 25px;
   width: 25px;
   padding-left: 35px;
-  margin-bottom: 12px;
+  margin-bottom: 35px; //does not work...
   cursor: pointer;
   // font-size: 22px;
   -webkit-user-select: none;
@@ -101,6 +118,7 @@ input.checkbox{
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  margin-bottom: 35px; //does not work...
 }
 
 /* Create a custom checkbox */
@@ -111,6 +129,7 @@ span.checkmark {
   height: 25px;
   width: 25px;
   border-radius: 12.5px;
+  margin-bottom: 35px; //does not work...
   //background-color: #eeeeee;
 }
 

@@ -17,21 +17,21 @@ const sortOption = [
 
 //used to color the checkboxes
 const colors = [
-  {color: 'Black', code: '#000000'},
-  {color: 'Grey', code: '#eeeeee'},
-  {color: 'White', code: '#ffffff'},
-  {color: 'Beige', code: '#ffcc99'},
-  {color: 'Cream', code: '#f2e3c9'},
-  {color: 'Brown', code: '#994c00'},
-  {color: 'Red', code: '#ff0000'},
-  {color: 'Orange', code: '#ff8000'},
-  {color: 'Yellow', code: '#ffff00'},
-  {color: 'Green', code: '#006600'},
-  {color: 'Blue', code: '#0000ff'},
-  {color: 'Purple', code: '#990099'},
-  {color: 'Pink', code: '#FF99CC'},
-  {color: 'Gold', code: '#EEE8AA'},
-  {color: 'Silver', code: '#858785'}
+  {color: 'black', code: '#000000'},
+  {color: 'grey', code: '#eeeeee'},
+  {color: 'white', code: '#ffffff'},
+  {color: 'beige', code: '#ffcc99'},
+  {color: 'cream', code: '#f2e3c9'},
+  {color: 'brown', code: '#994c00'},
+  {color: 'red', code: '#ff0000'},
+  {color: 'orange', code: '#ff8000'},
+  {color: 'yellow', code: '#ffff00'},
+  {color: 'green', code: '#006600'},
+  {color: 'blue', code: '#0000ff'},
+  {color: 'purple', code: '#990099'},
+  {color: 'pink', code: '#FF99CC'},
+  {color: 'gold', code: '#EEE8AA'},
+  {color: 'silver', code: '#858785'}
 ];
 
 const sortBy = 'rentalPrice';
@@ -48,23 +48,24 @@ const filter = {
   Party: false,
   Maternity: false
 };
-const filterColor = {
-  black: false,
-  grey: false,
-  white: false,
-  beige: false,
-  cream: false,
-  brown: false,
-  red: false,
-  orange: false,
-  yellow: false,
-  green: false,
-  blue: false,
-  purple: false,
-  pink: false,
-  gold: false,
-  silver: false
-};
+let filterColor = {};
+filterColor = colors.map(elt => filterColor[elt] = false);
+//   black: false,
+//   grey: false,
+//   white: false,
+//   beige: false,
+//   cream: false,
+//   brown: false,
+//   red: false,
+//   orange: false,
+//   yellow: false,
+//   green: false,
+//   blue: false,
+//   purple: false,
+//   pink: false,
+//   gold: false,
+//   silver: false
+// };
 
 class IndexRoute extends React.Component{
 
@@ -163,18 +164,18 @@ class IndexRoute extends React.Component{
     const newArr = this.searchFilterSorting();
     return(
       <section>
-        <div className="columns is-multiline">
-          <div className="column is-one-quarter">
+        <div className="columns is-multiline is-desktop">
+          <div className="column is-one-quarter-desktop">
             <div className="is-italic" onClick={this.clearAll}><strong>Clear all filters</strong></div>
             {/* refactor - to include in separate components */}
             <div className="searchBy">
               <h4 className="subtitle is-size-4 is-italic">Brand and Product</h4>
               <form>
                 <div className="field SearchByControl">
-                  <div className="control has-icons-left">
-                    <input className="searchField has-text-centered" type="text" name="query" placeholder="Search by brand or product description" onChange={this.handleSearch} />
+                  <p className="control has-icons-left">
+                    <input className="searchField input" type="text" name="query" placeholder="Search by brand or product description" onChange={this.handleSearch} />
                     <span className="icon is-small is-left"><i className="fas fa-search"></i></span>
-                  </div>
+                  </p>
                 </div>
               </form>
             </div>
@@ -186,7 +187,7 @@ class IndexRoute extends React.Component{
                 <div className="control SortByControl">
                   {sortOption.map((elt, i) =>
                     <label key={i} className="radio">
-                      <input type="radio" value={elt.sortCriteria} onChange={this.handleSort} checked={this.state.selectedRadio===elt.sortCriteria} />
+                      <input className="inputOrder" type="radio" value={elt.sortCriteria} onChange={this.handleSort} checked={this.state.selectedRadio===elt.sortCriteria} />
                       {elt.text}
                     </label>
                   )}
@@ -194,10 +195,10 @@ class IndexRoute extends React.Component{
               </form>
             </div>
 
-            <div>
+            <div className="filterBy">
               <h4 className="subtitle is-size-4 is-italic">Filter criteria</h4>
               {/* Filter by price range */}
-              <div className="filterBy price">
+              <div className="filter price">
                 <h5 className="subtitle is-size-5 is-italic">Price:</h5>
                 <form>
                   <div className="filterFields">
@@ -214,13 +215,13 @@ class IndexRoute extends React.Component{
               </div>
 
               {/* Filter by one or more occasions */}
-              <div className="filterBy">
+              <div className="filter">
                 <h5 className="subtitle is-size-5 is-italic">Occasion:</h5>
                 <form>
                   <div className="control filterByControl">
                     {Object.keys(this.state.filter).map((elt, i) =>
                       <label key={i} className="checkbox">
-                        <input type="checkbox" checked={this.state.filter[elt]} value={elt} onClick={this.handleFilter} />
+                        <input className="inputOccasion" type="checkbox" checked={this.state.filter[elt]} value={elt} onClick={this.handleFilter} />
                         {elt}
                       </label>
                     )}
@@ -229,7 +230,7 @@ class IndexRoute extends React.Component{
               </div>
 
               {/* Filter by one or more colors */}
-              <div className="filterBy">
+              <div className="filter">
                 <h5 className="subtitle is-size-5 is-italic">Colors:</h5>
                 <form>
                   <div className="control filterByControl color">
@@ -245,7 +246,7 @@ class IndexRoute extends React.Component{
             </div>
           </div>
 
-          <div className="column is-three-quarter">
+          <div className="column is-three-quarters-desktop">
             {/* Navbar showing category title and nb of results */}
             <nav className="navbar">
               <div className="navbar-menu">
