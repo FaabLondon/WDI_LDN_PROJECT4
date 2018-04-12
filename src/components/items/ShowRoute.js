@@ -152,7 +152,7 @@ class ShowRoute extends React.Component{
               <div>Add / remove from my shopping bag</div>
               <button onClick={this.handleDeleteCart} className="button">-</button>
               <button onClick={this.handleAddCart} className="button">+</button>
-              <span>Quantity {this.state.nbItemCart}</span>
+              <h5 className="is-size-5"><strong>Quantity: {this.state.nbItemCart} </strong></h5>
               <div>{this.state.message}</div>
             </div>
           </div>

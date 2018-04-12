@@ -18,7 +18,7 @@ class ShowCartRoute extends React.Component{
   render() {
     return (
       <section>
-        <div className="columns is-multiline">
+        <div className="columns is-multiline is-mobile">
           <div className="column is-two-third">
             <h3 className="title is-size-3">Your shopping bag <span><i className="fas fa-shopping-bag fa-1x"></i></span></h3>
 

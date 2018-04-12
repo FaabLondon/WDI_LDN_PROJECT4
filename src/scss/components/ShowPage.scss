@@ -1,3 +1,32 @@
+button.button{
+  margin: 5px;
+}
+
+div.column.is-half.images{
+  display: flex;
+}
+
+div.mainImage{
+  width: 450px;
+  height: 450px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+div.smallImages{
+  display: flex;
+  flex-direction: column;
+}
+
+div.smallImage{
+  width: 150px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
 div.imgItemShow{
   height: 45vh;
   width: 35vw;
@@ -37,7 +66,7 @@ button.addComment{
   font-weight: 600;
   //text-transform: uppercase;
   letter-spacing: 0.025em;
-  background-color: #6772e5;
+  background-color: #f731d6;
   text-decoration: none;
   -webkit-transition: all 150ms ease;
   transition: all 150ms ease;
@@ -47,7 +76,7 @@ button.addComment{
 button.addComment:hover {
   color: #fff;
   cursor: pointer;
-  background-color: #7795f8;
+  background-color: #f9aeed;
   transform: translateY(-1px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
 }
