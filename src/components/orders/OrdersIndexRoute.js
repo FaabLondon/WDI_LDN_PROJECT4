@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import { Link } from 'react-router-dom';
+import '../../scss/components/ordersIndex.scss';
 
 // import Cart from '../../lib/Cart';
 // import _ from 'lodash';
@@ -41,7 +42,7 @@ class OrdersIndexRoute extends React.Component{
               {this.state.orders.map((order, i) =>
                 <tr key={i} className="orderContent">
                   <td>{order._id}</td>
-                  <td>{order.createdAt}</td>
+                  <td>{order.createdAt.substring(0,10) }</td>
                   <td>{order.amount}£ per day</td>
                   <td>Processed</td>
                   <td><Link to={`/orders/${order._id}`}>Order details</Link></td>
@@ -51,7 +52,7 @@ class OrdersIndexRoute extends React.Component{
           </table>
         </div>
         <div className="column is one-third">
-          <img src="http://fashionlollipop.com/newsite/wp-content/uploads/2013/12/SloaneStreet.co_.uk2_.png" />
+          <div className="ordersIndexImg"></div>
         </div>
       </div>
     );

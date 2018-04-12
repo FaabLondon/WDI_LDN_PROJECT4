@@ -8,7 +8,9 @@ import _ from 'lodash';
 class OrderSummary extends React.Component{
 
   state = {
-    order: {},
+    order: {
+      createdAt: ''
+    },
     orderCleaned: [],
     nbItems: 0,
     pricePerDay: 0,
@@ -57,7 +59,7 @@ class OrderSummary extends React.Component{
         <div className="columns is-multiline">
           <div className="column is-two-third">
             <h4 className="subtitle is-4">Order #{this.state.order._id}</h4>
-            <h6 className="subtitle is-6 is-italic">Placed on {this.state.order.createdAt}</h6>
+            <h6 className="subtitle is-6 is-italic">Placed on {this.state.order.createdAt.substring(0,10) }</h6>
             <table className="table">
               <thead>
                 <tr>
