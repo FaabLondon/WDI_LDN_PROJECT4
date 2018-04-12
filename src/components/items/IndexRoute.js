@@ -34,43 +34,51 @@ const colors = [
   {color: 'Silver', code: '#858785'}
 ];
 
+const sortBy = 'rentalPrice';
+const sortDirection = 'desc';
+const selectedRadio = 'rentalPrice|desc';
+const minPrice = 0;
+const maxPrice = 500; //should be taken as max price across all item in DB....
+const filter = {
+  Daytime: false,
+  Work: false,
+  Weekend: false,
+  Vacation: false,
+  Formal: false,
+  Party: false,
+  Maternity: false
+};
+const filterColor = {
+  black: false,
+  grey: false,
+  white: false,
+  beige: false,
+  cream: false,
+  brown: false,
+  red: false,
+  orange: false,
+  yellow: false,
+  green: false,
+  blue: false,
+  purple: false,
+  pink: false,
+  gold: false,
+  silver: false
+};
+
 class IndexRoute extends React.Component{
 
   state = {
     items: [],
     parsedUrlQuery: {},
     query: '',
-    sortBy: 'rentalPrice',
-    sortDirection: 'desc',
-    selectedRadio: 'rentalPrice|desc',
-    minPrice: 0,
-    maxPrice: 500, //should be taken as max price across all item in DB....
-    filter: {
-      Daytime: false,
-      Work: false,
-      Weekend: false,
-      Vacation: false,
-      Formal: false,
-      Party: false,
-      Maternity: false
-    },
-    filterColor: {
-      black: false,
-      grey: false,
-      white: false,
-      beige: false,
-      cream: false,
-      brown: false,
-      red: false,
-      orange: false,
-      yellow: false,
-      green: false,
-      blue: false,
-      purple: false,
-      pink: false,
-      gold: false,
-      silver: false
-    }
+    sortBy: sortBy,
+    sortDirection: sortDirection,
+    selectedRadio: selectedRadio,
+    minPrice: minPrice,
+    maxPrice: maxPrice, //should be taken as max price across all item in DB....
+    filter: filter,
+    filterColor: filterColor
   }
 
   //handle global search and search by price
@@ -99,6 +107,10 @@ class IndexRoute extends React.Component{
     //toggle boolean on checked box and recreate filter object
     const filterColor = Object.assign({}, this.state.filterColor, {[e.target.value]: !filterBool });
     this.setState({ filterColor });
+  }
+
+  clearAll = () => {
+    this.setState({ sortBy, sortDirection, selectedRadio, minPrice, maxPrice, filter, filterColor});
   }
 
   //search accoding to all criteria in sort, filter etc
@@ -138,10 +150,13 @@ class IndexRoute extends React.Component{
   }
 
   componentDidUpdate() {
-    console.log('DID UPDATE...');
     const parsedQuery = queryString.parse(this.props.location.search);
-    // filter the items
-    (JSON.stringify(parsedQuery) !== JSON.stringify(this.state.parsedUrlQuery) || this.state.parsedUrlQuery === {}) && this.setState({parsedUrlQuery: parsedQuery});
+    // filter the items on page load if new query or no query
+    //test below to avoid infinite loop
+    if((JSON.stringify(parsedQuery) !== JSON.stringify(this.state.parsedUrlQuery) || this.state.parsedUrlQuery === {})) {
+      this.clearAll(); //clear all filters;
+      this.setState({parsedUrlQuery: parsedQuery});
+    }
   }
 
   render(){
@@ -150,9 +165,9 @@ class IndexRoute extends React.Component{
         <div className="columns is-multiline">
           <div className="column is-one-quarter">
 
-            {/* query string on brand or product description */}
+            {/* refactor - to include in separate components */}
             <div className="searchBy">
-              <h4 className="subtitle is-size-4 is-italic">Search by</h4>
+              <h4 className="subtitle is-size-4 is-italic">Search criteria</h4>
               <form>
                 <div className="field SearchByControl">
                   <div className="control has-icons-left">
@@ -165,7 +180,7 @@ class IndexRoute extends React.Component{
 
             {/* Radio button to Sort asc/desc by price or brand */}
             <div className="sortBy">
-              <h4 className="subtitle is-size-4 is-italic">Sort by</h4>
+              <h4 className="subtitle is-size-4 is-italic">Sort criteria</h4>
               <form>
                 <div className="control SortByControl">
                   {sortOption.map((elt, i) =>
@@ -179,7 +194,7 @@ class IndexRoute extends React.Component{
             </div>
 
             <div>
-              <h4 className="subtitle is-size-4 is-italic">Filter by</h4>
+              <h4 className="subtitle is-size-4 is-italic">Filter criteria</h4>
               {/* Filter by price range */}
               <div className="FilterBy">
                 <h5 className="subtitle is-size-5 is-italic">Rental Price</h5>
@@ -202,7 +217,7 @@ class IndexRoute extends React.Component{
                   <div className="control FilterByControl">
                     {Object.keys(this.state.filter).map((elt, i) =>
                       <label key={i} className="checkbox">
-                        <input type="checkbox" value={elt} onChange={this.handleFilter} />
+                        <input type="checkbox" checked={this.state.filter[elt]} value={elt} onClick={this.handleFilter} />
                         {elt}
                       </label>
                     )}
@@ -217,7 +232,7 @@ class IndexRoute extends React.Component{
                   <div className="control FilterByControl">
                     {colors.map((color, i) =>
                       <label key={i} className="container">
-                        <input className="checkbox" type="checkbox" value={color.color} onChange={this.handleFilterColor} />
+                        <input className="checkbox" type="checkbox" value={color.color} onClick={this.handleFilterColor} checked={this.state.filterColor[color.color]}/>
                         <span className="checkmark" style={{backgroundColor: `${color.code}`}}></span>
                       </label>
                     )}
@@ -225,6 +240,7 @@ class IndexRoute extends React.Component{
                 </form>
               </div>
             </div>
+            <button onClick={this.clearAll}>Clear all filters</button>
           </div>
 
           <div className="column is-three-quarter">
@@ -232,7 +248,8 @@ class IndexRoute extends React.Component{
             <nav className="navbar">
               <div className="navbar-menu">
                 <div className="navbar-start">
-                  <h5 className="subtitle is-size-5"> {this.state.parsedUrlQuery.category}/{this.state.parsedUrlQuery.type} </h5>
+                  <h5 className="subtitle is-size-5"><strong>Category:</strong> {this.state.parsedUrlQuery.category ? this.state.parsedUrlQuery.category : 'All categories'}
+                    {this.state.parsedUrlQuery.type? '/' + this.state.parsedUrlQuery.type: '' }  </h5>
                 </div>
                 <div className="navbar-end">
                   <h5 className="subtitle is-size-5">{/* Placeholder navigations buttons */}</h5>

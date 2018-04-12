@@ -49,8 +49,11 @@ class Navbar extends React.Component {
 
         <div id="mobile-menu" className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
+            <div className="navbar-item">
+              <Link to="/items">All categories</Link>
+            </div>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link" href="/items?category=Clothing">Clothing</a>
+              <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
               <div className="navbar-dropdown is-boxed">
                 <Link className="navbar-item" to="/items?category=Clothing">All</Link>
                 <Link className="navbar-item" to="/items?category=Clothing&type=Bridal">Bridal</Link>
@@ -62,7 +65,7 @@ class Navbar extends React.Component {
               </div>
             </div>
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link" href="/items?category=Accessories">Accessories</a>
+              <Link className="navbar-link" to="/items?category=Accessories">Accessories</Link>
               <div className="navbar-dropdown is-boxed">
                 <Link className="navbar-item" to="/items?category=Accessories">All</Link>
                 <Link className="navbar-item" to="/items?category=Accessories&type=Handbags">Handbags</Link>
