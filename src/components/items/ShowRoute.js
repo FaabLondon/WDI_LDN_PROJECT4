@@ -60,7 +60,7 @@ class ShowRoute extends React.Component{
       })
         .then(res => {
           Cart.setCart(res.data);
-          this.setState({message: 'This item was succesfully added to your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
+          this.setState({message: 'This item was succesfully added to your shopping basket!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
         });
     } else {
       Flash.setMessage('danger', 'You must be logged in to perform this action.');
@@ -78,7 +78,7 @@ class ShowRoute extends React.Component{
       })
         .then(res => {
           Cart.setCart(res.data);
-          this.setState({message: 'This item was succesfully removed from your cart!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
+          this.setState({message: 'This item was succesfully removed from your shopping basket!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
         });
     } else {
       Flash.setMessage('danger', 'You must be logged in to perform this action.');
@@ -138,15 +138,15 @@ class ShowRoute extends React.Component{
           <div className="column is-half">
             <div className="content">
               <h1 className="is-1">{this.state.item.brand}</h1>
-              <p className="subtitle">{this.state.item.shortDescription}</p>
+              <p className="subtitle"><strong>{this.state.item.shortDescription}</strong></p>
             </div>
             <div className="averageRating">
-              <span>No rating yet</span>
+              {/* <span>No rating yet</span> */}
             </div>
             <div className="content">
               <p className="subtitle is-6">{this.state.item.longDescription}</p>
               <p className="subtitle is-6">Size: {this.state.item.sizeAvailable}</p>
-              <h6 className="subtitle is-7">£{this.state.item.rentalPrice} per day <span className="has-text-grey">| £{this.state.item.retailPrice} retail</span></h6>
+              <h6 className="subtitle is-6">£{this.state.item.rentalPrice} per day <span className="has-text-grey">| £{this.state.item.retailPrice} retail</span></h6>
             </div>
             <div className="showButtons">
               <div>Add / remove from my shopping bag</div>
@@ -159,7 +159,7 @@ class ShowRoute extends React.Component{
 
           {/* Review section */}
           <div className="column reviews">
-            <h5 className="subtitle is-5"><strong>Please add a review</strong></h5>
+            <h5 className="subtitle is-5"><strong>Please leave a comment</strong></h5>
             <article className="media">
               <div className="media-left">
                 <figure className="image is-48x48">
@@ -188,17 +188,18 @@ class ShowRoute extends React.Component{
                     <textarea name="content" className="textarea" placeholder="Add a comment..." required minLength="2" onChange={this.handleChange}></textarea>
                   </div>
                 </div>
-                {Auth.isAuthenticated() && <button className="button is-info">Submit</button>}
+                {Auth.isAuthenticated() && <button className="button addComment">Submit</button>}
               </form>
             </div>
 
             {/* Show previous reviews */}
-            <div>
+            <div className="previousReviews">
+              <h5 className="subtitle is-5"><strong>Previous comments</strong></h5>
               {this.state.item.reviews.map((review, i) =>
                 <article key={i} className="media">
                   <figure className="media-left">
                     <p className="image is-64x64">
-                      <img src={review.user.picture} />
+                      {review.user.picture === ''? <img src="https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png" /> : <img src={review.user.picture} />}
                     </p>
                     <strong>{review.user.username}</strong>
                   </figure>

@@ -6,11 +6,48 @@ div.imgItemShow{
   background-size: cover;
 }
 
-// /* review circle settings in show page*/
-// .emptyStar {
-//   background-image: url('../../assets/images/greyStar.png');
-//   background-size: cover; }
-//
-// .emptyStar:hover {
-//   background-image: url('../../assets/images/yellowStar.png');
-//   background-size: cover; }
+div.column.reviews{
+  border-top: 1px solid #dddddd;
+}
+
+h5.subtitle.is-5{
+  text-decoration: underline;
+}
+
+article.media{
+  margin-bottom: 10px;
+}
+
+div.previousReviews{
+  margin-top: 20px;
+}
+
+button.addComment{
+  white-space: nowrap;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 14px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  //text-transform: uppercase;
+  letter-spacing: 0.025em;
+  background-color: #6772e5;
+  text-decoration: none;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+  margin-top: 10px;
+}
+
+button.addComment:hover {
+  color: #fff;
+  cursor: pointer;
+  background-color: #7795f8;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+}
