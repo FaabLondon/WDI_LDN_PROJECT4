@@ -61,6 +61,15 @@ class Navbar extends React.Component {
                 <Link className="navbar-item" to="/items?category=Clothing&type=Knits">Knits</Link>
               </div>
             </div>
+            <div className="navbar-item has-dropdown is-hoverable">
+              <a className="navbar-link" href="/items?category=Accessories">Accessories</a>
+              <div className="navbar-dropdown is-boxed">
+                <Link className="navbar-item" to="/items?category=Accessories">All</Link>
+                <Link className="navbar-item" to="/items?category=Accessories&type=Handbags">Handbags</Link>
+                <Link className="navbar-item" to="/items?category=Accessories&type=Sunglasses" onClick={this.updateState}>Sunglasses</Link>
+                <Link className="navbar-item" to="/items?category=Accessories&type=Jewellery">Jewellery</Link>
+              </div>
+            </div>
             {/* <div className="navbar-item">
               Placeholder for search field
             </div> */}

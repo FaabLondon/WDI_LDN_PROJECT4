@@ -21,6 +21,7 @@ const colors = [
   {color: 'Grey', code: '#eeeeee'},
   {color: 'White', code: '#ffffff'},
   {color: 'Beige', code: '#ffcc99'},
+  {color: 'Cream', code: '#f2e3c9'},
   {color: 'Brown', code: '#994c00'},
   {color: 'Red', code: '#ff0000'},
   {color: 'Orange', code: '#ff8000'},
@@ -28,7 +29,9 @@ const colors = [
   {color: 'Green', code: '#006600'},
   {color: 'Blue', code: '#0000ff'},
   {color: 'Purple', code: '#990099'},
-  {color: 'Pink', code: '#FF99CC'}
+  {color: 'Pink', code: '#FF99CC'},
+  {color: 'Gold', code: '#EEE8AA'},
+  {color: 'Silver', code: '#858785'}
 ];
 
 class IndexRoute extends React.Component{
@@ -56,6 +59,7 @@ class IndexRoute extends React.Component{
       grey: false,
       white: false,
       beige: false,
+      cream: false,
       brown: false,
       red: false,
       orange: false,
@@ -63,7 +67,9 @@ class IndexRoute extends React.Component{
       green: false,
       blue: false,
       purple: false,
-      pink: false
+      pink: false,
+      gold: false,
+      silver: false
     }
   }
 
