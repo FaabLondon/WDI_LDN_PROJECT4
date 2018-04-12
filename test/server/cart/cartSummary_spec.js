@@ -26,7 +26,8 @@ const cartData = [{
   sizeAvailable: 'M',
   mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_1.jpg',
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_4.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_3.jpg'],
-  available: true
+  available: true,
+  reviews: []
 }, {
   brand: 'Self-Portrait',
   shortDescription: 'Navy embroidered tulle maxi dress',
@@ -40,7 +41,8 @@ const cartData = [{
   sizeAvailable: 'M',
   mainImage: 'https://m.hng.io/catalog/product/6/6/665878_navy_and_other_4.jpg',
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_2.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_3.jpg'],
-  available: true
+  available: true,
+  reviews: []
 }];
 
 const itemData = cartData;
@@ -101,7 +103,8 @@ describe('GET /cart', () => {
             'sizeAvailable',
             'mainImage',
             'smallImages',
-            'available'
+            'available',
+            'reviews'
           ]);
         });
         done();
@@ -128,6 +131,7 @@ describe('GET /cart', () => {
           expect(item.mainImage).to.eq(cartData[i].mainImage);
           expect(item.smallImages).to.deep.eq(cartData[i].smallImages);
           expect(item.available).to.eq(cartData[i].available);
+          expect(item.reviews).to.deep.eq(cartData[i].reviews);
         });
         done();
       });
@@ -188,7 +192,8 @@ describe('POST /api/cart/items/${itemId}', () => {
           'sizeAvailable',
           'mainImage',
           'smallImages',
-          'available'
+          'available',
+          'reviews'
         ]);
         done();
       });
@@ -212,6 +217,7 @@ describe('POST /api/cart/items/${itemId}', () => {
         expect(res.body[0].mainImage).to.eq(cartData[0].mainImage);
         expect(res.body[0].smallImages).to.deep.eq(cartData[0].smallImages);
         expect(res.body[0].available).to.eq(cartData[0].available);
+        expect(res.body[0].reviews).to.deep.eq(cartData[0].reviews);
         done();
       });
   });
@@ -274,7 +280,8 @@ describe('DELETE /api/cart/items/${itemId}', () => {
           'sizeAvailable',
           'mainImage',
           'smallImages',
-          'available'
+          'available',
+          'reviews'
         ]);
         done();
       });
@@ -298,6 +305,7 @@ describe('DELETE /api/cart/items/${itemId}', () => {
         expect(res.body[0].mainImage).to.eq(cartData[0].mainImage);
         expect(res.body[0].smallImages).to.deep.eq(cartData[0].smallImages);
         expect(res.body[0].available).to.eq(cartData[0].available);
+        expect(res.body[0].reviews).to.deep.eq(cartData[0].reviews);
         done();
       });
   });

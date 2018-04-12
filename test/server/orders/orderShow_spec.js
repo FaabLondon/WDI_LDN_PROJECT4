@@ -26,7 +26,8 @@ const itemData = [{
   sizeAvailable: 'M',
   mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_1.jpg',
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_4.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_3.jpg'],
-  available: true
+  available: true,
+  reviews: []
 }, {
   brand: 'Self-Portrait',
   shortDescription: 'Navy embroidered tulle maxi dress',
@@ -40,7 +41,8 @@ const itemData = [{
   sizeAvailable: 'M',
   mainImage: 'https://m.hng.io/catalog/product/6/6/665878_navy_and_other_4.jpg',
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_2.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_3.jpg'],
-  available: true
+  available: true,
+  reviews: []
 }];
 
 let token = '';
@@ -86,20 +88,20 @@ describe('GET /orders/:id', () => {
 
   it('should return a 401 - unauthorized - response if no token', done => {
     api
-      .get(`api/orders/${orderId}`)
+      .get(`/api/orders/${orderId}`)
       .expect(401, done);
   });
 
   it('should return a 200 response if token is provided', done => {
     api
-      .get(`api/orders/${orderId}`)
+      .get(`/api/orders/${orderId}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200, done);
   });
 
   it('should return the order with the correct fields', done => {
     api
-      .get(`api/orders/${orderId}`)
+      .get(`/api/orders/${orderId}`)
       .set('Authorization', `Bearer ${token}`)
       .end((err, res) => {
         expect(res.body).to.be.an('object');

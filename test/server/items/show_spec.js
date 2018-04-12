@@ -1,5 +1,6 @@
 /* global api, describe, it, expect, beforeEach */
 const { Item } = require('../../../models/item');
+const User = require('../../../models/user');
 
 const itemData = [{
   brand: 'Lanvin',
@@ -14,7 +15,8 @@ const itemData = [{
   sizeAvailable: 'M',
   mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_1.jpg',
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_4.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/663986_blue_3.jpg'],
-  available: true
+  available: true,
+  reviews: []
 }, {
   brand: 'Self-Portrait',
   shortDescription: 'Navy embroidered tulle maxi dress',
@@ -28,7 +30,8 @@ const itemData = [{
   sizeAvailable: 'M',
   mainImage: 'https://m.hng.io/catalog/product/6/6/665878_navy_and_other_4.jpg',
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_5.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_2.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/665878_navy_and_other_3.jpg'],
-  available: true
+  available: true,
+  reviews: []
 }];
 
 let item = {};
@@ -37,7 +40,8 @@ describe('GET /items/:id', () => {
 
   beforeEach(done => {
     Promise.all([
-      Item.remove({})
+      Item.remove({}),
+      User.remove({})
     ])
       .then(() => Item.create(itemData))
       .then(items => item = items[0]) //1st item returned
@@ -68,7 +72,8 @@ describe('GET /items/:id', () => {
           'sizeAvailable',
           'mainImage',
           'smallImages',
-          'available'
+          'available',
+          'reviews'
         ]);
         done();
       });
@@ -91,6 +96,7 @@ describe('GET /items/:id', () => {
         expect(res.body.mainImage).to.eq(itemData[0].mainImage);
         expect(res.body.smallImages).to.deep.eq(itemData[0].smallImages);
         expect(res.body.available).to.eq(itemData[0].available);
+        expect(res.body.reviews).to.deep.eq(itemData[0].reviews);
         done();
       });
   });
