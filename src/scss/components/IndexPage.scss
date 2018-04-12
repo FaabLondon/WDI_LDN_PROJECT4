@@ -9,7 +9,7 @@ div.content.cardContent{
 
 h4.subtitle.is-italic{
   margin-bottom: 5px;
-  margin-top: 50px;
+  margin-top: 35px;
   text-decoration: underline;
 }
 
@@ -22,6 +22,10 @@ h3.subtitle.is-3{
   margin: 0;
 }
 
+div.is-italic:active{
+  font-size: 18px;
+}
+
 div.SortByControl{
   display: flex;
   flex-direction: column;
@@ -30,6 +34,10 @@ div.SortByControl{
 input.searchField{
   height: 4vh;
   width: 22vw;
+}
+
+div.filterFields{
+  display: flex;
 }
 
 //* customise checkboxes for colors

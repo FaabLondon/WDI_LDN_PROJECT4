@@ -2,9 +2,11 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom'; //coming from Brower Router
 import Auth from '../../lib/Auth';
 import User from '../../lib/User';
-import Cart from '../../lib/Cart';
+//import Cart from '../../lib/Cart';
 
-let lastOrderId = '';
+import '../../scss/components/navBarStyle.scss';
+
+//let lastOrderId = '';
 
 class Navbar extends React.Component {
 
@@ -31,11 +33,11 @@ class Navbar extends React.Component {
 
   render() {
     return (
-      <nav className="navbar">
+      <nav className="navbar mainNavbar">
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
-            <img src="http://blog.protur-hotels.com/wp-content/uploads/2017/04/codigo-vestimenta-protur-hotels-almeria-mallorca-1.jpg" alt="DressCode" />
-              Luxury to Rent
+          <Link className="navbar-item logo" to="/">
+            <img src="../assets/images/sleeveless-dress.png" alt="DressCode" />
+              to Rent
           </Link>
 
           <div data-target="#mobile-menu"
@@ -49,9 +51,7 @@ class Navbar extends React.Component {
 
         <div id="mobile-menu" className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
-            <div className="navbar-item">
-              <Link to="/items">All categories</Link>
-            </div>
+            <Link className="navbar-item mainTitle" to="/items">All categories</Link>
             <div className="navbar-item has-dropdown is-hoverable">
               <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
               <div className="navbar-dropdown is-boxed">

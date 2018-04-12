@@ -164,10 +164,10 @@ class IndexRoute extends React.Component{
       <section>
         <div className="columns is-multiline">
           <div className="column is-one-quarter">
-
+            <div className="is-italic" onClick={this.clearAll}><strong>Clear all filters</strong></div>
             {/* refactor - to include in separate components */}
             <div className="searchBy">
-              <h4 className="subtitle is-size-4 is-italic">Search criteria</h4>
+              <h4 className="subtitle is-size-4 is-italic">Brand and Product</h4>
               <form>
                 <div className="field SearchByControl">
                   <div className="control has-icons-left">
@@ -196,16 +196,18 @@ class IndexRoute extends React.Component{
             <div>
               <h4 className="subtitle is-size-4 is-italic">Filter criteria</h4>
               {/* Filter by price range */}
-              <div className="FilterBy">
+              <div className="filterBy">
                 <h5 className="subtitle is-size-5 is-italic">Rental Price</h5>
                 <form>
-                  <div className="field FilterByControl">
-                    <label className="label" htmlFor="email">Min Price</label>
-                    <input type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
-                  </div>
-                  <div className="field FilterByControl">
-                    <label className="label" htmlFor="email">Max Price</label>
-                    <input type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
+                  <div className="filterFields">
+                    <div className="field FilterByControl">
+                      <label className="label" htmlFor="email">Min Price</label>
+                      <input type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
+                    </div>
+                    <div className="field FilterByControl">
+                      <label className="label" htmlFor="email">Max Price</label>
+                      <input type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
+                    </div>
                   </div>
                 </form>
               </div>
@@ -240,7 +242,6 @@ class IndexRoute extends React.Component{
                 </form>
               </div>
             </div>
-            <button onClick={this.clearAll}>Clear all filters</button>
           </div>
 
           <div className="column is-three-quarter">
