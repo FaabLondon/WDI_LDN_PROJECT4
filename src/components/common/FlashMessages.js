@@ -1,16 +1,32 @@
+
 import React from 'react';
 import Flash from '../../lib/Flash';
 
-const FlashMessages = () => {
-  const messages = Flash.getMessages();
-  Flash.clearMessages();
-  return(
-    <div className="container flashMessages">
-      {messages && Object.keys(messages).map((type, i) =>
-        <div key={i} className={`notification is-${type}`}>{messages[type]}</div>
-      )}
-    </div>
-  );
-};
+class FlashMessages extends React.Component {
+  state = {
+    messages: ''
+  }
+
+  componentWillUpdate() {
+    const messages = Flash.getMessages();
+
+    if(!messages) return false;
+
+    this.setState({ messages });
+    Flash.clearMessages();
+
+    setTimeout(() => this.setState({ messages: '' }), 2000);
+  }
+
+  render() {
+    return (
+      <div className="container flashMessages">
+        {this.state.messages && Object.keys(this.state.messages).map(type =>
+          <div key={type} className={`notification is-${type}`}>{this.state.messages[type]}</div>
+        )}
+      </div>
+    );
+  }
+}
 
 export default FlashMessages;
