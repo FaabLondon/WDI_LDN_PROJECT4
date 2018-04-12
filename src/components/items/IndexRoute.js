@@ -200,11 +200,11 @@ class IndexRoute extends React.Component{
                 <h5 className="subtitle is-size-5 is-italic">Price</h5>
                 <form>
                   <div className="filterFields">
-                    <div className="field FilterByControl">
+                    <div className="field FilterByControl price">
                       <label className="label is-size-6" htmlFor="email">Min</label>
                       <input className="inputPrice" type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
                     </div>
-                    <div className="field FilterByControl">
+                    <div className="field FilterByControl price">
                       <label className="label is-size-6" htmlFor="email">Max</label>
                       <input className="inputPrice" type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
                     </div>
