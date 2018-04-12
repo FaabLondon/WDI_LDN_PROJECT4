@@ -83,18 +83,18 @@ module.exports= [{
   smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/7/677423_rose_2_1.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/7/677423_rose_3_1.jpg'],
   available: true
 }, {
-  brand: 'Mihano Momosa',
-  shortDescription: 'Ivory long embellished dress',
-  longDescription: 'Mihano Momosa ivory long dress with hand made roses details',
-  retailPrice: 2100,
-  rentalPrice: 300,
+  brand: 'Cushnie et ochs',
+  shortDescription: 'Davina floral-print satin gown',
+  longDescription: 'Cushnie Et Ochs white silk gown. Floral print, cut-out front and back, button-fastening cuffs, split sides, back vent, fully lined',
+  retailPrice: 2295,
+  rentalPrice: 250,
   category: 'Clothing',
   type: 'Bridal',
   occasion: ['Formal'],
-  colors: ['white', 'cream'],
+  colors: ['white', 'cream', 'red', 'blue', 'green', 'pink', 'orange'],
   sizeAvailable: 'M',
-  mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/7/678822_WHITESHADE01_1.jpg',
-  smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/7/678822_WHITESHADE01_5.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/7/678822_WHITESHADE01_2.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/7/678822_WHITESHADE01_3.jpg'],
+  mainImage: 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/668589_white_and_other_1.jpg',
+  smallImages: ['https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/668589_white_and_other_5.jpg',  'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/668589_white_and_other_2.jpg', 'https://m.hng.io/catalog/product/cache/1/gallery/390x550/0dc2d03fe217f8c83829496872af24a0/6/6/668589_white_and_other_3.jpg'],
   available: true
 }, {
   brand: 'Mcq Alexander McQueen',
