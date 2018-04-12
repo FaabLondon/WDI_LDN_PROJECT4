@@ -26,6 +26,15 @@ div.is-italic:active{
   font-size: 18px;
 }
 
+input.inputPrice{
+  width: 50px;
+}
+
+div.filterBy{
+  display: flex;
+  align-items: center;
+}
+
 div.SortByControl{
   display: flex;
   flex-direction: column;
@@ -37,6 +46,10 @@ input.searchField{
 }
 
 div.filterFields{
+  display: flex;
+}
+
+div.FilterByControl{
   display: flex;
 }
 

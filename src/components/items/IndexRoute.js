@@ -197,16 +197,16 @@ class IndexRoute extends React.Component{
               <h4 className="subtitle is-size-4 is-italic">Filter criteria</h4>
               {/* Filter by price range */}
               <div className="filterBy">
-                <h5 className="subtitle is-size-5 is-italic">Rental Price</h5>
+                <h5 className="subtitle is-size-5 is-italic">Price</h5>
                 <form>
                   <div className="filterFields">
                     <div className="field FilterByControl">
-                      <label className="label" htmlFor="email">Min Price</label>
-                      <input type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
+                      <label className="label is-size-6" htmlFor="email">Min</label>
+                      <input className="inputPrice" type="text" name="minPrice" placeholder="£0" onChange={this.handleSearch} />
                     </div>
                     <div className="field FilterByControl">
-                      <label className="label" htmlFor="email">Max Price</label>
-                      <input type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
+                      <label className="label is-size-6" htmlFor="email">Max</label>
+                      <input className="inputPrice" type="text" name="maxPrice" placeholder="£500" onChange={this.handleSearch} />
                     </div>
                   </div>
                 </form>

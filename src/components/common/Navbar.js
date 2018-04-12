@@ -36,8 +36,8 @@ class Navbar extends React.Component {
       <nav className="navbar mainNavbar">
         <div className="navbar-brand">
           <Link className="navbar-item logo" to="/">
+            <span>Dress to impress</span>
             <img src="../assets/images/sleeveless-dress.png" alt="DressCode" />
-              to Rent
           </Link>
 
           <div data-target="#mobile-menu"
