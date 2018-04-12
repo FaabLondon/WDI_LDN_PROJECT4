@@ -14,6 +14,7 @@ class ShowRoute extends React.Component{
       reviews: [],
       smallImages: []
     },
+    mouseOverImg: '',
     message: '',
     nbItemCart: 0
   }
@@ -23,6 +24,9 @@ class ShowRoute extends React.Component{
   componentDidMount= () => {
     //added a get cart case user refreshes the page which deletes the Cart or in case user is not logged in
     const itemId = this.props.match.params.id;
+    let nbItemCart = 0;
+
+    //only get cart info if authenticated
     if(Auth.isAuthenticated()){
       axios({
         method: 'GET',
@@ -31,16 +35,19 @@ class ShowRoute extends React.Component{
       })
         .then(res => {
           Cart.setCart(res.data);
-        })
-        .then(() => {
-          //get the populated item (product) information
-          axios.get(`/api/items/${itemId}`)
-            .then(res => this.setState({ item: res.data, nbItemCart: Cart.getnbItemCart(itemId) }));
+          nbItemCart = Cart.getnbItemCart(itemId);
         });
-    } else {
-      axios.get(`/api/items/${itemId}`)
-        .then(res => this.setState({ item: res.data, nbItemCart: 0 }));
     }
+    //get the populated item (product) information
+    axios.get(`/api/items/${itemId}`)
+      .then(res => this.setState({ item: res.data, nbItemCart: nbItemCart, mouseOverImg: res.data.mainImage }, () => console.log('thisstate after Mount', this.state)));
+  }
+
+  handleMouseover(i, image){
+    //swaps small image hovered on with the one being displayed in main window
+    const smallImages = this.state.item.smallImages.slice(); //clone array
+    smallImages[i] = this.state.mouseOverImg;
+    this.setState({mouseOverImg: image, item: Object.assign(this.state.item, {smallImages: smallImages}) });
   }
 
   //add the item to the cart - only if logged in
@@ -121,11 +128,11 @@ class ShowRoute extends React.Component{
           <div className="column is-half images">
             <div className="smallImages">
               {this.state.item.smallImages.map((image, i) =>
-                <div key={i} className="smallImage" style={{backgroundImage: `url(${image})`}}>
+                <div key={i} onMouseOver={() => this.handleMouseover(i, image)} className="smallImage" style={{backgroundImage: `url(${image})`}}>
                 </div>
               )}
             </div>
-            <div className="mainImage" style={{backgroundImage: `url(${this.state.item.mainImage})`}}>
+            <div className="mainImage" style={{backgroundImage: `url(${this.state.mouseOverImg})`}}>
             </div>
           </div>
           <div className="column is-half">
