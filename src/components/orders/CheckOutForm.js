@@ -37,6 +37,8 @@ class CheckOutForm extends React.Component {
     this.setState({[name]: value, errors});
   }
 
+
+
   handleSubmit = (e) => {
     // prevent default from submission
     e.preventDefault();
@@ -82,6 +84,7 @@ class CheckOutForm extends React.Component {
     return (
       <section>
         <h3 className="title is-size-3">Proceed to order</h3>
+        <h6 className="title is-size-6 has-text-grey"><span><i className="fas fa-arrow-alt-circle-right"></i></span> Click & Collect - coming soon </h6>
         <form onSubmit={this.handleSubmit}>
           <div className="columns">
             <div className="column is-half">
@@ -89,11 +92,11 @@ class CheckOutForm extends React.Component {
               <CardSection errorPayment={this.state.errorPayment}/>
             </div>
             <div className="column is-half">
-              <h5 className="subtitle is-size-5 is-italic"><strong>Please check your order</strong></h5>
+              <h5 className="subtitle is-size-5 is-italic"><strong>3) Please check your order</strong></h5>
               <CartSummary updateOrderTotal={this.updateOrderTotal}/>
             </div>
           </div>
-          {this.state.orderTotal > 0 && <button className="button CheckOut">Validate {this.state.orderTotal}£ payment</button>}
+          {this.state.orderTotal > 0 && <button className="button checkOut">Validate {this.state.orderTotal}£ payment</button>}
         </form>
       </section>
     );

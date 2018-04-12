@@ -102,7 +102,7 @@ class CartSummary extends React.Component{
               <td>£{item.rentalPrice * item.qty} per day</td>
               <td>
                 <h6 className="title is-size-6"><span><i className="fas fa-truck"></i></span> Delivery to UK</h6>
-                <h6 className="title is-size-6"><span><i className="fas fa-arrow-alt-circle-right"></i></span> Click & Collect</h6>
+                <h6 className="title is-size-6 has-text-grey"><span><i className="fas fa-arrow-alt-circle-right"></i></span> Click & Collect</h6>
               </td>
             </tr>
           )}

@@ -5,7 +5,7 @@ class AddressSection extends React.Component {
   render() {
     return (
       <div>
-        <h5 className="subtitle is-size-5 is-italic"><strong>Please enter your Delivery/billing information</strong></h5>
+        <h5 className="subtitle is-size-5 is-italic"><strong>1) Please enter your Delivery/billing information</strong></h5>
         <div className="field">
           <label className="label" htmlFor="deliveryBillingAddress">Street & number</label>
           <div className="control has-icons-left">

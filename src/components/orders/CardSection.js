@@ -15,7 +15,8 @@ class CardSection extends React.Component {
   render() {
     return (
       <label className="labelCardForm">
-        Card details
+        <h5 className="subtitle is-size-5 is-italic payment"><strong>2) Please enter your card details</strong></h5>
+        <p>Payment methods accepted:</p> <img className="paymentMethods" src="http://www.easy-lettingstelford.co.uk/images/stripe_credit-card-logos.png" />
         <CardElement
           // onChange={handleChange}
           style={{base: {fontSize: '18px'}}} />
