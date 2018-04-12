@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../../scss/components/OrderValidation.scss';
 
 class OrderValidation extends React.Component {
 
@@ -24,7 +25,7 @@ class OrderValidation extends React.Component {
       <section>
         <div className="columns">
           <div className="column is-one-third">
-            <img src="  https://i.pinimg.com/originals/20/15/d9/2015d99c7fcd0da2689eac475a0a2d78.jpg" />
+            <div className="confirmationImg"></div>
           </div>
           <div className="column is-two-thirds">
             <h3 className="title is-size-3">Thank you {this.state.userName} for your order !</h3><br/>
