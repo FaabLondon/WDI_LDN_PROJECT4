@@ -48,7 +48,7 @@ class Login extends React.Component{
   render(){
     return(
       <section className="login" style={{backgroundImage: 'url(https://velvetstyle.it/wp-content/uploads/2017/12/saldi2.jpg)'}}>
-        <form onSubmit={this.handleSubmit}>
+        <form className="login" onSubmit={this.handleSubmit}>
           <div className="field">
             <label className="label login" htmlFor="email">Email</label>
             <div className="control has-icons-left">
@@ -77,7 +77,7 @@ class Login extends React.Component{
             </div>
           </div>
           <button className="button login">Login</button>
-          {this.state.errors.message && <small>{this.state.errors.message}</small>}
+          {this.state.errors.message && <small className="has-text-white">{this.state.errors.message}</small>}
         </form>
       </section>
     );
