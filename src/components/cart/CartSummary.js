@@ -85,7 +85,7 @@ class CartSummary extends React.Component{
           {this.state.items.map((item, i) =>
             <tr key={i} className="cartContent">
               <th>
-                <div className="imgItemCart" style={{background: `url(${item.mainImage})`, backgroundSize: 'cover'}}>
+                <div className="imgItemCart" style={{backgroundImage: `url(${item.mainImage})`}}>
                 </div>
               </th>
               <td>

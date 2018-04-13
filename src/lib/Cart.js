@@ -1,13 +1,15 @@
 class Cart{
 
-  _currentCart = null;
+  _currentCart = null; //not needed if use local storage
 
 
   static setCart(cart){
+    // localStorage.setItem('cart', JSON.stringify(cart));
     this._currentCart = cart || {}; //if undefined, set to {};
   }
 
   static getCart(){
+    // return JSON.parse(localStorage.getItem('cart'));
     return this._currentCart;
   }
 

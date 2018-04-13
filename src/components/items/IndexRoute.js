@@ -49,23 +49,23 @@ const filter = {
   Maternity: false
 };
 let filterColor = {};
-filterColor = colors.map(elt => filterColor[elt] = false);
-//   black: false,
-//   grey: false,
-//   white: false,
-//   beige: false,
-//   cream: false,
-//   brown: false,
-//   red: false,
-//   orange: false,
-//   yellow: false,
-//   green: false,
-//   blue: false,
-//   purple: false,
-//   pink: false,
-//   gold: false,
-//   silver: false
-// };
+filterColor = {
+  black: false,
+  grey: false,
+  white: false,
+  beige: false,
+  cream: false,
+  brown: false,
+  red: false,
+  orange: false,
+  yellow: false,
+  green: false,
+  blue: false,
+  purple: false,
+  pink: false,
+  gold: false,
+  silver: false
+};
 
 class IndexRoute extends React.Component{
 

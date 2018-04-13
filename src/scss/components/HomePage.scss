@@ -1,7 +1,20 @@
-.hero.homepage {
+.hero.homepage::after  {
+  content: "";
   background-image: url('http://www.jordanretro11fanatics.com/wp-content/uploads/2018/02/luxury-private-labels.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 450px;
   justify-content: center;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.hero.homepage {
+  height: 450px;
+  display: block;
+  position: relative;
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 import User from '../../lib/User';
 import _ from 'lodash';
-
+import '../../scss/components/orderSummary.scss';
 
 class OrderSummary extends React.Component{
 
@@ -58,12 +58,12 @@ class OrderSummary extends React.Component{
         <h3 className="subtitle is-size-3">Your order details</h3>
         <div className="columns is-multiline">
           <div className="column is-two-third">
-            <h4 className="subtitle is-4">Order #{this.state.order._id}</h4>
-            <h6 className="subtitle is-6 is-italic">Placed on {this.state.order.createdAt.substring(0,10) }</h6>
+            <h4 className="subtitle is-4">Order <strong>#{this.state.order._id}</strong></h4>
+            <h6 className="subtitle is-6 is-italic"><strong>Placed on {this.state.order.createdAt.substring(0,10) }</strong></h6>
             <table className="table">
               <thead>
                 <tr>
-                  <th></th>
+                  <th>Item image</th>
                   <th>Description</th>
                   <th>Quantity</th>
                   <th>Rental price</th>
@@ -74,7 +74,7 @@ class OrderSummary extends React.Component{
                 {this.state.orderCleaned.map((item, i) =>
                   <tr key={i} className="cartContent">
                     <th>
-                      <div className="imgItemCart" style={{background: `url(${item.mainImage})`, backgroundSize: 'cover'}}>
+                      <div className="imgItemCart" style={{backgroundImage: `url(${item.mainImage})`, backgroundSize: 'cover'}}>
                       </div>
                     </th>
                     <td>
@@ -102,15 +102,13 @@ class OrderSummary extends React.Component{
             </table>
           </div>
           <div className="column is-one-third image">
-            <h4 className="subtitle is-4">Delivery/Billing information</h4>
+            <h4 className="subtitle is-4">Delivery information</h4>
             <img src="https://i.pinimg.com/originals/53/08/f3/5308f3b73a0b83cf10b9b63adc15dc96.jpg" />
             <div>
-              <h6 className="subtitle is-6"><strong>Delivery address</strong></h6>
-              <p>{User.getCurrentUser() && User.getCurrentUser().name} {' '}
-                {User.getCurrentUser() && User.getCurrentUser().lastName}</p>
-              <p>{this.state.order.deliveryBillingAddress}</p>
-              <p>{this.state.order.deliveryBillingPostcode}</p>
-              <p>{this.state.order.deliveryBillingCity}</p>
+              <strong><h6 className="subtitle is-6 delivery">Delivery address</h6></strong>
+              {User.getCurrentUser() && User.getCurrentUser().name} {' '}
+              {User.getCurrentUser() && User.getCurrentUser().lastName}
+              <p>{this.state.order.deliveryBillingAddress}{' '}{this.state.order.deliveryBillingPostcode}{' '}{this.state.order.deliveryBillingCity}</p>
             </div>
           </div>
         </div>

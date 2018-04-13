@@ -4,6 +4,7 @@ import axios from 'axios';
 import Flash from '../../lib/Flash';
 import User from '../../lib/User';
 import Cart from '../../lib/Cart';
+import '../../scss/components/login.scss';
 
 class Login extends React.Component{
 
@@ -46,37 +47,39 @@ class Login extends React.Component{
 
   render(){
     return(
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="label" htmlFor="email">Email</label>
-          <div className="control has-icons-left">
-            <input
-              className="input"
-              placeholder="Enter your email"
-              name="email"
-              onChange={this.handleChange}
-              pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
-              required
-            />
-            <span className="icon is-small is-left"><i className="far fa-envelope"></i></span>
+      <section className="login" style={{backgroundImage: 'url(https://velvetstyle.it/wp-content/uploads/2017/12/saldi2.jpg)'}}>
+        <form onSubmit={this.handleSubmit}>
+          <div className="field">
+            <label className="label login" htmlFor="email">Email</label>
+            <div className="control has-icons-left">
+              <input
+                className="input login"
+                placeholder="Enter your email"
+                name="email"
+                onChange={this.handleChange}
+                pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
+                required
+              />
+              <span className="icon is-small is-left"><i className="far fa-envelope"></i></span>
+            </div>
           </div>
-        </div>
-        <div className="field">
-          <label className="label" htmlFor="password">Password</label>
-          <div className="control">
-            <input
-              type="password"
-              className="input"
-              placeholder="Enter your password"
-              name="password"
-              onChange={this.handleChange}
-              required
-            />
+          <div className="field">
+            <label className="label login" htmlFor="password">Password</label>
+            <div className="control">
+              <input
+                type="password"
+                className="input login"
+                placeholder="Enter your password"
+                name="password"
+                onChange={this.handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
-        <button className="button is-primary">Submit</button>
-        {this.state.errors.message && <small>{this.state.errors.message}</small>}
-      </form>
+          <button className="button login">Login</button>
+          {this.state.errors.message && <small>{this.state.errors.message}</small>}
+        </form>
+      </section>
     );
   }
 }

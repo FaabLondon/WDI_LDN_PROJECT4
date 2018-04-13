@@ -1,24 +1,8 @@
-div.imgRight{
-  background-image: url('https://i.pinimg.com/564x/30/d6/18/30d6184205f4cdaa5279d8ee9c0c16a0.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
-  width: 100%;
+input.input.login{
+  width: 50%;
 }
 
-div.imgItemCart{
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100px;
-  width: 100px;
-}
-
-div.column.is-half.image{
-  margin: auto;
-}
-
-a.button{
-  margin: 5px;
+button.button.login{
   white-space: nowrap;
   border: 0;
   outline: 0;
@@ -31,7 +15,7 @@ a.button{
   border-radius: 4px;
   font-size: 15px;
   font-weight: 600;
-  //text-transform: uppercase;
+  text-transform: uppercase;
   letter-spacing: 0.025em;
   background-color: #f731d6;
   text-decoration: none;
@@ -40,10 +24,23 @@ a.button{
   margin-top: 10px;
 }
 
-a.button:hover {
+button.button.login:hover {
   color: #fff;
   cursor: pointer;
   background-color: #f9aeed;
   transform: translateY(-1px);
   box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+}
+
+section.login{
+  height: 750px;
+}
+
+form {
+  padding-left: 40px;
+  padding-top: 30px;
+}
+
+label.label.login{
+  color: white;
 }

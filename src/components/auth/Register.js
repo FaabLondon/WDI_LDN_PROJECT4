@@ -12,7 +12,7 @@ const options = {
   maxFiles: 1,
   minFiles: 1,
   maxSize: 1024*1024,
-  imageDim: [500, 400],
+  imageDim: [150, 150],
   transformations: { crop: true }
 };
 
@@ -93,7 +93,7 @@ class Register extends React.Component{
         </div>
         <div className="field">
           <label className="label" htmlFor="username">Profile Picture</label>
-          {this.state.picture !== '' && <div className="profilePicture" style={{background: `url(${this.state.picture})`}}></div>}
+          {this.state.picture !== '' && <div className="profilePicture register" style={{backgroundImage: `url(${this.state.picture})`}}></div>}
           <ReactFilestack
             apikey={'AFOYrjEmESlCGqN9sQtLOz'}
             buttonText="Click me to select a picture"
@@ -142,7 +142,7 @@ class Register extends React.Component{
           </div>
         </div>
 
-        <button className="button is-primary">Submit</button>
+        <button className="button register">Register</button>
       </form>
     );
   }

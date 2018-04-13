@@ -29,7 +29,7 @@ class UpdateUserRoute extends React.Component{
   }
 
   componentDidMount(){
-    const user = User.getCurrentUser();
+    const user = User.getCurrentUser(); //does not work if browser is reloaded
     this.setState({ ...user }, () => console.log('user state', this.state));
   }
 
@@ -107,7 +107,7 @@ class UpdateUserRoute extends React.Component{
         </div>
         <div className="field">
           <label className="label" htmlFor="username">Profile Picture</label>
-          <div className="profilePicture" style={{background: `url(${this.state.picture})`}}></div>
+          <div className="profilePicture edit" style={{backgroundImage: `url(${this.state.picture})`}}></div>
           <ReactFilestack
             apikey={'AFOYrjEmESlCGqN9sQtLOz'}
             buttonText="Click me"
@@ -131,7 +131,7 @@ class UpdateUserRoute extends React.Component{
           </div>
         </div>
         <div className="field">
-          <label className="label" htmlFor="password">Password</label>
+          <label className="label" htmlFor="password">Please enter your password do validate changes</label>
           <div className="control">
             <input
               type="password"

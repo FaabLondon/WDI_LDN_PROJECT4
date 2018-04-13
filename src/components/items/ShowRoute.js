@@ -40,7 +40,7 @@ class ShowRoute extends React.Component{
     }
     //get the populated item (product) information
     axios.get(`/api/items/${itemId}`)
-      .then(res => this.setState({ item: res.data, nbItemCart: nbItemCart, mouseOverImg: res.data.mainImage }, () => console.log('thisstate after Mount', this.state)));
+      .then(res => this.setState({ item: res.data, nbItemCart: nbItemCart, mouseOverImg: res.data.mainImage }));
   }
 
   handleMouseover(i, image){
@@ -121,6 +121,7 @@ class ShowRoute extends React.Component{
   }
 
   render() {
+    console.log(User.getCurrentUser());
     return (
       <section>
         <Link className="is-italic" to="/items"><strong>Back to search results</strong></Link>
@@ -164,9 +165,12 @@ class ShowRoute extends React.Component{
               <div className="media-left">
                 <figure className="image is-48x48">
                   {User.getCurrentUser() &&
-                    <img src={User.getCurrentUser().picture} />}
+                    <div className="userPicture" style={{backgroundImage: `url(${User.getCurrentUser().picture})`}}>
+                    </div>
+                  }
                   {!User.getCurrentUser() &&
-                      <img src="  https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png" />}
+                      <div className="userPicture" style={{backgroundImage: 'url(https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png)'}}> </div>
+                  }
                 </figure>
               </div>
               <div className="media-content">

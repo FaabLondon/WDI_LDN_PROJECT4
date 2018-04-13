@@ -25,7 +25,7 @@ class ShowCartRoute extends React.Component{
             <CartSummary updateNbItems={this.updateNbItems}/>
 
             {this.state.nbItems > 0 && <Link to="/checkout" className="button">Proceed to checkout</Link>}
-            <Link to="/items" className="button">Keep shopping</Link>
+            <Link to="/items" className="button">Back to browsing</Link>
           </div>
           <div className="column is-one-third image">
             <div className="imgRight"></div>
