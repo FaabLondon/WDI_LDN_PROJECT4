@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import '../../scss/components/OrderValidation.scss';
+// import axios from 'axios';
+import '../../scss/components/orderValidation.scss';
 
 class OrderValidation extends React.Component {
 
