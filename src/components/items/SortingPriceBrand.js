@@ -10,25 +10,22 @@ const sortOption = [
 ];
 
 /* Radio button to Sort asc/desc by price or brand */
-
-class SortingPriceBrand extends React.Component{
-  render(){
-    return(
-      <div className="sortBy">
-        <h4 className="subtitle is-size-4 is-italic">Sort criteria</h4>
-        <form>
-          <div className="control SortByControl">
-            {sortOption.map((elt, i) =>
-              <label key={i} className="radio">
-                <input className="inputOrder" type="radio" value={elt.sortCriteria} onChange={this.props.handleSort} checked={this.props.selectedRadio===elt.sortCriteria} />
-                {elt.text}
-              </label>
-            )}
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+const SortingPriceBrand = ({handleSort, selectedRadio }) => {
+  return(
+    <div className="sortBy">
+      <h4 className="subtitle is-size-4 is-italic">Sort criteria</h4>
+      <form>
+        <div className="control SortByControl">
+          {sortOption.map((elt, i) =>
+            <label key={i} className="radio">
+              <input className="inputOrder" type="radio" value={elt.sortCriteria} onChange={handleSort} checked={selectedRadio===elt.sortCriteria} />
+              {elt.text}
+            </label>
+          )}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default SortingPriceBrand;
