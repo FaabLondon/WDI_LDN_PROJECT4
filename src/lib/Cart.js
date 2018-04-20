@@ -13,10 +13,12 @@ class Cart{
     return this._currentCart;
   }
 
+  //not useful - jut do a .lenght in the code
   static getnbItemsCart(){
     return this._currentCart.length;
   }
 
+  //rename - get ItemsById - then use length in your code.
   //only works if cart is populated...otherwise only has item id in it
   static getnbItemCart(itemId){
     return this._currentCart.filter(elt => elt._id === itemId).length;

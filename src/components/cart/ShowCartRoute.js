@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CartSummary from './CartSummary';
 
+//would be easier to have all the scss file in the same folder as JS and use same name. easier to understand...
 import '../../scss/components/showCartRoute.scss';
 
 class ShowCartRoute extends React.Component{

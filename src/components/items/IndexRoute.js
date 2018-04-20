@@ -4,16 +4,12 @@ import '../../scss/components/IndexPage.scss';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
+import BrandProductSearch from './BrandProductSearch';
+import SortingPriceBrand from './SortingPriceBrand';
+
 //I installed this query String parsing library to parse the query in URL
 const queryString = require('query-string');
 
-//used to sort results asc desc on price or brand
-const sortOption = [
-  {sortCriteria: 'rentalPrice|desc', text: 'High $ - Low $'},
-  {sortCriteria: 'rentalPrice|asc', text: 'Low $ - High $'},
-  {sortCriteria: 'brand|asc', text: 'Brand Name (A - Z)'},
-  {sortCriteria: 'brand|desc', text: 'Brand Name (Z - A)'}
-];
 
 //used to color the checkboxes
 const colors = [
@@ -71,7 +67,10 @@ class IndexRoute extends React.Component{
 
   state = {
     items: [],
-    parsedUrlQuery: {},
+    parsedUrlQuery: {
+      category: '',
+      type: ''
+    },
     query: '',
     sortBy: sortBy,
     sortDirection: sortDirection,
@@ -154,7 +153,7 @@ class IndexRoute extends React.Component{
     const parsedQuery = queryString.parse(this.props.location.search);
     // filter the items on page load if new query or no query
     //test below to avoid infinite loop
-    if((JSON.stringify(parsedQuery) !== JSON.stringify(this.state.parsedUrlQuery) || this.state.parsedUrlQuery === {})) {
+    if((JSON.stringify(parsedQuery) !== JSON.stringify(this.state.parsedUrlQuery) || JSON.stringify(parsedQuery) === '')) {
       this.clearAll(); //clear all filters;
       this.setState({parsedUrlQuery: parsedQuery});
     }
@@ -164,36 +163,14 @@ class IndexRoute extends React.Component{
     const newArr = this.searchFilterSorting();
     return(
       <section>
+        {/* break down in smaller component for each sort / filtering etc */}
         <div className="columns is-multiline is-desktop">
           <div className="column is-one-quarter-desktop">
             <div className="is-italic" onClick={this.clearAll}><strong>Clear all filters</strong></div>
-            {/* refactor - to include in separate components */}
-            <div className="searchBy">
-              <h4 className="subtitle is-size-4 is-italic">Brand and Product</h4>
-              <form>
-                <div className="field SearchByControl">
-                  <p className="control has-icons-left">
-                    <input className="searchField input" type="text" name="query" placeholder="Search by brand or product description" onChange={this.handleSearch} />
-                    <span className="icon is-small is-left"><i className="fas fa-search"></i></span>
-                  </p>
-                </div>
-              </form>
-            </div>
+            {/* Component to filter by brand or product */}
+            <BrandProductSearch handleSearch={this.handleSearch}/>
+            <SortingPriceBrand handleSort={this.handleSort} selectedRadio={this.state.selectedRadio}/>
 
-            {/* Radio button to Sort asc/desc by price or brand */}
-            <div className="sortBy">
-              <h4 className="subtitle is-size-4 is-italic">Sort criteria</h4>
-              <form>
-                <div className="control SortByControl">
-                  {sortOption.map((elt, i) =>
-                    <label key={i} className="radio">
-                      <input className="inputOrder" type="radio" value={elt.sortCriteria} onChange={this.handleSort} checked={this.state.selectedRadio===elt.sortCriteria} />
-                      {elt.text}
-                    </label>
-                  )}
-                </div>
-              </form>
-            </div>
 
             <div className="filterBy">
               <h4 className="subtitle is-size-4 is-italic">Filter criteria</h4>
@@ -287,8 +264,6 @@ class IndexRoute extends React.Component{
       </section>
     );
   }
-
-
 }
 
 export default IndexRoute;

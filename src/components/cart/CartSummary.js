@@ -15,6 +15,8 @@ class CartSummary extends React.Component{
     SubTotal: 0
   }
 
+  //put this function in lib utils as used in both order summary an cart summary
+  //call it summary 
   prepareArray = (data) => {
     //generates array of unique Ids, then creates an array of object/items that counts how many times an item is in the shopping cart
     const uniqueIdArr = Array.from(new Set(data.map(item => item._id))).sort();

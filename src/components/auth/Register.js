@@ -66,7 +66,7 @@ class Register extends React.Component{
           {this.state.errors.name && <small>{this.state.errors.name}</small>}
         </div>
         <div className="field">
-          <label className="label" htmlFor="username">Lastname</label>
+          <label className="label" htmlFor="username">Last Name</label>
           <div className="control has-icons-left">
             <input
               className="input"

@@ -3,6 +3,7 @@ class User{
   _currentUser = null;
 
   static setCurrentUser(user){
+    //use local storage
     this._currentUser = user || {}; //if undefined, set to {};
   }
 

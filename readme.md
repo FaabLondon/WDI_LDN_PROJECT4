@@ -1,66 +1,86 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Unit #4 Project: MERN Stack
+# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Unit #4 Project: MERN Stack - Dress to impress
 
 ### Overview
 
-**Final project: dress to impress** for the last project we had to develop a fullstack MERN app...
----
+**Final project: Brief** for the last project I developed a full-stack MERN application, by building an Express API with Node.js, serve the data from a Mongo database and consume my API with a separate front-end built with React. I created several models with CRUD functionalities.
+I worked on automated tests for all my RESTful resources on the back-end, and some classical and functional components on the front-end. These were done using SuperTest, the Mocha testing framework and Chai Assertion library for the back-end and Enzyme for testing the React front-end.
+Git was used for version control and Heroku for deployment
 
-### Technical Requirements
-
-You must:
-
-* **Build a full-stack application** by making your own backend and your own front-end
-* **Use an Express API** to serve your data from a Mongo database
-* **Consume your API with a separate front-end** built with React
-* **Be a complete product** which most likely means multiple relationships and CRUD functionality for at least a couple of models
-* **Implement thoughtful user stories/wireframes** that are significant enough to help you know which features are core MVP and which you can cut
-* **Have a visually impressive design** to kick your portfolio up a notch and have something to wow future clients & employers. **ALLOW** time for this.
-* **Be deployed online** so it's publicly accessible.
-* **Have automated tests** for _at least_ one RESTful resource on the back-end, and _at least_ one classical and one functional component on the front-end. Improve your employability by demonstrating a good understanding of testing principals.
+# GA WDI-32 Project 2: Dress to impress: high-end clothing rental
+My application is called "Dress to impress". It allows customers to browse/search/sort through luxury clothes, add items to their cart and rent them through the checkout process (payment with Stripe API). Users can also check their order history, update their profile or leave comments on items.
 
 ---
 
-### Necessary Deliverables
+## MVP
+* User model and user authentication. Models for items (clothes or accessories), orders and reviews.
+* Users can browse items, see the them, add/remove them from their cart and then checkout the cart, proceed to the payment (Stripe API) and create a new order.
+* Users can add reviews, manage their own account and see their order history.
+* I used Bulma for the styling and tried to customise it as much as possible.
 
-* A **working app** hosted on the internet
-* A **link to your hosted working app** in the URL section of your Github repo
-* A **git repository hosted on Github**, with a link to your hosted project, and frequent commits dating back to the _very beginning_ of the project
-* **A `readme.md` file** with:
-    * An embedded screenshot of the app
-    * Explanations of the **technologies** used
-    * A couple paragraphs about the **general approach you took**
-    * **Installation instructions** for any dependencies
-    * Link to your **user stories/wireframes** – sketches of major views / interfaces in your application
-    * Link to your **pitch deck/presentation** – documentation of your wireframes, user stories, and proposed architecture
-    * Descriptions of any **unsolved problems** or **major hurdles** you had to overcome
+### Technical features
+* The API uses 4 models: item, order, review, user. The review model is embedded in the item model. The user model is referenced in the review model to keep track of the author of a review. The item model is references in the order model. The cart content is an array of items embedded in the user model, while orders are included in an array embedded in the user model.
+* The API has RESTful routes for all models with most CRUD actions.
+* My application includes authentication with encrypted passwords (bcrypt), secure routes for all actions except the index and show page for items. I also used protectedRoute on the front-end and replicated the features of Satellizer, a token-based authentication module for AngularJS
+* The app is deployed on heroku and accessible to the public.
 
----
+##### [Please visit website](https://dress-to-impress.herokuapp.com/)
 
-### Suggested Ways to Get Started
-
-* **Don’t get too caught up in too many awesome features** – simple is always better. Build something impressive that does one thing well.
-* **Design first.** Planning with user stories & wireframes before writing code means you won't get distracted changing your mind – you'll know what to build, and you can spend your time wisely by just building it.
-* **Don’t hesitate to write throwaway code** to solve short term problems.
-* **Read the docs for whatever technologies / frameworks / API’s you use**.
-* **Write your code DRY** and **build your APIs RESTful**.
-* **Be consistent with your code style.** You're working in teams, but you're only making one app per team. Make sure it looks like a unified effort.
-* **Commit early, commit often.** Don’t be afraid to break something because you can always go back in time to a previous version.
-* **Keep user stories small and well-defined**, and remember – user stories focus on what a user needs, not what development tasks need accomplishing.
-* **Write code another developer wouldn't have to ask you about**. Do your naming conventions make sense? Would another developer be able to look at your app and understand what everything is?
-* **Make it all well-formatted.** Are you indenting, consistently? Can we find the start and end of every div, curly brace, etc?
-* **Comment your code.** Will someone understand what is going on in each block or function? Even if it's obvious, explaining the what & why means someone else can pick it up and get it.
-* **Write pseudocode before you write actual code.** Thinking through the logic of something helps.
+### Project planning
+* **User stories and wireframes** I defined my MVP as a typical e-commerce custoemr journey, that is browsing/searching/sorting items, adding them to your  letting the that are significant enough to help you know which features are core MVP and which you can cut
+* **Timeline**
 
 ---
 
-### Project Feedback + Evaluation
+###### Homepage
+* The homepage xxxx
 
-* __Project Workflow__: Did you complete the user stories, wireframes, task tracking, and/or ERDs, as specified above? Did you use source control as expected for the phase of the program you’re in (detailed above)?
+<p align="center"><img src="" width="700"></p>
 
-* __Technical Requirements__: Did you deliver a project that met all the technical requirements? Given what the class has covered so far, did you build something that was reasonably complex?
+###### Index page and filtering
+* xxxx
 
-* __Creativity__: Did you added a personal spin or creative element into your project submission? Did you deliver something of value to the end user (not just a login button and an index page)?
+<p align="center"><img src="https://i.imgur.com/Br5jjEF.png" width="700"></p>
 
-* __Code Quality__: Did you follow code style guidance and best practices covered in class, such as spacing, modularity, and semantic naming? Did you comment your code as your instructors as we have in class?
+###### Show page
+* The show page xxxxx
 
-* __Problem Solving__: Are you able to defend why you implemented your solution in a certain way? Can you demonstrated that you thought through alternative implementations? _(Note that this part of your feedback evaluation will take place during your one-on-one code review with your instructors, after you've completed the project.)_
+<p align="center"><img src="" width="700"></p>
+
+
+###### xxx
+* xxx
+
+<p align="center"><img src="" width="700"></p>
+
+###### xxx
+* xxx
+
+<p align="center"><img src="" width="700"></p>
+
+###### xxx
+* xxx
+
+<p align="center"><img src="" width="700"></p>
+
+###### xxx
+* xxx
+
+<p align="center"><img src="" width="700"></p>
+
+---
+I was pleased with the final product, xxxxx.
+
+
+Descriptions of any **unsolved problems** or **major hurdles** you had to overcome
+The main challenges were ....
+
+---
+
+## Setup instructions
+
+- Clone or download the repo
+- Install dependencies with `yarn install`
+- Start the client with `start:client` (same as `webpack-dev-server`)
+- Start the server with `start:server` (same as `nodemon`)
+- Start the local MongoDB server in Node.js with `mongod`
+- To run tests, type `test:client` to test the client side with Enzyme or `test:server` to run tests on the back-end.
