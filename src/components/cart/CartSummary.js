@@ -1,10 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
-import Cart from '../../lib/Cart';
-import _ from 'lodash';
+// import Cart from './Cart';
 
 import '../../scss/components/showCartRoute.scss';
+import prepareArray from '../../lib/prepareArray';
+import calcCartContent from '../../lib/calcCartContent';
 
 class CartSummary extends React.Component{
 
@@ -12,35 +13,23 @@ class CartSummary extends React.Component{
     items: [],
     nbItems: 0,
     pricePerDay: 0,
-    SubTotal: 0
+    subTotal: 0
   }
 
-  //put this function in lib utils as used in both order summary an cart summary
-  //call it summary 
-  prepareArray = (data) => {
-    //generates array of unique Ids, then creates an array of object/items that counts how many times an item is in the shopping cart
-    const uniqueIdArr = Array.from(new Set(data.map(item => item._id))).sort();
-    const newArrQtyId = uniqueIdArr.map(elt => {
-      const qtyId = _.filter(data, item => item._id === elt ).length;
-      const foundElt = data.find(item => item._id === elt);
-      return Object.assign({}, {qty: qtyId }, foundElt );
-    });
+  updateCart = (data) => {
+    //prepare array and calc prices for each item, subTotal etc
+    const newArrQtyId = prepareArray(data);
+    const cartContent = calcCartContent(newArrQtyId);
+    if (this.props.updateNbItems) this.props.updateNbItems(data.length);
+    if (this.props.updateOrderTotal) this.props.updateOrderTotal(cartContent.subTotal);
+    // set Cart - should not have to do that as if no <a>, no page reload
+    // Cart.setCart(data);
+    this.setState({
+      items: newArrQtyId,
+      nbItems: data.length,
+      ...cartContent
+    }, () => console.log(this.state));
 
-    //calculates total nb of items in cart and send it back to parent component
-    const nbItems = data.length;
-    if (this.props.updateNbItems) this.props.updateNbItems(nbItems);
-
-    //calculate price per day
-    const pricePerDay = newArrQtyId.reduce((acc, elt) => acc += elt.rentalPrice, 0);
-
-    //calculate SubTotal and send it back to parent component
-    const SubTotal = newArrQtyId.reduce((acc, elt) => acc = acc + (elt.rentalPrice * elt.qty), 0);
-    if (this.props.updateOrderTotal) this.props.updateOrderTotal(SubTotal);
-
-    //set Cart - should not have to do that as if no <a>, no page reload
-    Cart.setCart(data);
-    //Update state to re-render
-    this.setState({items: newArrQtyId, nbItems, pricePerDay, SubTotal}, () => console.log(this.state));
   }
 
   componentDidMount= () => {
@@ -49,7 +38,7 @@ class CartSummary extends React.Component{
       url: '/api/cart',
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.prepareArray(res.data));
+      .then(res => this.updateCart(res.data));
   }
 
   handleAddCart = (itemId) => {
@@ -58,7 +47,7 @@ class CartSummary extends React.Component{
       url: `/api/cart/items/${itemId}`,
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.prepareArray(res.data));
+      .then(res => this.updateCart(res.data));
   }
 
   handleDeleteCart = (itemId) => {
@@ -67,13 +56,14 @@ class CartSummary extends React.Component{
       url: `/api/cart/items/${itemId}`,
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.prepareArray(res.data));
+      .then(res => this.updateCart(res.data));
   }
 
   render() {
     return (
       <table className="table">
         <thead>
+          {/* Header of the cart */}
           <tr>
             <th></th>
             <th>Description</th>
@@ -84,6 +74,7 @@ class CartSummary extends React.Component{
           </tr>
         </thead>
         <tbody>
+          {/* Content of the cart */}
           {this.state.items.map((item, i) =>
             <tr key={i} className="cartContent">
               <th>
@@ -110,12 +101,13 @@ class CartSummary extends React.Component{
           )}
         </tbody>
         <tfoot>
+          {/* Footer of the cart */}
           <tr>
             <th></th>
             <th></th>
             <th>{this.state.nbItems} items</th>
             <th>£{this.state.pricePerDay} per day</th>
-            <th>£{this.state.SubTotal} per day</th>
+            <th>£{this.state.subTotal} per day</th>
             <th></th>
           </tr>
         </tfoot>

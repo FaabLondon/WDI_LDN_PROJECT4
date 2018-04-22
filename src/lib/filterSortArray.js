@@ -1,7 +1,7 @@
 //search accoding to all criteria in sort, filter etc
 import _ from 'lodash';
 
-const cleanArray = (state) => {
+const filterSortArray = (state) => {
   const { parsedUrlQuery, sortBy, sortDirection, query, minPrice, maxPrice } = state;
 
   //1) render only the category and type selected in navbar
@@ -29,4 +29,4 @@ const cleanArray = (state) => {
   return filtered;
 };
 
-export default cleanArray;
+export default filterSortArray;

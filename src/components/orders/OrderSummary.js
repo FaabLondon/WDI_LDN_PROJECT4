@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import User from '../../lib/User';
-import _ from 'lodash';
 import '../../scss/components/orderSummary.scss';
+import prepareArray from '../../lib/prepareArray';
+import calcCartContent from '../../lib/calcCartContent';
 
 class OrderSummary extends React.Component{
 
@@ -14,7 +15,7 @@ class OrderSummary extends React.Component{
     orderCleaned: [],
     nbItems: 0,
     pricePerDay: 0,
-    SubTotal: 0
+    subTotal: 0
   }
 
   componentDidMount= () => {
@@ -24,33 +25,17 @@ class OrderSummary extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(res => {
-        this.setState({order: res.data});
-        this.prepareArray(res.data.orderList);
+        const newArrQtyId = prepareArray(res.data.orderList);
+        const cartContent = calcCartContent(newArrQtyId);
+        this.setState({
+          order: res.data,
+          orderCleaned: newArrQtyId,
+          nbItems: res.data.orderList.length,
+          ...cartContent
+        });
       });
+
   }
-
-  prepareArray = (data) => {
-    //generates array of unique Ids, then creates an array of object/items that counts how many times an item is in the shopping cart
-    const uniqueIdArr = Array.from(new Set(data.map(item => item._id))).sort();
-    const newArrQtyId = uniqueIdArr.map(elt => {
-      const qtyId = _.filter(data, item => item._id === elt ).length;
-      const foundElt = data.find(item => item._id === elt);
-      return Object.assign({}, {qty: qtyId }, foundElt );
-    });
-
-    //calculates total nb of items in cart
-    const nbItems = data.length;
-
-    //calculate price per day
-    const pricePerDay = newArrQtyId.reduce((acc, elt) => acc += elt.rentalPrice, 0);
-
-    //calculate SubTotal
-    const SubTotal = newArrQtyId.reduce((acc, elt) => acc = acc + (elt.rentalPrice * elt.qty), 0);
-
-    //Update state to re-render
-    this.setState({orderCleaned: newArrQtyId, nbItems, pricePerDay, SubTotal}, () => console.log(this.state));
-  }
-
 
   render() {
     return (
@@ -96,7 +81,7 @@ class OrderSummary extends React.Component{
                   <th></th>
                   <th>{this.state.nbItems} items</th>
                   <th>£{this.state.pricePerDay} per day</th>
-                  <th>£{this.state.SubTotal} per day</th>
+                  <th>£{this.state.subTotal} per day</th>
                 </tr>
               </tfoot>
             </table>
@@ -116,10 +101,6 @@ class OrderSummary extends React.Component{
     );
   }
 }
-
-// "deliveryBillingAddress": "4 tufton street",
-// "deliveryBillingPostcode": "SW1P3QY",
-// "deliveryBillingCity": "London",
 
 
 export default OrderSummary;

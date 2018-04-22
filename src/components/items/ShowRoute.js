@@ -2,10 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
-import User from '../../lib/User';
 import Cart from '../../lib/Cart';
 import Flash from '../../lib/Flash';
 import { Link } from 'react-router-dom';
+
+import ShowProduct from './ShowProduct';
+import ShowReviews from './ShowReviews';
 
 class ShowRoute extends React.Component{
 
@@ -16,7 +18,7 @@ class ShowRoute extends React.Component{
     },
     mouseOverImg: '',
     message: '',
-    nbItemCart: 0
+    nbItemIdCart: 0
   }
 
   // if link don;t work in navbar, make sure to get the cart from server and set it in componentDidMount
@@ -24,26 +26,18 @@ class ShowRoute extends React.Component{
   componentDidMount= () => {
     //added a get cart case user refreshes the page which deletes the Cart or in case user is not logged in
     const itemId = this.props.match.params.id;
-    let nbItemCart = 0;
+    let nbItemIdCart;
 
     //only get cart info if authenticated
     if(Auth.isAuthenticated()){
-      axios({
-        method: 'GET',
-        url: '/api/cart',
-        headers: {Authorization: `Bearer ${Auth.getToken()}`}
-      })
-        .then(res => {
-          Cart.setCart(res.data);
-          nbItemCart = Cart.getnbItemCart(itemId);
-        });
+      nbItemIdCart = Cart.getnbItemCart(itemId);
     }
     //get the populated item (product) information
     axios.get(`/api/items/${itemId}`)
-      .then(res => this.setState({ item: res.data, nbItemCart: nbItemCart, mouseOverImg: res.data.mainImage }));
+      .then(res => this.setState({ item: res.data, nbItemIdCart: nbItemIdCart, mouseOverImg: res.data.mainImage }));
   }
 
-  handleMouseover(i, image){
+  handleMouseover = (i, image) => {
     //swaps small image hovered on with the one being displayed in main window
     const smallImages = this.state.item.smallImages.slice(); //clone array
     smallImages[i] = this.state.mouseOverImg;
@@ -60,7 +54,7 @@ class ShowRoute extends React.Component{
       })
         .then(res => {
           Cart.setCart(res.data);
-          this.setState({message: 'This item was succesfully added to your shopping basket!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
+          this.setState({message: 'This item was succesfully added to your shopping basket!', nbItemIdCart: Cart.getnbItemCart(this.state.item._id)});
         });
     } else {
       Flash.setMessage('danger', 'You must be logged in to perform this action.');
@@ -68,7 +62,7 @@ class ShowRoute extends React.Component{
     }
   }
 
-  //delete the item to the cart - only if logged in
+  //delete the item from the cart - only if logged in
   handleDeleteCart = () => {
     if(Auth.isAuthenticated()){
       axios({
@@ -78,7 +72,7 @@ class ShowRoute extends React.Component{
       })
         .then(res => {
           Cart.setCart(res.data);
-          this.setState({message: 'This item was succesfully removed from your shopping basket!', nbItemCart: Cart.getnbItemCart(this.state.item._id)});
+          this.setState({message: 'This item was succesfully removed from your shopping basket!', nbItemIdCart: Cart.getnbItemCart(this.state.item._id)});
         });
     } else {
       Flash.setMessage('danger', 'You must be logged in to perform this action.');
@@ -101,7 +95,7 @@ class ShowRoute extends React.Component{
       headers: {Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
-      .then(res => this.setState({ item: res.data }, () => console.log('res.data', res.data)))
+      .then(res => this.setState({ item: res.data }))
       .catch(err => {
         this.setState({errors: err.response.data.errors});
       });
@@ -114,128 +108,30 @@ class ShowRoute extends React.Component{
       url: `/api/items/${this.state.item._id}/reviews/${reviewId}`,
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => this.setState({ item: res.data }, () => console.log('res.data', res.data)))
+      .then(res => this.setState({ item: res.data }))
       .catch(err => {
         this.setState({errors: err.response.data.errors});
       });
   }
 
   render() {
-    console.log(User.getCurrentUser());
+    //console.log(User.getCurrentUser());
     return (
       <section>
         <Link className="is-italic" to="/items"><strong>Back to search results</strong></Link>
-        <div className="columns is-multiline">
-          <div className="column is-half images">
-            <div className="smallImages">
-              {this.state.item.smallImages.map((image, i) =>
-                <div key={i} onMouseOver={() => this.handleMouseover(i, image)} className="smallImage" style={{backgroundImage: `url(${image})`}}>
-                </div>
-              )}
-            </div>
-            <div className="mainImage" style={{backgroundImage: `url(${this.state.mouseOverImg})`}}>
-            </div>
-          </div>
-          <div className="column is-half">
-            <div className="content">
-              <h1 className="is-1">{this.state.item.brand}</h1>
-              <p className="subtitle"><strong>{this.state.item.shortDescription}</strong></p>
-            </div>
-            <div className="averageRating">
-              {/* <span>No rating yet</span> */}
-            </div>
-            <div className="content">
-              <p className="subtitle is-6">{this.state.item.longDescription}</p>
-              <p className="subtitle is-6">Size: {this.state.item.sizeAvailable}</p>
-              <h6 className="subtitle is-6">£{this.state.item.rentalPrice} per day <span className="has-text-grey">| £{this.state.item.retailPrice} retail</span></h6>
-            </div>
-            <div className="showButtons">
-              <div>Add / remove from my shopping bag</div>
-              <button onClick={this.handleDeleteCart} className="button">-</button>
-              <button onClick={this.handleAddCart} className="button">+</button>
-              <h5 className="is-size-5"><strong>Quantity: {this.state.nbItemCart} </strong></h5>
-              <div>{this.state.message}</div>
-            </div>
-          </div>
-
-          {/* Review section */}
-          <div className="column reviews">
-            <h5 className="subtitle is-5"><strong>Please leave a comment</strong></h5>
-            <article className="media">
-              <div className="media-left">
-                <figure className="image is-48x48">
-                  {User.getCurrentUser() &&
-                    <div className="userPicture" style={{backgroundImage: `url(${User.getCurrentUser().picture})`}}>
-                    </div>
-                  }
-                  {!User.getCurrentUser() &&
-                      <div className="userPicture" style={{backgroundImage: 'url(https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png)'}}> </div>
-                  }
-                </figure>
-              </div>
-              <div className="media-content">
-                {User.getCurrentUser() && <p className="title is-4">{User.getCurrentUser().username}</p>}
-                {User.getCurrentUser() && <p className="subtitle is-6">{User.getCurrentUser().email}</p>}
-              </div>
-            </article>
-            <div>
-              <form onSubmit={this.handleAddReview}>
-                <div className="field">
-                  <div className="control">
-                    <label className="label">Title</label>
-                    <input name="maintitle" className="input" type="text" placeholder="Add a title for your comment..." required minLength="2" onChange={this.handleChange} />
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="control">
-                    <label className="label">Describe your experience</label>
-                    <textarea name="content" className="textarea" placeholder="Add a comment..." required minLength="2" onChange={this.handleChange}></textarea>
-                  </div>
-                </div>
-                {Auth.isAuthenticated() && <button className="button addComment">Submit</button>}
-              </form>
-            </div>
-
-            {/* Show previous reviews */}
-            <div className="previousReviews">
-              <h5 className="subtitle is-5"><strong>Previous comments</strong></h5>
-              {this.state.item.reviews.map((review, i) =>
-                <article key={i} className="media">
-                  <figure className="media-left">
-                    <p className="image is-64x64">
-                      {review.user.picture === ''? <img src="https://images.cdn.stuff.tv/sites/stuff.tv/files/avatar.png" /> : <img src={review.user.picture} />}
-                    </p>
-                    <strong>{review.user.username}</strong>
-                  </figure>
-
-                  <div className="media-content">
-                    <div className="content">
-                      <small>{review.formattedDate}</small>
-                      <strong>{review.maintitle}</strong>
-                      {review.content}
-                    </div>
-                    <nav className="level is-mobile">
-                      <div className="level-left">
-                        <a className="level-item">
-                          <span className="icon is-small"><i className="fas fa-reply"></i></span>
-                        </a>
-                        <a className="level-item">
-                          <span className="icon is-small"><i className="fas fa-heart"></i></span>
-                        </a>
-                      </div>
-                    </nav>
-                  </div>
-                  <div className="media-right">
-                    {(Auth.isAuthenticated() && review.user._id === Auth.getPayload().sub) &&
-                    <button type="button" onClick={() => this.handleDeleteReview(review._id)} className="delete">
-                    </button>
-                    }
-                  </div>
-                </article>
-              )}
-            </div>
-          </div>
-        </div>
+        {/* Show product section */}
+        <ShowProduct
+          handleMouseover={this.handleMouseover}
+          handleDeleteCart={this.handleDeleteCart}
+          handleAddCart={this.handleAddCart}
+          {...this.state}
+        />
+        <ShowReviews
+          handleAddReview={this.handleAddReview}
+          handleDeleteReview = {this.handleDeleteReview}
+          handleChange = {this.handleChange}
+          item={this.state.item}
+        />
       </section>
     );
   }

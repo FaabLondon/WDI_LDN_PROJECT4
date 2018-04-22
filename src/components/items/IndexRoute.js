@@ -7,7 +7,7 @@ import SortingPriceBrand from './SortingPriceBrand';
 import Filtering from './Filtering';
 import Navbar from './Navbar';
 import ResultDisplay from './ResultDisplay';
-import cleanArray from '../../lib/CleanArray';
+import filterSortArray from '../../lib/filterSortArray';
 
 //I installed this query String parsing library to parse the query in URL
 const queryString = require('query-string');
@@ -72,6 +72,7 @@ class IndexRoute extends React.Component{
     this.setState({ [name]: value });
   }
 
+  //handle sorting
   handleSort = (e) => {
     //split the value of selected checkbox to get sorting field and direction (asc or desc)
     const selectedRadio = e.target.value;
@@ -79,6 +80,7 @@ class IndexRoute extends React.Component{
     this.setState({ sortBy, sortDirection, selectedRadio });
   }
 
+  //handle filtering by price and occasion
   handleFilter = (e) => {
     const filterBool = this.state.filter[e.target.value];
     //toggle boolean on checked box and recreate filter object
@@ -86,6 +88,7 @@ class IndexRoute extends React.Component{
     this.setState({ filter });
   }
 
+  //handle filtering by color
   handleFilterColor = (e) => {
     const filterBool = this.state.filterColor[e.target.value];
     //toggle boolean on checked box and recreate filter object
@@ -93,21 +96,22 @@ class IndexRoute extends React.Component{
     this.setState({ filterColor });
   }
 
+  //clear all filters
   clearAll = () => {
     this.setState({ sortBy, sortDirection, selectedRadio, minPrice, maxPrice, filter, filterColor});
   }
 
   componentDidMount(){
-    //parses the search query
-    // const parsedQuery = queryString.parse(this.props.location.search);
+    //gets all the items in the DB
     axios.get('/api/items')
       .then(res => this.setState({items: res.data}));
   }
 
   componentDidUpdate() {
+    //parses the search query
     const parsedQuery = queryString.parse(this.props.location.search);
-    // filter the items on page load if new query or no query
     //test below to avoid infinite loop
+    // filter the items on page load if new query or no query
     if((JSON.stringify(parsedQuery) !== JSON.stringify(this.state.parsedUrlQuery) || JSON.stringify(parsedQuery) === '')) {
       this.clearAll(); //clear all filters;
       this.setState({parsedUrlQuery: parsedQuery});
@@ -115,7 +119,7 @@ class IndexRoute extends React.Component{
   }
 
   render(){
-    const newArr = cleanArray(this.state);
+    const newArr = filterSortArray(this.state);
     return(
       <section>
         {/* break down in smaller component for each sort / filtering etc */}
@@ -126,10 +130,12 @@ class IndexRoute extends React.Component{
             <BrandProductSearch
               handleSearch={this.handleSearch}
             />
+            {/* Component to sort by brand or price */}
             <SortingPriceBrand
               handleSort={this.handleSort}
               selectedRadio={this.state.selectedRadio}
             />
+            {/* filtering by price, occasion or color */}
             <Filtering
               handleSearch={this.handleSearch}
               filter={this.state.filter}

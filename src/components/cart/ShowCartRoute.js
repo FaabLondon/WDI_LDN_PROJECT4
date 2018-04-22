@@ -8,7 +8,6 @@ import '../../scss/components/showCartRoute.scss';
 class ShowCartRoute extends React.Component{
 
   state = {
-    items: [],
     nbItems: 0
   }
 
@@ -23,7 +22,7 @@ class ShowCartRoute extends React.Component{
           <div className="column is-two-third">
             <h3 className="title is-size-3">Your shopping bag <span><i className="fas fa-shopping-bag fa-1x"></i></span></h3>
 
-            <CartSummary updateNbItems={this.updateNbItems}/>
+            <CartSummary updateNbItems={this.updateNbItems} />
 
             {this.state.nbItems > 0 && <Link to="/checkout" className="button">Proceed to checkout</Link>}
             <Link to="/items" className="button">Back to browsing</Link>

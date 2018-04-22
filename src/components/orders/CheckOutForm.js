@@ -37,8 +37,6 @@ class CheckOutForm extends React.Component {
     this.setState({[name]: value, errors});
   }
 
-
-
   handleSubmit = (e) => {
     // prevent default from submission
     e.preventDefault();
@@ -57,6 +55,7 @@ class CheckOutForm extends React.Component {
           };
         }
       })
+      // Once card is tokenised, send a post request to proceed to payment
       .then(() => axios({
         method: 'POST',
         url: '/api/orders',
@@ -65,7 +64,7 @@ class CheckOutForm extends React.Component {
       })
         .then(res => this.props.history.push({pathname: '/OrderValidation', state: { user: res.data }})) //redirect to order conffirmation page with returned user as param
         .catch(err => {
-          //errors message are in format orders.X.billingAddress as orders are nested in user model in DB so need to modify it...
+          //errors message are in format orders.X.billingAddress as orders are nested in user model in DB so had to extract the info below...
           const errors = {};
           Object.keys(err.response.data.errors).map(elt =>
             errors[elt.split('.')[2]] = err.response.data.errors[elt]
@@ -78,7 +77,6 @@ class CheckOutForm extends React.Component {
   updateOrderTotal = (orderTotal) => {
     this.setState({orderTotal: orderTotal });
   }
-
 
   render() {
     return (

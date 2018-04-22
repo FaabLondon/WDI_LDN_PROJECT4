@@ -2,10 +2,9 @@ import React from 'react';
 import {CardElement} from 'react-stripe-elements';
 import '../../scss/components/cardSection.scss';
 
-const handleChange = change => {
-  //console.log('[change]', change);
-};
-
+// const handleChange = change => {
+//   //console.log('[change]', change);
+// };
 
 //test cards for stripe for UK
 // 4000 0082 6000 0000 tok_gb	United Kingdom (GB)	Visa
