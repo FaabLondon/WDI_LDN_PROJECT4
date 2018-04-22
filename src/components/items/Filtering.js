@@ -20,6 +20,8 @@ const colors = [
   {color: 'silver', code: '#858785'}
 ];
 
+//filter by price, occasion or color
+
 const Filtering = ({handleSearch, filter, handleFilter, handleFilterColor, filterColor}) => {
   return(
     <div className="filterBy">

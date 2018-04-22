@@ -2,7 +2,6 @@ class Cart{
 
   //_currentCart = null; //not needed if use local storage
 
-
   static setCart(cart){
     localStorage.setItem('cart', JSON.stringify(cart));
     //this._currentCart = cart || {}; //if undefined, set to {};

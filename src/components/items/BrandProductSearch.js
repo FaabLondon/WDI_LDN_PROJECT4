@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../scss/components/IndexPage.scss';
 
+//search by brand or product
 const BrandProductSearch = ({handleSearch}) => {
   return(
     <div className="searchBy">

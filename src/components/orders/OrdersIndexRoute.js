@@ -4,11 +4,6 @@ import Auth from '../../lib/Auth';
 import { Link } from 'react-router-dom';
 import '../../scss/components/ordersIndex.scss';
 
-// import Cart from '../../lib/Cart';
-// import _ from 'lodash';
-
-// const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 class OrdersIndexRoute extends React.Component{
 
   state = {

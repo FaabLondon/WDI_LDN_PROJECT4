@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import Auth from '../../lib/Auth';
 import {StripeProvider} from 'react-stripe-elements';
 
 import MyStoreCheckout from './MyStoreCheckout';

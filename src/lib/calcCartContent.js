@@ -1,4 +1,4 @@
-
+//calculte the content of the cart
 const calcCartContent = (newArrQtyId) => {
 
   const pricePerDay = newArrQtyId.reduce((acc, elt) => acc += elt.rentalPrice, 0);

@@ -3,7 +3,7 @@ import User from '../../lib/User';
 import Auth from '../../lib/Auth';
 import '../../scss/components/ShowPage.scss';
 
-const ShowProduct = ({ handleAddReview, handleDeleteReview, handleChange, item }) => {
+const ShowReviews = ({ handleAddReview, handleDeleteReview, handleChange, item }) => {
   return(
     <div className="columns is-multiline">
       {/* Review section */}
@@ -87,4 +87,4 @@ const ShowProduct = ({ handleAddReview, handleDeleteReview, handleChange, item }
   );
 };
 
-export default ShowProduct;
+export default ShowReviews;

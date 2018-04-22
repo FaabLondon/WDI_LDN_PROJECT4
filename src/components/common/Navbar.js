@@ -6,8 +6,6 @@ import User from '../../lib/User';
 
 import '../../scss/components/navBarStyle.scss';
 
-//let lastOrderId = '';
-
 class Navbar extends React.Component {
 
   //no need for constructor etc thanks to plugin in babelrc

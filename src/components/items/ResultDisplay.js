@@ -2,6 +2,7 @@ import React from 'react';
 import '../../scss/components/IndexPage.scss';
 import { Link } from 'react-router-dom';
 
+//display the search result after filtering, sorting etc on the index page
 const ResultDisplay = ({newArr}) => {
   return(
     <div className="columns is-multiline">

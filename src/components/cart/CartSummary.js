@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
-// import Cart from './Cart';
+import Cart from '../../lib/Cart';
 
 import '../../scss/components/showCartRoute.scss';
 import prepareArray from '../../lib/prepareArray';
@@ -22,13 +22,13 @@ class CartSummary extends React.Component{
     const cartContent = calcCartContent(newArrQtyId);
     if (this.props.updateNbItems) this.props.updateNbItems(data.length);
     if (this.props.updateOrderTotal) this.props.updateOrderTotal(cartContent.subTotal);
-    // set Cart - should not have to do that as if no <a>, no page reload
-    // Cart.setCart(data);
+    // set Cart
+    Cart.setCart(data);
     this.setState({
       items: newArrQtyId,
       nbItems: data.length,
       ...cartContent
-    }, () => console.log(this.state));
+    });
 
   }
 

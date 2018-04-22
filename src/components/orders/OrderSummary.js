@@ -6,6 +6,8 @@ import '../../scss/components/orderSummary.scss';
 import prepareArray from '../../lib/prepareArray';
 import calcCartContent from '../../lib/calcCartContent';
 
+//display order summary
+
 class OrderSummary extends React.Component{
 
   state = {

@@ -1,8 +1,7 @@
 import React from 'react';
 import '../../scss/components/IndexPage.scss';
 
-/* Navbar showing category title and nb of results */
-
+/* Navbar showing category title and nb of results on the showpage*/
 const Navbar = ({newArr, parsedUrlQuery}) => {
   return (
     <nav className="navbar">
