@@ -34,48 +34,66 @@ We were given 1 week to finish the project. I planned 5 days of programming, 1 d
 ---
 
 ###### Homepage
-* The homepage introduces the concept of dress to impress.
+* The homepage introduces the concept of Dress to Impress.
 
-<p align="center"><img src="" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/k2nGHcw.png" width="700"></p>
+
+###### Registration & login
+* The user can go directly to the index page and show pages without registering or logging in. However he/she can only add items to the cart/shopping bag or leave comments, once registered/logged in. There are 2 forms for registration and login. Both manage errors and incorrect inout from the user.
+
+<p align="center"><img src="https://i.imgur.com/AJznuVZ.png" width="700"></p>
+
+<p align="center"><img src="https://i.imgur.com/yTCg9to.png" width="700"></p>
 
 ###### Index page and filtering
-* xxxx
+* The index page enables the user to sort, filter items and look for a specific brand or product. The user can also select a specific category in the navbar. The filtering criteria are the brand name, product, price, occasion and colors. The user can rank by price and brand name.
 
-<p align="center"><img src="https://i.imgur.com/Br5jjEF.png" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/SDTvcWz.png" width="700"></p>
 
 ###### Show page
-* The show page xxxxx
+* The show page shows a specific product with a product description, quantity in the shopping bag, main image, 3 additional small images and a comment section. The user can change the quantity in the shopping bag on this page.
 
-<p align="center"><img src="" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/ziZ5ocr.png" width="700"></p>
 
 
-###### xxx
-* xxx
+###### Cart/shopping bag content
+* The user can click on the cart icon and gain access to its content. It describes the item in the cart, quantities, price of rental per day and in total as well as mode of delivery. The user can then go back to shopping on checkout his/her cart.
 
-<p align="center"><img src="" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/YNJIqI0.png" width="700"></p>
 
-###### xxx
-* xxx
+###### 3-step check-out form
+* The user can finally checkout his cart by entering the delivery/billing address, his/her card details and check/modify the content of his/her cart one last time. The payment is processed on click of the button. The stripe API processes the payment (in test mode so with a fake payment card ;).
 
-<p align="center"><img src="" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/Gva3EJV.png" width="700"></p>
 
-###### xxx
-* xxx
+###### Order confirmation page
+* The user is then redirected to the order confirmation page and is given a order confirmation number. The Stripe API can send a confirmation email to the user however, not in test mode, only in development mode.
 
-<p align="center"><img src="" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/ZuUn1Kx.png" width="700"></p>
 
-###### xxx
-* xxx
+###### Order history
+* If needed, the user can check his/her order history by cliking on the right hand-side menu in the navbar.
+It shows a summary of all orders and an order summary for each one of them on click.
 
-<p align="center"><img src="" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/SVSPs4A.png" width="700"></p>
+<p align="center"><img src="https://i.imgur.com/aF3dkRz.png" width="700"></p>
+
+###### User profile
+* Finally the user can amend his/her user profile by clicking on "My account" on the top right-hand side menu.
+
+<p align="center"><img src="https://i.imgur.com/D6tufEi.png" width="700"></p>
+
+###### Protected route
+* Flash messages will appear when a user tries to perform actions he is not allowed to when not properly authenticated.
+
+<p align="center"><img src="https://i.imgur.com/rW2JUWa.png" width="700"></p>
+
 
 ---
-I was pleased with the final product, xxxxx.
+The final product is in line with my planned MVP.
+I wish I had had more time to integrate a click & collect feature thanks to the Royal Mail API. It would offer the possibility to click & collect an order and show the closest collect points on a map. This will be done at a later stage.
 
-
-Descriptions of any **unsolved problems** or **major hurdles** you had to overcome
-The main challenges were ....
-
+I also want to keep improving the navbar layout and 
 ---
 
 ## Setup instructions

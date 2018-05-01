@@ -21,7 +21,7 @@ class Navbar extends React.Component {
     this.setState({ dropDown3: !this.state.dropDown3 });
   }
 
-  handleClick = (nb) => {
+  handleDropdownToggle = (nb) => {
     this.setState({ [`dropDown${nb}`]: !this.state[`dropDown${nb}`] });
   }
 
@@ -48,7 +48,9 @@ class Navbar extends React.Component {
           <Link className="navbar-item mainTitle" to="/items">All categories</Link>
 
           <div className="navbar-item"
-            onClick={() => this.handleClick(1)}>
+            // onClick={() => this.handleDropdownToggle(1)}
+            onMouseOver={() => this.handleDropdownToggle(1)}
+            onMouseOut={() => this.handleDropdownToggle(1)}>
             <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
             <div className={`dropdown ${this.state.dropDown1 ? 'is-open' : ''}`}>
               <Link className="navbar-item" to="/items?category=Clothing">All</Link>
@@ -62,7 +64,8 @@ class Navbar extends React.Component {
           </div>
 
           <div className="navbar-item"
-            onClick={() => this.handleClick(2)}>
+            onMouseOver={() => this.handleDropdownToggle(2)}
+            onMouseOut={() => this.handleDropdownToggle(2)}>
             <Link className="navbar-link"
               to="/items?category=Accessories">Accessories</Link>
             <div className={`dropdown ${this.state.dropDown2 ? 'is-open' : ''}`}>
@@ -93,7 +96,8 @@ class Navbar extends React.Component {
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
-              <div className="navbar-item" onClick={() => this.handleClick(3)}>
+              <div className="navbar-item" onMouseOver={() => this.handleDropdownToggle(3)}
+                onMouseOut={() => this.handleDropdownToggle(3)}>
                 <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
 
                 <div className={`dropdown ${this.state.dropDown3 ? 'is-open' : ''}`}>
