@@ -37,7 +37,7 @@ class ShowRoute extends React.Component{
       .then(res => this.setState({ item: res.data, nbItemIdCart: nbItemIdCart, mouseOverImg: res.data.mainImage }));
   }
 
-  handleMouseover = (i, image) => {
+  handleClick = (i, image) => {
     //swaps small image hovered on with the one being displayed in main window
     const smallImages = this.state.item.smallImages.slice(); //clone array
     smallImages[i] = this.state.mouseOverImg;
@@ -121,7 +121,7 @@ class ShowRoute extends React.Component{
         <Link className="is-italic" to="/items"><strong>Back to search results</strong></Link>
         {/* Show product section */}
         <ShowProduct
-          handleMouseover={this.handleMouseover}
+          handleClick={this.handleClick}
           handleDeleteCart={this.handleDeleteCart}
           handleAddCart={this.handleAddCart}
           {...this.state}

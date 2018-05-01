@@ -1,13 +1,13 @@
 import React from 'react';
 import '../../scss/components/ShowPage.scss';
 
-const ShowProduct = ({ item, mouseOverImg, handleMouseover, handleDeleteCart, handleAddCart, nbItemIdCart, message }) => {
+const ShowProduct = ({ item, mouseOverImg, handleClick, handleDeleteCart, handleAddCart, nbItemIdCart, message }) => {
   return(
     <div className="columns is-multiline">
       <div className="column is-half images">
         <div className="smallImages">
           {item.smallImages.map((image, i) =>
-            <div key={i} onMouseOver={() => handleMouseover(i, image)} className="smallImage" style={{backgroundImage: `url(${image})`}}>
+            <div key={i} onClick={() => handleClick(i, image)} className="smallImage" style={{backgroundImage: `url(${image})`}}>
             </div>
           )}
         </div>
