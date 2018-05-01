@@ -18,7 +18,8 @@ class CheckOutForm extends React.Component {
   state = {
     errors: {},
     errorPayment: '',
-    orderTotal: 0
+    orderTotal: 0,
+    isEnabled: true
   }
 
   componentDidMount= () => {
@@ -40,6 +41,8 @@ class CheckOutForm extends React.Component {
   handleSubmit = (e) => {
     // prevent default from submission
     e.preventDefault();
+    this.setState({isEnabled: false});
+    
     let data = {};
     // Within the context of `Elements`, this call to createToken knows which Element to tokenize, since there's only one in this group.
     this.props.stripe.createToken({type: 'card'})
@@ -96,7 +99,7 @@ class CheckOutForm extends React.Component {
               </div>
             </div>
           </div>
-          {this.state.orderTotal > 0 && <button className="button checkOut">Validate {this.state.orderTotal}£ payment</button>}
+          {this.state.orderTotal > 0 && <button className="button checkOut" disabled={!this.state.isEnabled}>Validate {this.state.orderTotal}£ payment</button>}
         </form>
       </section>
     );
