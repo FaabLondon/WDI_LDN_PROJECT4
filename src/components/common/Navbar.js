@@ -9,12 +9,17 @@ class Navbar extends React.Component {
 
   //no need for constructor etc thanks to plugin in babelrc
   state = {
-    navIsOpen: false
+    navIsOpen: false,
+    dropDownOne: false
   }
 
   //this is undefined in handleToggle so we made a function an arrow function as does not care about this and does not create its own this
   handleToggle = () => {
     this.setState({ navIsOpen: !this.state.navIsOpen });
+  }
+
+  handleDropDown = () => {
+    this.setState({ dropDownOne: !this.state.dropDownOne });
   }
 
   //1st part is needed otherwise infinte loop, as when we run setState, it updates state so will fire componentWillUpdate which setState again
@@ -39,9 +44,9 @@ class Navbar extends React.Component {
 
           <Link className="navbar-item mainTitle" to="/items">All categories</Link>
 
-          <div className="navbar-item has-dropdown is-hoverable">
-            <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
-            <div className="navbar-dropdown is-boxed">
+          <div className="navbar-item">
+            <Link className="navbar-link" onMouseOver={this.handleDropDown} to="/items?category=Clothing">Clothing</Link>
+            <div className={`dropdown ${this.state.dropDownOne ? 'is-open' : ''}`}>
               <Link className="navbar-item" to="/items?category=Clothing">All</Link>
               <Link className="navbar-item" to="/items?category=Clothing&type=Bridal">Bridal</Link>
               <Link className="navbar-item" to="/items?category=Clothing&type=Dresses" onClick={this.updateState}>Dresses</Link>

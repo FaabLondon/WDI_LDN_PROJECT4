@@ -7,15 +7,16 @@ nav.navbar.mainNavbar{
   color: white;
 }
 
-// .navbar-link {
-//   box-shadow: 0 0 8px #777;
-//   display: none;
-//   left: 0;
-//   position: absolute;
-//   top: 100%;
-//   z-index: 1000;
-// }
-//
-// .dropdown.is-open {
-//   display: block;
-// }
+.dropdown {
+  box-shadow: 0 0 8px #777;
+  background: white;
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+}
+
+.dropdown.is-open {
+  display: block;
+}
