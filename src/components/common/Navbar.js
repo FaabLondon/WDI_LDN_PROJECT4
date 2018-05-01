@@ -19,11 +19,7 @@ class Navbar extends React.Component {
     this.setState({ navIsOpen: !this.state.navIsOpen });
   }
 
-  handleMouseOver = (nb) => {
-    this.setState({ [`dropDown${nb}`]: !this.state[`dropDown${nb}`] });
-  }
-
-  handleMouseOut = (nb) => {
+  handleClick = (nb) => {
     this.setState({ [`dropDown${nb}`]: !this.state[`dropDown${nb}`] });
   }
 
@@ -50,8 +46,7 @@ class Navbar extends React.Component {
           <Link className="navbar-item mainTitle" to="/items">All categories</Link>
 
           <div className="navbar-item"
-            onMouseOver={() => this.handleMouseOver(1)}
-            onMouseOut={() => this.handleMouseOut(1)}>
+            onClick={() => this.handleClick(1)}>
             <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
             <div className={`dropdown ${this.state.dropDown1 ? 'is-open' : ''}`}>
               <Link className="navbar-item" to="/items?category=Clothing">All</Link>
@@ -65,8 +60,7 @@ class Navbar extends React.Component {
           </div>
 
           <div className="navbar-item"
-            onMouseOver={() => this.handleMouseOver(2)}
-            onMouseOut={() => this.handleMouseOut(2)}>
+            onClick={() => this.handleClick(2)}>
             <Link className="navbar-link"
               to="/items?category=Accessories">Accessories</Link>
             <div className={`dropdown ${this.state.dropDown2 ? 'is-open' : ''}`}>
