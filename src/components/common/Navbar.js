@@ -91,12 +91,12 @@ class Navbar extends React.Component {
               Placeholder for search field
             </div> */}
           </div>
-          <div className="navbar-end" onClick={() => this.handleToggle}>
+          <div className="navbar-end">
             {/* {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>} */}
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
-              <div className="navbar-item">
+              <div className="navbar-item" onClick={() => this.handleDropdownToggle(3)}>
                 <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
 
                 <div className={`dropdown ${this.state.dropDown3 ? 'is-open' : ''}`}>
