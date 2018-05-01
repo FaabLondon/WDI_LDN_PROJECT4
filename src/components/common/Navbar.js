@@ -41,7 +41,7 @@ class Navbar extends React.Component {
         <div className="navbar-brand">
           <Link className="navbar-item logo" to="/">
             <img src="../assets/images/sleeveless-dress.png" alt="DressCode" />
-            <span> to impress</span>
+            <span className="is-hidden-touch"> to impress</span>
           </Link>
 
           <Link className="navbar-item mainTitle" to="/items">All categories</Link>

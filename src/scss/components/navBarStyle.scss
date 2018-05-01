@@ -20,3 +20,18 @@ nav.navbar.mainNavbar{
 .dropdown.is-open {
   display: block;
 }
+
+div#mobile-menu{
+  background-color: black;
+}
+
+@media only screen  and (max-width: 768px) {
+  a.navbar-link{
+    padding: 0;
+  }
+
+  div.navbar-item{
+    padding-left: 0;
+    padding-right: 8px;
+  }
+}
