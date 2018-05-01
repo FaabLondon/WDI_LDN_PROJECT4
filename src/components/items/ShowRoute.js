@@ -38,7 +38,7 @@ class ShowRoute extends React.Component{
   }
 
   handleClick = (i, image) => {
-    //swaps small image hovered on with the one being displayed in main window
+    //swaps small image clicked on with the one being displayed in main window - I removed mouseover as I thought that it was making my app bug on Chrome on mobile...
     const smallImages = this.state.item.smallImages.slice(); //clone array
     smallImages[i] = this.state.mouseOverImg;
     this.setState({mouseOverImg: image, item: Object.assign(this.state.item, {smallImages: smallImages}) });

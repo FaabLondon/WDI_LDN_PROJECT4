@@ -18,12 +18,12 @@ class ShowCartRoute extends React.Component{
   render() {
     return (
       <section>
-        <div className="columns is-multiline is-mobile">
+        <div className="columns is-multiline">
           <div className="column is-two-third">
             <h3 className="title is-size-3">Your shopping bag <span><i className="fas fa-shopping-bag fa-1x"></i></span></h3>
-
-            <CartSummary updateNbItems={this.updateNbItems} />
-
+            <div style={{overflowX: 'auto'}}>
+              <CartSummary updateNbItems={this.updateNbItems} />
+            </div>
             {this.state.nbItems > 0 && <Link to="/checkout" className="button">Proceed to checkout</Link>}
             <Link to="/items" className="button">Back to browsing</Link>
           </div>
