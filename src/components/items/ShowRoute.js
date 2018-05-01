@@ -38,8 +38,8 @@ class ShowRoute extends React.Component{
       .then(res => this.setState({ item: res.data, nbItemIdCart: nbItemIdCart, mouseOverImg: res.data.mainImage }));
   }
 
-  handleClick = (i, image) => {
-    //swaps small image clicked on with the one being displayed in main window - I removed mouseover as I thought that it was making my app bug on Chrome on mobile...
+  handleMouseover = (i, image) => {
+    //swaps small image clicked on with the one being displayed in main window
     const smallImages = this.state.item.smallImages.slice(); //clone array
     smallImages[i] = this.state.mouseOverImg;
     this.setState({mouseOverImg: image, item: Object.assign(this.state.item, {smallImages: smallImages}) });
@@ -122,7 +122,7 @@ class ShowRoute extends React.Component{
         <Link className="is-italic" to="/items"><strong>Back to search results</strong></Link>
         {/* Show product section */}
         <ShowProduct
-          handleClick={this.handleClick}
+          handleMouseover={this.handleMouseover}
           handleDeleteCart={this.handleDeleteCart}
           handleAddCart={this.handleAddCart}
           {...this.state}
