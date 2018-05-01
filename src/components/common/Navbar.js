@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom'; //coming from Brower Router
 import Auth from '../../lib/Auth';
 import User from '../../lib/User';
-//import Cart from '../../lib/Cart';
 
 import '../../scss/components/navBarStyle.scss';
 
