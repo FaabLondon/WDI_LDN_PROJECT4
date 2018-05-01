@@ -79,8 +79,8 @@ The main challenges were ....
 ## Setup instructions
 
 - Clone or download the repo
-- Install dependencies with `yarn install`
-- Start the client with `start:client` (same as `webpack-dev-server`)
-- Start the server with `start:server` (same as `nodemon`)
+- Install dependencies with `yarn install` or `npm install`
+- Start the client with `yarn start:client` (same as `webpack-dev-server`)
+- Start the server with `yarn start:server` (same as `nodemon`)
 - Start the local MongoDB server in Node.js with `mongod`
 - To run tests, type `test:client` to test the client side with Enzyme or `test:server` to run tests on the back-end.

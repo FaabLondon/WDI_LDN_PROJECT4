@@ -28,8 +28,8 @@ class HomePage extends React.Component{
     return(
       <main>
         <section className="hero is-medium homepage">
-          <h1 className="title is-size-1-desktop is-size-4-touch has-text-black has-text-centered">Refresh your wardrobe for spring</h1>
-          <h4 className="subtitle is-size-4-desktop is-size-5-touch has-text-black has-text-centered">Choose from a selection of high-end brands - Just rent your favourite pieces for a fraction of the retail price! </h4>
+          <h1 className="title is-size-1-desktop is-size-4-touch has-text-black has-text-centered">Refresh your wardrobe this season</h1>
+          <h4 className="subtitle mainPage is-size-4-desktop is-size-5-touch has-text-black has-text-centered">Choose from a selection of high-end brands - Just rent your favourite pieces for a fraction of the retail price! </h4>
         </section>
 
         <section className="section">
@@ -37,7 +37,7 @@ class HomePage extends React.Component{
           <div className="columns has-text-centered is-multiline">
             {this.state.conceptPresentation.map((elt, i) =>
               <div key={i} className="column is-half">
-                <h3 className="is-size-3-desktop is-size-6-touch has-text-grey-dark">{elt.subtitle}</h3>
+                <h3 className="is-size-3-desktop is-size-6-touch has-text-grey-dark has-text-weight-bold">{elt.subtitle}</h3>
                 <p className="content has-text-grey-dark">{elt.description}</p>
               </div>
             )}
