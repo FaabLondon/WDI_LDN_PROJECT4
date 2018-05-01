@@ -25,6 +25,7 @@ class ShowRoute extends React.Component{
 
   componentDidMount= () => {
     //added a get cart case user refreshes the page which deletes the Cart or in case user is not logged in
+    window.scrollTo(0, 0);
     const itemId = this.props.match.params.id;
     let nbItemIdCart;
 
