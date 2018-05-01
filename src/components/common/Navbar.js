@@ -85,13 +85,13 @@ class Navbar extends React.Component {
           </div>
         </div>
 
-        <div id="mobile-menu" onClick={() => this.handleToggle} className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
+        <div id="mobile-menu"  className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
             {/* <div className="navbar-item">
               Placeholder for search field
             </div> */}
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end" onClick={() => this.handleToggle}>
             {/* {Auth.isAuthenticated() && <Link className="navbar-item favourites" to=""><span className="icon is-small"><i className="far fa-heart"></i></span></Link>} */}
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
