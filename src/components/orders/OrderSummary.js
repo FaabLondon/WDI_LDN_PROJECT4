@@ -47,46 +47,48 @@ class OrderSummary extends React.Component{
           <div className="column is-two-third">
             <h4 className="subtitle is-4">Order <strong>#{this.state.order._id}</strong></h4>
             <h6 className="subtitle is-6 is-italic"><strong>Placed on {this.state.order.createdAt.substring(0,10) }</strong></h6>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Item image</th>
-                  <th>Description</th>
-                  <th>Quantity</th>
-                  <th>Rental price</th>
-                  <th>SubTotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.orderCleaned.map((item, i) =>
-                  <tr key={i} className="cartContent">
-                    <th>
-                      <div className="imgItemCart" style={{backgroundImage: `url(${item.mainImage})`, backgroundSize: 'cover'}}>
-                      </div>
-                    </th>
-                    <td>
-                      <h6 className="title is-size-6">{item.brand}</h6>
-                      <h6 className="subtitle is-size-7">{item.shortDescription}</h6>
-                      <h6 className="subtitle is-size-7">Size: {item.sizeAvailable}</h6>
-                    </td>
-                    <td>
-                      {item.qty}
-                    </td>
-                    <td>£{item.rentalPrice} per day</td>
-                    <td>£{item.rentalPrice * item.qty} per day</td>
+            <div style={{overflowX: 'auto'}}>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Item image</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Rental price</th>
+                    <th>SubTotal</th>
                   </tr>
-                )}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th>{this.state.nbItems} items</th>
-                  <th>£{this.state.pricePerDay} per day</th>
-                  <th>£{this.state.subTotal} per day</th>
-                </tr>
-              </tfoot>
-            </table>
+                </thead>
+                <tbody>
+                  {this.state.orderCleaned.map((item, i) =>
+                    <tr key={i} className="cartContent">
+                      <th>
+                        <div className="imgItemCart" style={{backgroundImage: `url(${item.mainImage})`, backgroundSize: 'cover'}}>
+                        </div>
+                      </th>
+                      <td>
+                        <h6 className="title is-size-6">{item.brand}</h6>
+                        <h6 className="subtitle is-size-7">{item.shortDescription}</h6>
+                        <h6 className="subtitle is-size-7">Size: {item.sizeAvailable}</h6>
+                      </td>
+                      <td>
+                        {item.qty}
+                      </td>
+                      <td>£{item.rentalPrice} per day</td>
+                      <td>£{item.rentalPrice * item.qty} per day</td>
+                    </tr>
+                  )}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>{this.state.nbItems} items</th>
+                    <th>£{this.state.pricePerDay} per day</th>
+                    <th>£{this.state.subTotal} per day</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
           <div className="column is-one-third image">
             <h4 className="subtitle is-4">Delivery information</h4>
