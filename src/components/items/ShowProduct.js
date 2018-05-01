@@ -7,7 +7,9 @@ const ShowProduct = ({ item, mouseOverImg, handleMouseover, handleDeleteCart, ha
       <div className="column is-half images">
         <div className="smallImages">
           {item.smallImages.map((image, i) =>
-            <div key={i} onMouseOver={() => handleMouseover(i, image)} className="smallImage" style={{backgroundImage: `url(${image})`}}>
+            <div key={i}
+              onMouseOver={() => handleMouseover(i, image)}
+              onClick={() => handleMouseover(i, image)} className="smallImage" style={{backgroundImage: `url(${image})`}}>
             </div>
           )}
         </div>
