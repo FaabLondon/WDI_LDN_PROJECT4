@@ -92,8 +92,8 @@ It shows a summary of all orders and an order summary for each one of them on cl
 ---
 The final product is in line with my planned MVP.
 I wish I had had more time to integrate a click & collect feature thanks to the Royal Mail API. It would offer the possibility to click & collect an order and show the closest collect points on a map. This will be done at a later stage.
+I also want to keep improving the Navbar layout and responsiveness.
 
-I also want to keep improving the navbar layout and 
 ---
 
 ## Setup instructions
