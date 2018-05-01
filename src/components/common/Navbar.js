@@ -85,7 +85,7 @@ class Navbar extends React.Component {
           </div>
         </div>
 
-        <div id="mobile-menu" className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
+        <div id="mobile-menu" onClick={() => this.handleToggle} className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
             {/* <div className="navbar-item">
               Placeholder for search field
@@ -96,7 +96,7 @@ class Navbar extends React.Component {
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
-              <div className="navbar-item" onClick={() => this.handleToggle}>
+              <div className="navbar-item">
                 <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
 
                 <div className={`dropdown ${this.state.dropDown3 ? 'is-open' : ''}`}>
