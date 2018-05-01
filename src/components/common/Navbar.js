@@ -37,6 +37,31 @@ class Navbar extends React.Component {
             <span> to impress</span>
           </Link>
 
+          <Link className="navbar-item mainTitle" to="/items">All categories</Link>
+
+          <div className="navbar-item has-dropdown is-hoverable">
+            <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
+            <div className="navbar-dropdown is-boxed">
+              <Link className="navbar-item" to="/items?category=Clothing">All</Link>
+              <Link className="navbar-item" to="/items?category=Clothing&type=Bridal">Bridal</Link>
+              <Link className="navbar-item" to="/items?category=Clothing&type=Dresses" onClick={this.updateState}>Dresses</Link>
+              <Link className="navbar-item" to="/items?category=Clothing&type=Activewear">Activewear</Link>
+              <Link className="navbar-item" to="/items?category=Clothing&type=JacketsCoats">Jackets & Coats</Link>
+              <Link className="navbar-item" to="/items?category=Clothing&type=Trousers">Trousers</Link>
+              <Link className="navbar-item" to="/items?category=Clothing&type=Knits">Knits</Link>
+            </div>
+          </div>
+
+          <div className="navbar-item has-dropdown is-hoverable">
+            <Link className="navbar-link" to="/items?category=Accessories">Accessories</Link>
+            <div className="navbar-dropdown is-boxed">
+              <Link className="navbar-item" to="/items?category=Accessories">All</Link>
+              <Link className="navbar-item" to="/items?category=Accessories&type=Handbags">Handbags</Link>
+              <Link className="navbar-item" to="/items?category=Accessories&type=Sunglasses" onClick={this.updateState}>Sunglasses</Link>
+              <Link className="navbar-item" to="/items?category=Accessories&type=Jewellery">Jewellery</Link>
+            </div>
+          </div>
+
           <div data-target="#mobile-menu"
             onClick={this.handleToggle}
             className={`navbar-burger ${this.state.navIsOpen ? 'is-active' : ''}`}>
@@ -48,28 +73,6 @@ class Navbar extends React.Component {
 
         <div id="mobile-menu" className={`navbar-menu ${this.state.navIsOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">
-            <Link className="navbar-item mainTitle" to="/items">All categories</Link>
-            <div className="navbar-item has-dropdown is-hoverable">
-              <Link className="navbar-link" to="/items?category=Clothing">Clothing</Link>
-              <div className="navbar-dropdown is-boxed">
-                <Link className="navbar-item" to="/items?category=Clothing">All</Link>
-                <Link className="navbar-item" to="/items?category=Clothing&type=Bridal">Bridal</Link>
-                <Link className="navbar-item" to="/items?category=Clothing&type=Dresses" onClick={this.updateState}>Dresses</Link>
-                <Link className="navbar-item" to="/items?category=Clothing&type=Activewear">Activewear</Link>
-                <Link className="navbar-item" to="/items?category=Clothing&type=JacketsCoats">Jackets & Coats</Link>
-                <Link className="navbar-item" to="/items?category=Clothing&type=Trousers">Trousers</Link>
-                <Link className="navbar-item" to="/items?category=Clothing&type=Knits">Knits</Link>
-              </div>
-            </div>
-            <div className="navbar-item has-dropdown is-hoverable">
-              <Link className="navbar-link" to="/items?category=Accessories">Accessories</Link>
-              <div className="navbar-dropdown is-boxed">
-                <Link className="navbar-item" to="/items?category=Accessories">All</Link>
-                <Link className="navbar-item" to="/items?category=Accessories&type=Handbags">Handbags</Link>
-                <Link className="navbar-item" to="/items?category=Accessories&type=Sunglasses" onClick={this.updateState}>Sunglasses</Link>
-                <Link className="navbar-item" to="/items?category=Accessories&type=Jewellery">Jewellery</Link>
-              </div>
-            </div>
             {/* <div className="navbar-item">
               Placeholder for search field
             </div> */}
