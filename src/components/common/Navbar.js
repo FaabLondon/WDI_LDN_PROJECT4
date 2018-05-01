@@ -96,7 +96,7 @@ class Navbar extends React.Component {
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
-              <div className="navbar-item" onMouseClick={() => this.handleToggle}>
+              <div className="navbar-item" onClick={() => this.handleToggle}>
                 <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
 
                 <div className={`dropdown ${this.state.dropDown3 ? 'is-open' : ''}`}>
