@@ -91,7 +91,9 @@ class CheckOutForm extends React.Component {
             </div>
             <div className="column is-half">
               <h5 className="subtitle is-size-5 is-italic"><strong>3) Please check your order</strong></h5>
-              <CartSummary updateOrderTotal={this.updateOrderTotal}/>
+              <div style={{overflowX: 'auto'}}>
+                <CartSummary updateOrderTotal={this.updateOrderTotal}/>
+              </div>
             </div>
           </div>
           {this.state.orderTotal > 0 && <button className="button checkOut">Validate {this.state.orderTotal}£ payment</button>}
