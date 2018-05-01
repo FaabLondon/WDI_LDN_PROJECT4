@@ -21,10 +21,13 @@ const filterSortArray = (state) => {
   //4) filter with checkboxes - extract criteria set at true - TO REFACTOR !!
   const filterCriteria = _.filter(Object.keys(state.filter), (criterion) => state.filter[criterion] === true );
   const filterCriteriaColor = _.filter(Object.keys(state.filterColor), (criterion) => state.filterColor[criterion] === true );
+
   //only filter if at least one checkbox is checked, otherwise no result displayed...
-  if(filterCriteria.length === 0 && filterCriteriaColor.length === 0) return filtered;
+  // if(filterCriteria.length === 0 && filterCriteriaColor.length === 0) return filtered;
+
   //filter items that have occasions or colors including at least one filter criterion
-  filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)) || item.colors.some(elt => filterCriteriaColor.includes(elt)));
+  if(filterCriteria.length !== 0) filtered = _.filter(filtered, (item) => item.occasion.some(elt => filterCriteria.includes(elt)));
+  if(filterCriteriaColor.length !== 0) filtered = _.filter(filtered, (item) => item.colors.some(elt => filterCriteriaColor.includes(elt)));
 
   return filtered;
 };

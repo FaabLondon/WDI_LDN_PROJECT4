@@ -2,11 +2,12 @@
 
 ### Overview
 
-**Final project: Brief** for the last project I developed a full-stack MERN application, by building an Express API with Node.js, serve the data from a Mongo database and consume my API with a separate front-end built with React. I created several models with CRUD functionalities.
-I worked on automated tests for all my RESTful resources on the back-end, and some classical and functional components on the front-end. These were done using SuperTest, the Mocha testing framework and Chai Assertion library for the back-end and Enzyme for testing the React front-end.
+**Final project:**
+For the last project I developed a full-stack MERN application, by building an Express API with Node.js, serve the data from a Mongo database and consume my API with a separate front-end built with React. I created several models (item, order, review, user) with CRUD functionalities.
+I worked on automated tests for all my RESTful resources on the back-end, and some classical and functional components on the front-end. These were done using SuperTest, the Mocha testing framework and the Chai Assertion library for the back-end and Enzyme for testing the React front-end.
 Git was used for version control and Heroku for deployment
 
-# GA WDI-32 Project 2: Dress to impress: high-end clothing rental
+# GA WDI-32 Project 4: Dress to impress: high-end clothing rental
 My application is called "Dress to impress". It allows customers to browse/search/sort through luxury clothes, add items to their cart and rent them through the checkout process (payment with Stripe API). Users can also check their order history, update their profile or leave comments on items.
 
 ---
@@ -26,13 +27,14 @@ My application is called "Dress to impress". It allows customers to browse/searc
 ##### [Please visit website](https://dress-to-impress.herokuapp.com/)
 
 ### Project planning
-* **User stories and wireframes** I defined my MVP as a typical e-commerce custoemr journey, that is browsing/searching/sorting items, adding them to your  letting the that are significant enough to help you know which features are core MVP and which you can cut
+* **User stories and wireframes** I defined my MVP as a typical e-commerce customer journey, that is, browsing/searching/sorting items, adding them to your cart and allowing user to checkout.
 * **Timeline**
+We were given 1 week to finish the project. I planned 5 days of programming, 1 day of tests for the back-end and front-end and 1 day of styling and working on responsiveness.
 
 ---
 
 ###### Homepage
-* The homepage xxxx
+* The homepage introduces the concept of dress to impress.
 
 <p align="center"><img src="" width="700"></p>
 
