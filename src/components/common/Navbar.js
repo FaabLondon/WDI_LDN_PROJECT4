@@ -11,7 +11,8 @@ class Navbar extends React.Component {
   state = {
     navIsOpen: false,
     dropDown1: false,
-    dropDown2: false
+    dropDown2: false,
+    dropDown3: false
   }
 
   //this is undefined in handleToggle so we made a function an arrow function as does not care about this and does not create its own this
@@ -91,10 +92,10 @@ class Navbar extends React.Component {
             {Auth.isAuthenticated() && <Link className="navbar-item cart" to="/cart"><span className="icon is-small"><i className="fas fa-shopping-bag"></i></span></Link>}
 
             {Auth.isAuthenticated() &&
-              <div className="navbar-item has-dropdown is-hoverable">
+              <div className="navbar-item" onClick={() => this.handleClick(3)}>
                 <div className="navbar-link"><span className="icon is-small"><i className="fas fa-user"></i></span>{User.getCurrentUser() && User.getCurrentUser().username}</div>
 
-                <div className="navbar-dropdown is-boxed is-right">
+                <div className={`dropdown ${this.state.dropDown3 ? 'is-open' : ''}`}>
                   <Link className="navbar-item" to="/editProfile">My account</Link>
                   <Link className="navbar-item" to="/orders">Order history</Link>
                   <hr className="navbar-divider" />
@@ -102,6 +103,7 @@ class Navbar extends React.Component {
                 </div>
               </div>
             }
+
             {!Auth.isAuthenticated() && <Link className="navbar-item mainTitle" to="/login"><span className="icon is-small"><i className="far fa-user"></i></span>Login</Link>}
             {!Auth.isAuthenticated() && <Link className="navbar-item mainTitle" to="/register">Join</Link>}
           </div>
