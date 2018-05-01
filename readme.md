@@ -3,8 +3,8 @@
 ### Overview
 
 **Final project:**
-For the last project I developed a full-stack MERN application, by building an Express API with Node.js, serve the data from a Mongo database and consume my API with a separate front-end built with React. I created several models (item, order, review, user) with CRUD functionalities.
-I worked on automated tests for all my RESTful resources on the back-end, and some classical and functional components on the front-end. These were done using SuperTest, the Mocha testing framework and the Chai Assertion library for the back-end and Enzyme for testing the React front-end.
+For the last project I developed a full-stack MERN application, by building an Express API with Node.js, serving the data from a Mongo database and consuming my API with a separate front-end built with React. I created several models (item, order, review, user) with CRUD functionalities.
+I worked on automated tests for all my RESTful resources on the back-end, and for some classical and functional components on the front-end. These were done using SuperTest, the Mocha testing framework and the Chai Assertion library for the back-end and Enzyme for testing the React front-end.
 Git was used for version control and Heroku for deployment
 
 # GA WDI-32 Project 4: Dress to impress: high-end clothing rental
@@ -27,7 +27,7 @@ My application is called "Dress to impress". It allows customers to browse/searc
 ##### [Please visit website](https://dress-to-impress.herokuapp.com/)
 
 ### Project planning
-* **User stories and wireframes** I defined my MVP as a typical e-commerce customer journey, that is, browsing/searching/sorting items, adding them to your cart and allowing user to checkout.
+* **User stories and wireframes** I defined my MVP as a typical e-commerce customer journey, that is, browsing/searching/sorting items, adding them to a cart and allowing user to checkout.
 * **Timeline**
 We were given 1 week to finish the project. I planned 5 days of programming, 1 day of tests for the back-end and front-end and 1 day of styling and working on responsiveness.
 
@@ -39,14 +39,14 @@ We were given 1 week to finish the project. I planned 5 days of programming, 1 d
 <p align="center"><img src="https://i.imgur.com/k2nGHcw.png" width="700"></p>
 
 ###### Registration & login
-* The user can go directly to the index page and show pages without registering or logging in. However he/she can only add items to the cart/shopping bag or leave comments, once registered/logged in. There are 2 forms for registration and login. Both manage errors and incorrect inout from the user.
+* The user can go directly to the index page and show pages without registering or logging in. However he/she can only add items to the cart/shopping bag or leave comments, once registered/logged in. There are 2 forms for registration and login. Both manage errors and incorrect input from the user.
 
 <p align="center"><img src="https://i.imgur.com/AJznuVZ.png" width="700"></p>
 
 <p align="center"><img src="https://i.imgur.com/yTCg9to.png" width="700"></p>
 
 ###### Index page and filtering
-* The index page enables the user to sort, filter items and look for a specific brand or product. The user can also select a specific category in the navbar. The filtering criteria are the brand name, product, price, occasion and colors. The user can rank by price and brand name.
+* The index page enables the user to sort, filter items and look for a specific brand or product. The user can also select a specific category in the Navbar. The filtering criteria are the brand name, product, price, occasion and colors. The user can rank by price and brand name.
 
 <p align="center"><img src="https://i.imgur.com/SDTvcWz.png" width="700"></p>
 
@@ -57,22 +57,22 @@ We were given 1 week to finish the project. I planned 5 days of programming, 1 d
 
 
 ###### Cart/shopping bag content
-* The user can click on the cart icon and gain access to its content. It describes the item in the cart, quantities, price of rental per day and in total as well as mode of delivery. The user can then go back to shopping on checkout his/her cart.
+* The user can click on the cart icon and gain access to its content. It describes the item in the cart, quantities, price of rental per day and in total as well as delivery options. The user can then go back to shopping or checkout his/her cart.
 
 <p align="center"><img src="https://i.imgur.com/YNJIqI0.png" width="700"></p>
 
 ###### 3-step check-out form
-* The user can finally checkout his cart by entering the delivery/billing address, his/her card details and check/modify the content of his/her cart one last time. The payment is processed on click of the button. The stripe API processes the payment (in test mode so with a fake payment card ;).
+* The user can checkout his/her cart by entering the delivery/billing address, his/her card details and check/modify the content of his/her cart one last time. The payment is processed on click of the button. The stripe API processes the payment (in test mode so with a fake payment card ;).
 
 <p align="center"><img src="https://i.imgur.com/Gva3EJV.png" width="700"></p>
 
 ###### Order confirmation page
-* The user is then redirected to the order confirmation page and is given a order confirmation number. The Stripe API can send a confirmation email to the user however, not in test mode, only in development mode.
+* The user is then redirected to the order confirmation page and is given an order confirmation number. The Stripe API can send a confirmation email to the user in development mode only, not in test mode.
 
 <p align="center"><img src="https://i.imgur.com/ZuUn1Kx.png" width="700"></p>
 
 ###### Order history
-* If needed, the user can check his/her order history by cliking on the right hand-side menu in the navbar.
+* If needed, the user can check his/her order history by clicking on the right hand-side menu in the Navbar.
 It shows a summary of all orders and an order summary for each one of them on click.
 
 <p align="center"><img src="https://i.imgur.com/SVSPs4A.png" width="700"></p>
@@ -84,7 +84,7 @@ It shows a summary of all orders and an order summary for each one of them on cl
 <p align="center"><img src="https://i.imgur.com/D6tufEi.png" width="700"></p>
 
 ###### Protected route
-* Flash messages will appear when a user tries to perform actions he is not allowed to when not properly authenticated.
+* Flash messages will appear when a user tries to perform actions he/she is not allowed to when not properly authenticated.
 
 <p align="center"><img src="https://i.imgur.com/rW2JUWa.png" width="700"></p>
 
