@@ -18,6 +18,7 @@ class Navbar extends React.Component {
   //this is undefined in handleToggle so we made a function an arrow function as does not care about this and does not create its own this
   handleToggle = () => {
     this.setState({ navIsOpen: !this.state.navIsOpen });
+    this.setState({ dropDown3: !this.state.dropDown3 });
   }
 
   handleClick = (nb) => {

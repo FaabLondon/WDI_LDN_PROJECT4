@@ -23,7 +23,7 @@ class OrdersIndexRoute extends React.Component{
     return (
       <div>
         <div className="columns">
-          <div className="column is-two-thirds">
+          <div className="column is-two-thirds" style={{overflowX: 'auto'}}>
             <table className="table">
               <thead>
                 <tr>
