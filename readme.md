@@ -16,18 +16,22 @@ My application is called "Dress to impress". It allows customers to browse/searc
 * User model and user authentication. Models for items (clothes or accessories), orders and reviews.
 * Users can browse items, see the them, add/remove them from their cart and then checkout the cart, proceed to the payment (Stripe API) and create a new order.
 * Users can add reviews, manage their own account and see their order history.
-* I used Bulma for the styling and tried to customise it as much as possible.
+* Bulma for styling and customise it as much as possible.
 
 ### Technical features
-* The API uses 4 models: item, order, review, user. The review model is embedded in the item model. The user model is referenced in the review model to keep track of the author of a review. The item model is references in the order model. The cart content is an array of items embedded in the user model, while orders are included in an array embedded in the user model.
+* The API uses 4 models: item (clothes or accessories), order, review, user.
+- The review model is embedded in the item model.
+- The user model is referenced in the review model to keep track of the author of a review.
+- The item model is references in the order model.
+- The cart content is an array of items embedded in the user model, while orders are included in an array embedded in the user model.
 * The API has RESTful routes for all models with most CRUD actions.
 * My application includes authentication with encrypted passwords (bcrypt), secure routes for all actions except the index and show page for items. I also used protectedRoute on the front-end and replicated the features of Satellizer, a token-based authentication module for AngularJS
-* The app is deployed on heroku and accessible to the public.
+* The app is deployed on Heroku and accessible to the public.
 
 ##### [Please visit website](https://dress-to-impress.herokuapp.com/)
 
 ### Project planning
-* **User stories and wireframes** I defined my MVP as a typical e-commerce customer journey, that is, browsing/searching/sorting items, adding them to a cart and allowing user to checkout.
+* **User stories and wireframes** I defined my MVP as a typical e-commerce customer journey, that is, browsing/searching/sorting items, adding them to a cart and allowing the user to checkout.
 * **Timeline**
 We were given 1 week to finish the project. I planned 5 days of programming, 1 day of tests for the back-end and front-end and 1 day of styling and working on responsiveness.
 
@@ -39,7 +43,7 @@ We were given 1 week to finish the project. I planned 5 days of programming, 1 d
 <p align="center"><img src="https://i.imgur.com/k2nGHcw.png" width="700"></p>
 
 ###### Registration & login
-* The user can go directly to the index page and show pages without registering or logging in. However he/she can only add items to the cart/shopping bag or leave comments, once registered/logged in. There are 2 forms for registration and login. Both manage errors and incorrect input from the user.
+* The user can go directly to the index page and show pages without registering or logging in. However he/she can only add items to the cart/shopping bag or leave comments, once registered/logged in. There are 2 forms for registration and login. Both manage omitted and incorrect input from the user.
 
 <p align="center"><img src="https://i.imgur.com/AJznuVZ.png" width="700"></p>
 
@@ -51,7 +55,7 @@ We were given 1 week to finish the project. I planned 5 days of programming, 1 d
 <p align="center"><img src="https://i.imgur.com/SDTvcWz.png" width="700"></p>
 
 ###### Show page
-* The show page shows a specific product with a product description, quantity in the shopping bag, main image, 3 additional small images and a comment section. The user can change the quantity in the shopping bag on this page.
+* The show page shows a specific product with a product description, quantity in the shopping bag, main image, 3 additional small images and a comment section. The user can change the quantity of the product in the shopping bag on this page.
 
 <p align="center"><img src="https://i.imgur.com/ziZ5ocr.png" width="700"></p>
 
@@ -62,7 +66,7 @@ We were given 1 week to finish the project. I planned 5 days of programming, 1 d
 <p align="center"><img src="https://i.imgur.com/YNJIqI0.png" width="700"></p>
 
 ###### 3-step check-out form
-* The user can checkout his/her cart by entering the delivery/billing address, his/her card details and check/modify the content of his/her cart one last time. The payment is processed on click of the button. The stripe API processes the payment (in test mode so with a fake payment card ;).
+* The user can checkout his/her cart by entering the delivery/billing address, his/her card details and check/modify the content of his/her cart one last time. The payment is processed on click of the button. The stripe API processes the payment (in test mode with a fake payment card ;).
 
 <p align="center"><img src="https://i.imgur.com/Gva3EJV.png" width="700"></p>
 
