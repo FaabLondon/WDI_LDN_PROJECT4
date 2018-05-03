@@ -94,8 +94,15 @@ It shows a summary of all orders and an order summary for each one of them on cl
 
 
 ---
-The final product is in line with my planned MVP.
-I wish I had had more time to integrate a click & collect feature thanks to the Royal Mail API. It would offer the possibility to click & collect an order and show the closest collect points on a map. This will be done at a later stage.
+
+## Wins
+The final product is in line with my planned MVP. I did not encounter any major hurdle and managed to work quite independently on this project.
+
+## Challenges
+It took me one full day to implement the Stripe payment API. I read the docs but ended up using a tutorial found online specific to React. It was not straightforward but it works ! 
+
+## Additional features
+I would like to integrate a click & collect feature thanks to the Royal Mail API. It would offer the possibility to click & collect an order and show the closest collect points on a map. This will be done at a later stage.
 I also want to keep improving the Navbar layout and responsiveness.
 
 ---
